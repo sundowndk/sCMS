@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\cgi-bin\Addins\sCMS</OutputPath>
+    <OutputPath>..\..\Binary\Release\Addins\sCMS</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -52,15 +52,19 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4423.39294, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4416.25851, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4424.28471, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SorentoLib, Version=1.0.4426.25646, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.4.3.0, Culture=neutral, PublicKeyToken=20449f9ba87f7ae2">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +90,7 @@
     <Compile Include="sCMS.Addin\Init.cs" />
     <Compile Include="sCMS\Runtime.cs" />
     <Compile Include="sCMS\Content.cs" />
+    <Compile Include="sCMS\Template.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sCMS\" />
@@ -107,7 +112,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <None Include="sCMS\Template.cs" />
     <None Include="sCMS\Page.cs" />
   </ItemGroup>
 </Project>

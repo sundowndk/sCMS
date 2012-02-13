@@ -33,6 +33,7 @@ namespace sCMS.Strings
 		public static string TemplateLoad = "TEMPLATE with id: {0} was not found.";
 		public static string TemplateSave = "Could not save TEMPLATE with id: {0}";
 		public static string TemplateDelete = "Could not delete TEMPLATE with id: {0}";
+		public static string TemplateFromXMLDocument = "Failed to create TEMPLATE from XMLDocument.";
 		#endregion
 
 		#region PAGE

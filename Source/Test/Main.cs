@@ -51,13 +51,13 @@ namespace Test
 
 
 			SorentoLib.Services.Database.Connection = new Connection (SNDK.Enums.DatabaseConnector.Mysql,
-//			                                                            "localhost",
-			                                                            "10.0.0.40",
-//			                                                            "sorento",
-								"sorentotest.sundown.dk",
-			                                                            "sorentotest",
-			                                                            "scumbukket",
-			                                                            true);
+				"localhost",
+//				"10.0.0.40",
+				"sorento",
+//				"sorentotest.sundown.dk",
+				"sorentotest",
+				"scumbukket",
+				true);
 
 			SorentoLib.Services.Database.Prefix = "sorento_";
 			SorentoLib.Services.Database.Connection.Connect ();
@@ -71,45 +71,101 @@ namespace Test
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_temp, "/home/sundown/Skrivebord/mediatest/temp/");
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_media, "/home/sundown/Skrivebord/mediatest/media/");
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_publicmedia, "/home/sundown/Skrivebord/mediatest/public/");
+								
+			Template template1 = new Template ();
+			template1.Title = "Test Template";
+			template1.Content = "BLA BLA BLA";
 			
+			Field field1 = new Field(sCMS.Enums.FieldType.Text, "Field #1", 0);
+			Field field2 = new Field(sCMS.Enums.FieldType.Text, "Field #2", 1);
+			Field field3 = new Field(sCMS.Enums.FieldType.Text, "Field #3", 2);
 			
-			CollectionSchema schema = new CollectionSchema ("TEST SCHEMA");
+			template1.AddField (field1);
+			template1.AddField (field2);
+			template1.AddField (field3);
 			
-			Field field1 = new Field (sCMS.Enums.FieldType.String, "FIELD 1", 1);
-			Field field2 = new Field (sCMS.Enums.FieldType.String, "FIELD 2", 2);
-			
-			schema.AddField (field1);
-			schema.AddField (field2);
-									
-			schema.Save ();
-			
-			Collection collection1 = new Collection (schema, "Collection 1", 1);
-			collection1.SetContent (field1.Id, "Test string #1");
-			collection1.SetContent (field2.Id, "Test string #2");
-			collection1.Save ();
-			
-			Collection collection2 = new Collection (schema, "Collection 2", 2);			
-			collection2.SetContent (field1.Id, "Test string #3");
-			collection2.SetContent (field2.Id, "Test string #4");
-			collection2.Save ();
-//			Environment.Exit (0);
+			template1.Save ();
 						
-			foreach (CollectionSchema c in CollectionSchema.List ())
+			Template template2 = new Template ();
+			template2.Parent = template1;
+			template2.Title = "Test Template 2";
+			template2.Content = "BLU BLU BLU";
+			
+			Field field4 = new Field(sCMS.Enums.FieldType.Text, "Field #4", 0);
+			Field field5 = new Field(sCMS.Enums.FieldType.Text, "Field #5", 1);
+			Field field6 = new Field(sCMS.Enums.FieldType.Text, "Field #6", 2);
+			
+			template2.AddField (field4);
+			template2.AddField (field5);
+			template2.AddField (field6);
+			
+			template2.Save ();
+			
+			foreach (Template t in Template.List ())
 			{
-				Console.WriteLine ("CollectionSchema: "+ c.Title);
-				
-				foreach (Collection col in c.Collections)
+				Console.WriteLine (t.Title);
+				if (t.Parent != null)
 				{
-					Console.WriteLine ("\t Collection: "+ col.Title);
-					
-					foreach (Field f in c.Fields)
-					{
-						Console.WriteLine ("\t\t Content: "+ f.Name +" = "+ col.GetContent (f));					
-					}					
+					Console.WriteLine ("\t Parent: "+ t.Parent.Title);
 				}
 				
-				CollectionSchema.Delete (c.Id);
+				Console.WriteLine ("\t Content: "+ t.Content);
+				Console.WriteLine ("\t Fields: ");
+				foreach (Field f in t.Fields)
+				{
+					Console.WriteLine ("\t\t Field: "+ f.Name);
+				}
+				
+				Console.WriteLine ();						
 			}
+			
+			foreach (Template t in Template.List ())
+			{
+				Template.Delete (t.Id);
+			}
+			
+			
+			
+			
+			
+			
+			
+//			CollectionSchema schema = new CollectionSchema ("TEST SCHEMA");
+//			
+//			Field field1 = new Field (sCMS.Enums.FieldType.String, "FIELD 1", 1);
+//			Field field2 = new Field (sCMS.Enums.FieldType.String, "FIELD 2", 2);
+//			
+//			schema.AddField (field1);
+//			schema.AddField (field2);
+//									
+//			schema.Save ();
+//			
+//			Collection collection1 = new Collection (schema, "Collection 1", 1);
+//			collection1.SetContent (field1.Id, "Test string #1");
+//			collection1.SetContent (field2.Id, "Test string #2");
+//			collection1.Save ();
+//			
+//			Collection collection2 = new Collection (schema, "Collection 2", 2);			
+//			collection2.SetContent (field1.Id, "Test string #3");
+//			collection2.SetContent (field2.Id, "Test string #4");
+//			collection2.Save ();
+//						
+//			foreach (CollectionSchema c in CollectionSchema.List ())
+//			{
+//				Console.WriteLine ("CollectionSchema: "+ c.Title);
+//				
+//				foreach (Collection col in c.Collections)
+//				{
+//					Console.WriteLine ("\t Collection: "+ col.Title);
+//					
+//					foreach (Field f in c.Fields)
+//					{
+//						Console.WriteLine ("\t\t Content: "+ f.Name +" = "+ col.GetContent (f));					
+//					}					
+//				}
+//				
+//				CollectionSchema.Delete (c.Id);
+//			}
 			
 			
 		}
