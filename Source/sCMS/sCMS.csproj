@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F33C25BF-942F-4365-9CFB-D2628D4704BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>sCMS</RootNamespace>
+    <ReleaseVersion>1.5</ReleaseVersion>
+    <AssemblyName>sCMS</AssemblyName>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\cgi-bin\Addins\sCMS</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\cgi-bin\Addins\sCMS</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Test\cgi-bin\Addins\sCMS</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Package>mono-addins</Package>
+    </Reference>
+    <Reference Include="Mono.FastCgi, Version=1.0.4295.19585, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Mono.FastCgi.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="sConsole, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\sConsole.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="SNDK, Version=1.0.4423.39294, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SNDK.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SorentoLib, Version=1.0.4424.28471, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SorentoLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="sCMS.Addin\PageResponder.cs" />
+    <Compile Include="sCMS.Addin\Render.cs" />
+    <Compile Include="sCMS.Enums\FieldType.cs" />
+    <Compile Include="sCMS\Field.cs" />
+    <Compile Include="sCMS.Addin\Ajax.cs" />
+    <Compile Include="sCMS.Addin\Function.cs" />
+    <Compile Include="sCMS\Stylesheet.cs" />
+    <Compile Include="sCMS\Global.cs" />
+    <Compile Include="sCMS\Helpers.cs" />
+    <Compile Include="sCMS.Strings\Exception.cs" />
+    <Compile Include="sCMS.Strings\LogDebug.cs" />
+    <Compile Include="sCMS.Enums\ConfigKey.cs" />
+    <Compile Include="sCMS\Root.cs" />
+    <Compile Include="sCMS\RootFilter.cs" />
+    <Compile Include="sCMS.Enums\RootFilterType.cs" />
+    <Compile Include="sCMS\CollectionSchema.cs" />
+    <Compile Include="sCMS\Collection.cs" />
+    <Compile Include="sCMS.Addin\Snapshot.cs" />
+    <Compile Include="sCMS.Addin\Init.cs" />
+    <Compile Include="sCMS\Runtime.cs" />
+    <Compile Include="sCMS\Content.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sCMS\" />
+    <Folder Include="sCMS.Addin\" />
+    <Folder Include="sCMS.Enums\" />
+    <Folder Include="sCMS.Strings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="sCMS.addin.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <None Include="sCMS\Template.cs" />
+    <None Include="sCMS\Page.cs" />
+  </ItemGroup>
+</Project>

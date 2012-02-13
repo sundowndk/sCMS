@@ -1,0 +1,61 @@
+<script language="JavaScript">
+
+	<%Include ("index_script_global.stpl")%>
+	<%Include ("index_script_stylesheet.stpl")%>
+	<%Include ("index_script_root.stpl")%>
+
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################		
+	UI.init = 		function ()
+					{								 						
+						UI.elements.content.stylesheets.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.stylesheetcreate.setAttribute ("onClick", stylesheet.create);
+						UI.elements.content.stylesheetedit.setAttribute ("onClick", stylesheet.edit);
+						UI.elements.content.stylesheetdelete.setAttribute ("onClick", stylesheet.delete);
+						
+						UI.elements.content.roots.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.rootcreate.setAttribute ("onClick", root.create);
+						UI.elements.content.rootedit.setAttribute ("onClick", root.edit);
+						UI.elements.content.rootdelete.setAttribute ("onClick", root.delete);
+
+						UI.set ();
+						SNDK.SUI.init ();
+					};
+	
+	UI.set =		function ()
+					{													
+						UI.elements.content.stylesheets.setItems (sCMS.stylesheet.list ());
+						UI.elements.content.roots.setItems (sCMS.root.list ());
+						
+						UI.onChange ();
+					};
+				
+	UI.onChange = 	function ()
+					{			
+						if (UI.elements.content.stylesheets.getItem ())
+		 				{
+		 					UI.elements.content.stylesheetedit.setAttribute ("disabled", false);
+		 					UI.elements.content.stylesheetdelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.stylesheetedit.setAttribute ("disabled", true);
+		 					UI.elements.content.stylesheetdelete.setAttribute ("disabled", true);
+		 				}		 	
+		 				
+		 				if (UI.elements.content.roots.getItem ())
+		 				{
+		 					UI.elements.content.rootedit.setAttribute ("disabled", false);
+		 					UI.elements.content.rootdelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.rootedit.setAttribute ("disabled", true);
+		 					UI.elements.content.rootdelete.setAttribute ("disabled", true);
+		 				}		 	
+					};
+	
+	UI.init ();		
+</script>
+

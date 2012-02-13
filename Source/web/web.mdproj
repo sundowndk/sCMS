@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>GenericProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{895EE755-1B14-4715-A984-25A9916B9901}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="build.sh bin/Debug" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="cgi-bin\" />
+    <Folder Include="cgi-bin\Addins\" />
+    <Folder Include="cgi-bin\Addins\sCMS\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\content\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\content\" />
+    <Folder Include="javascript\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\js\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\" />
+    <Folder Include="cgi-bin\Addins\sConsole\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\content\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\html\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\includes\" />
+    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\xml\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\content\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\construction\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\settings\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\settings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="javascript.jsb" />
+    <None Include="build.sh" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\content\index.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\index.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\settings\index.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\settings\index_script.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\settings\index.xml" />
+    <None Include="javascript\template.js" />
+    <None Include="javascript\root.js" />
+    <None Include="javascript\page.js" />
+    <None Include="javascript\stylesheet.js" />
+    <None Include="javascript\collection.js" />
+    <None Include="javascript\global.js" />
+    <None Include="javascript\other.js" />
+    <None Include="javascript\collectionschema.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\stylesheet_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_stylesheet.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\stylesheet_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_root.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_root_rootfilter.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_rootfilter_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_global.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\global_edit.xml" />
+  </ItemGroup>
+</Project>

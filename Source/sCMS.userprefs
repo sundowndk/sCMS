@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Test" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Template.cs">
+    <Files>
+      <File FileName="Test/Main.cs" Line="65" Column="45" />
+      <File FileName="sCMS/sCMS/Global.cs" Line="32" Column="12" />
+      <File FileName="sCMS/sCMS/Template.cs" Line="35" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
