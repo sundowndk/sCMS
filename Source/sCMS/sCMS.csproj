@@ -57,14 +57,14 @@
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4426.25646, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\SorentoLib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.4.3.0, Culture=neutral, PublicKeyToken=20449f9ba87f7ae2">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="SorentoLib, Version=1.0.4426.39816, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SorentoLib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +91,7 @@
     <Compile Include="sCMS\Runtime.cs" />
     <Compile Include="sCMS\Content.cs" />
     <Compile Include="sCMS\Template.cs" />
+    <Compile Include="sCMS\Page.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sCMS\" />
@@ -111,7 +112,4 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <None Include="sCMS\Page.cs" />
-  </ItemGroup>
 </Project>

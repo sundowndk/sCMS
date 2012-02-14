@@ -57,7 +57,33 @@
 											<textbox tag="scmsstylesheeturl" width="100%" />
 										</panel>					
 									</layoutbox>
-								</panel>							
+								</panel>		
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Extension"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheetfileextension" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="HTML Tag"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheethtmltag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>									
 								<panel size="*">
 									<text text=""/>
 								</panel>									

@@ -50,7 +50,6 @@ namespace sCMS
 			get
 			{
 				return this._filename;
-//				return Path.GetFileNameWithoutExtension (this._filename);
 			}
 		}
 
@@ -104,7 +103,7 @@ namespace sCMS
 		#region Constructor
 		public Stylesheet (string Title)
 		{
-			this._filename = Path.GetFileNameWithoutExtension (Title) +".css";
+			this._filename = Path.GetFileNameWithoutExtension (Helpers.MakeStringURLSafe (Title)) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension);
 			this._content = string.Empty;
 			this._contentloaded = false;
 
@@ -118,28 +117,11 @@ namespace sCMS
 			this._contentloaded = false;
 		}
 		#endregion
-
+		
 		#region Public Methods
 		public void Save ()
 		{
 			SNDK.IO.WriteTextFile (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetpath) + this._filename, this._content, Encoding.GetEncoding (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetencoding)));
-		}
-
-		public void ToAjaxRespons (SorentoLib.Ajax.Respons Respons)
-		{
-			Respons.Data = ToAjaxItem ();
-		}
-
-		public Hashtable ToAjaxItem ()
-		{
-			Hashtable result = new Hashtable ();
-
-			result.Add ("id", this.Id);
-			result.Add ("filename", this._filename);
-			result.Add ("title", this.Title);
-			result.Add ("content", this.Content);
-
-			return result;
 		}
 		
 		public XmlDocument ToXmlDocument ()
@@ -152,25 +134,32 @@ namespace sCMS
 			result.Add ("content", this.Content);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
-		}
-		
+		}		
 		#endregion
 
 		#region Public Static Methods
 		public static Stylesheet Load (string Id)
 		{
 			Stylesheet stylesheet = new Stylesheet ();
-			stylesheet._filename = Path.GetFileNameWithoutExtension (Id) + ".css";
+			stylesheet._filename = Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension);
 
 			return stylesheet;
 		}
 
 		public static void Delete (string Id)
 		{
-			string filename = Path.GetFileNameWithoutExtension (Id) +".css";
-
-			Console.WriteLine (filename);
-			File.Delete (SorentoLib.Services.Config.Get<string> (sCMS.Enums.ConfigKey.scms_stylesheetpath) + filename);
+			try
+			{
+				File.Delete (SorentoLib.Services.Config.Get<string> (sCMS.Enums.ConfigKey.scms_stylesheetpath) + Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension));
+			}
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.STYLESHEET", exception.Message));
+				
+				// EXCEPTION: Exception.StylesheetDelete
+				throw new Exception (string.Format (Strings.Exception.StylesheetDelete, Id.ToString ()));
+			}							
 		}
 
 		public static List<Stylesheet> List ()
@@ -187,32 +176,6 @@ namespace sCMS
 				{
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.StylesheetList, path));
 				}
-			}
-
-			return result;
-		}
-
-		public static Stylesheet FromAjaxRequest (SorentoLib.Ajax.Request Request)
-		{
-			return FromAjaxItem (Request.Data);
-		}
-
-		public static Stylesheet FromAjaxItem (Hashtable Item)
-		{
-			Stylesheet result;
-
-			try
-			{
-				result = Stylesheet.Load ((string)Item["id"]);
-			}
-			catch
-			{
-				result = new Stylesheet ((string)Item["id"]);
-			}
-
-			if (Item.ContainsKey ("content"))
-			{
-				result.Content = (string)Item["content"];
 			}
 
 			return result;

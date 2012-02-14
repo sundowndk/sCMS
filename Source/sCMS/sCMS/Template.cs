@@ -156,7 +156,12 @@ namespace sCMS
 				
 				foreach (string id in this._stylesheetids)
 				{
-					result.Add (Stylesheet.Load (id));
+					try
+					{
+						result.Add (Stylesheet.Load (id));
+					}
+					catch
+					{}
 				}
 				
 				return result;
@@ -214,21 +219,19 @@ namespace sCMS
 			return result;
 		}
 		
-//		private List<string> CompileStylesheet ()
-		
-//		private List<string> _compilestylesheets ()
-//		{
-//			List<string> result = new List<string> ();
-//
-//			if (this._parentid != Guid.Empty)
-//			{
-//				result.AddRange (Template.Load (this._parentid)._compilestylesheets ());
-//			}
-//
-//			result.AddRange (this._stylesheetids);
-//
-//			return result;
-//		}
+		private List<string> CompileStylesheet ()
+		{
+			List<string> result = new List<string> ();
+			
+			if (this._parentid != Guid.Empty)
+			{
+				result.AddRange (Load (this._parentid).CompileStylesheet ());
+			}
+			
+			result.AddRange (this._stylesheetids);
+			
+			return result;
+		}
 		#endregion
 
 		#region Public Methods
@@ -268,35 +271,49 @@ namespace sCMS
 
 			foreach (string line in this.CompileContent ().Split ("\n".ToCharArray ()))
 			{
-//				if (line.Contains (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetplaceholdertag)))
-//				{
-//					foreach (string filename in this._compilestylesheets ())
-//					{
-//						result.Add ("<link rel=\"stylesheet\" href=\""+ SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheeturl) +"/"+ filename +"\" type=\"text/css\"/>");
-//					}
-//
-//					continue;
-//				}
-
+				if (line.Contains (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetplaceholdertag)))
+				{
+					foreach (string id in this.CompileStylesheet ())
+					{
+						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheethtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheeturl) + id));
+					}
+					continue;
+				}
+				
 				result.Add (line);
 			}
 
 			return result;	
 		}
 		
+		public void AddStylesheet (Stylesheet Stylesheet)
+		{
+			this._stylesheetids.Add (Stylesheet.Id);
+		}
+		
+		public void RemoveStylesheet (string Id)
+		{
+			this._stylesheetids.RemoveAll (delegate (string s) { return s == Id; });
+		}
+		
 		public void AddField (Field Field)
 		{
 			this._fields.Add (Field);			
 		}
-
+		
+		public void RemoveField (Field Field)
+		{
+			this._fields.RemoveAll (delegate (Field f) { return f.Id == Field.Id; });
+		}
+		
 		public void RemoveField (Guid Id)
 		{
 			this._fields.RemoveAll (delegate (Field f) { return f.Id == Id; });
 		}
-
+		
 		public Field GetField (Guid Id)
 		{
-			return this._fields.Find (delegate (Field field) { return field.Id == Id; });
+			return this.Fields.Find (delegate (Field field) { return field.Id == Id; });
 		}		
 		
 		public XmlDocument ToXmlDocument ()
@@ -310,8 +327,8 @@ namespace sCMS
 			result.Add ("title", this._title);
 			result.Add ("content", this._content);
 			result.Add ("fields", this._fields);
+			result.Add ("stylesheets", this.Stylesheets);
 			
-
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
 		#endregion
@@ -364,7 +381,7 @@ namespace sCMS
 				if (item.ContainsKey ("stylesheetids"))
 				{
 					result._stylesheetidsasstring = (string)item["stylesheetids"];
-				}
+				}				
 			}
 			catch (Exception exception)
 			{
@@ -478,6 +495,14 @@ namespace sCMS
 					result._fields.Add (Field.FromXmlDocument (field));
 				}
 			}
+			
+			if (item.ContainsKey ("stylesheets"))
+			{
+				foreach (XmlDocument stylesheet in (List<XmlDocument>)item["stylesheets"])
+				{
+					result._stylesheetids.Add (Stylesheet.FromXmlDocument (stylesheet).Id);
+				}
+			}			
 
 			return result;
 		}						

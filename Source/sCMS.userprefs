@@ -1,12 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Test" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Template.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Test/Main.cs">
     <Files>
-      <File FileName="Test/Main.cs" Line="100" Column="5" />
+      <File FileName="Test/Main.cs" Line="163" Column="45" />
       <File FileName="sCMS/sCMS/Global.cs" Line="165" Column="35" />
-      <File FileName="sCMS/sCMS/Template.cs" Line="107" Column="5" />
-      <File FileName="sCMS/sCMS/CollectionSchema.cs" Line="158" Column="1" />
-      <File FileName="sCMS/sCMS/Collection.cs" Line="42" Column="1" />
+      <File FileName="sCMS/sCMS/Template.cs" Line="307" Column="4" />
+      <File FileName="sCMS/sCMS/Page.cs" Line="320" Column="77" />
+      <File FileName="sCMS/sCMS/Collection.cs" Line="233" Column="32" />
+      <File FileName="sCMS/sCMS.Strings/Exception.cs" Line="41" Column="54" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

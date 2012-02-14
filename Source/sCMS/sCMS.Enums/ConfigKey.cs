@@ -32,7 +32,9 @@ namespace sCMS.Enums
 	{
 		scms_stylesheetpath,
 		scms_stylesheeturl,
+		scms_stylesheetfileextension,
 		scms_stylesheetencoding,
+		scms_stylesheethtmltag,
 		scms_stylesheetplaceholdertag,
 		scms_templateplaceholdertag
 	}

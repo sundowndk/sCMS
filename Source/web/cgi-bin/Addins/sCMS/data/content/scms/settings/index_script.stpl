@@ -11,6 +11,8 @@
 						
 						UI.elements.content.scmsstylesheetpath.setAttribute ("onChange", UI.onChange);
 						UI.elements.content.scmsstylesheeturl.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheetfileextension.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheethtmltag.setAttribute ("onChange", UI.onChange);
 						UI.elements.content.scmsstylesheetencoding.setAttribute ("onChange", UI.onChange);
 						UI.elements.content.scmsstylesheetplaceholdertag.setAttribute ("onChange", UI.onChange);
 																		
@@ -23,12 +25,14 @@
 	UI.set =		function ()
 					{		
 						current = sorentoLib.services.config.get ({keys: [	"scms_templateplaceholdertag", 
-																			"scms_stylesheetpath", "scms_stylesheeturl", "scms_stylesheetencoding", "scms_stylesheetplaceholdertag", "core_loglevel"]});
+																			"scms_stylesheetpath", "scms_stylesheeturl", "scms_stylesheetencoding", "scms_stylesheetplaceholdertag", "scms_stylesheetfileextension", "scms_stylesheethtmltag"]});
 					
 						UI.elements.content.scmstemplateplaceholdertag.setAttribute ("value", current.scms_templateplaceholdertag);
 												
 						UI.elements.content.scmsstylesheetpath.setAttribute ("value", current.scms_stylesheetpath);
 						UI.elements.content.scmsstylesheeturl.setAttribute ("value", current.scms_stylesheeturl);
+						UI.elements.content.scmsstylesheetfileextension.setAttribute ("value", current.scms_stylesheetfileextension);
+						UI.elements.content.scmsstylesheethtmltag.setAttribute ("value", current.scms_stylesheethtmltag);
 						UI.elements.content.scmsstylesheetencoding.setAttribute ("selectedItemByValue", current.scms_stylesheetencoding);
 						UI.elements.content.scmsstylesheetplaceholdertag.setAttribute ("value", current.scms_stylesheetplaceholdertag);
 																		
@@ -43,6 +47,8 @@
 																		
 						item["scms_stylesheetpath"] = UI.elements.content.scmsstylesheetpath.getAttribute ("value");
 						item["scms_stylesheeturl"] = UI.elements.content.scmsstylesheeturl.getAttribute ("value");
+						item["scms_stylesheetfileextension"] = UI.elements.content.scmsstylesheetfileextension.getAttribute ("value");
+						item["scms_stylesheethtmltag"] = UI.elements.content.scmsstylesheethtmltag.getAttribute ("value");
 						item["scms_stylesheetencoding"] = UI.elements.content.scmsstylesheetencoding.getAttribute ("selectedItem").value;																	
 						item["scms_stylesheetplaceholdertag"] = UI.elements.content.scmsstylesheetplaceholdertag.getAttribute ("value");
 												

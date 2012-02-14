@@ -25,13 +25,15 @@
 // THE SOFTWARE.
 
 using System;
+using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
+
+using SNDK;
+using SorentoLib;
 
 namespace sCMS
 {
-	[Serializable]
 	public class Page
 	{
 		#region Public Static Fields
@@ -44,31 +46,11 @@ namespace sCMS
 		private int _updatetimestamp;
 		private Guid _templateid;
 		internal Guid _parentid;
-		private string _name;
+		private string _title;
 		private List<string> _aliases;
 		private List<Content> _contents;
 		#endregion
 		
-		#region Temp Fields
-		private Template _temp_template;
-		private Page _temp_parent;
-		#endregion
-
-		#region Internal Fields
-		internal Guid ParentId
-		{
-			get
-			{
-				return this._parentid;
-			}
-
-			set
-			{
-				this._parentid = value;
-			}
-		}
-		#endregion
-
 		#region Public Fields
 		public Guid Id
 		{
@@ -93,49 +75,34 @@ namespace sCMS
 				return this._updatetimestamp;
 			}
 		}
-
+		
+		
 		public Template Template
 		{
 			get
 			{
-				if (this._temp_template != null)
-				{
-					return this._temp_template;
-				}
-				else
-				{
-					return Template.Load (this._templateid);
-				}
+				return Template.Load (this._templateid);
 			}
 		}
-
+		
 		public Page Parent
 		{
 			get
 			{
 				if (this._parentid != Guid.Empty)
 				{
-					if (this._temp_parent != null)
-					{
-						return this._temp_parent;
-					}
-					else
-					{
-						return Page.Load (this._parentid);
-					}
+					return Load (this._parentid);
 				}
-				else
-				{
-					return null;
-				}
+				
+				return null;
 			}
-
+			
 			set
 			{
 				this._parentid = value.Id;
-				this._temp_parent = value;
 			}
 		}
+			
 
 		public string Path
 		{
@@ -156,33 +123,33 @@ namespace sCMS
 
 				result += "/";
 
-				result += this._name;
+				result += this._title;
 
 				return result;
 			}
 		}
 
-		public string Name
+		public string Title
 		{
 			get
 			{
-				return this._name;
+				return this._title;
 			}
 
 			set
 			{
 				string newname = Helpers.MakeStringURLSafe (value);
 
-				if (this._name != newname)
+				if (this._title != newname)
 				{
 					int count = 2;
 					string dummy = newname;
-					while (List ().Exists (delegate (Page o) { return o.Name == newname; }))
+					while (List ().Exists (delegate (Page o) { return o.Title == newname; }))
 					{
 						newname = dummy +"_"+ count++;
 					}
 
-					this._name = newname;
+					this._title = newname;
 				}
 			}
 		}
@@ -202,99 +169,122 @@ namespace sCMS
 				return this._contents;
 			}
 		}
-
-		public int DependantPages
-		{
-			get
-			{
-				int result = 0;
-
-				foreach (Page page in Page.List ())
-				{
-//					try
-//					{
-						if (page.ParentId == this._id)
-						{
-							result++;
-						}
-//					}
-//					catch
-//					{}
-				}
-
-				return result;
-			}
-		}
 		#endregion
 
 		#region Constructors
 		public Page (Template Template)
 		{
-			Initialize ();
-
-			this._templateid = Template.Id;
-			this._temp_template = Template;
-		}
-
-		private Page ()
-		{
-			Initialize ();
-		}
-
-		private void Initialize ()
-		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._templateid = Guid.Empty;
+			this._templateid = Template.Id;
 			this._parentid = Guid.Empty;
-			this.Name = "Untitled";
+			this.Title = "Untitled";
 			this._aliases = new List<string> ();
 			this._contents = new List<Content> ();
 		}
 
+		private Page ()
+		{
+			this._id = Guid.Empty;
+			this._createtimestamp = 0;
+			this._updatetimestamp = 0;
+			this._templateid = Guid.Empty;
+			this._parentid = Guid.Empty;
+			this._title = string.Empty;
+			this._aliases = new List<string> ();
+			this._contents = new List<Content> ();
+		}
 		#endregion
 
 		#region Public Methods
 		public void Save ()
 		{
-			this._temp_template = null;
-
 			try
 			{
-				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Serializer.SerializeObjectToString (this));
+				this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+				
+				Hashtable item = new Hashtable ();
+
+				item.Add ("id", this._id);
+				item.Add ("createtimestamp", this._createtimestamp);
+				item.Add ("updatetimestamp", this._updatetimestamp);				
+				item.Add ("templateid", this._templateid);
+				item.Add ("parentid", this._parentid);
+				item.Add ("title", this._title);
+				item.Add ("aliases", this._aliases);
+				item.Add ("contents", this._contents);
+				
+				SorentoLib.Services.Datastore.Meta meta = new SorentoLib.Services.Datastore.Meta ();
+				meta.Add ("parentid", this._parentid);
+				meta.Add ("path", this.Path);
+				
+				foreach (string alias in this._aliases)
+				{
+					string path = System.IO.Path.GetDirectoryName (this.Path) +"/"+ alias;
+					path = path.Replace ("//", "/");
+					meta.Add ("path", path);
+				}
+					
+				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Convert.ToXmlDocument (item, this.GetType ().FullName.ToLower ()), meta);
 			}
-			catch
+			catch (Exception exception)
 			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+ 
+				// EXCEPTION: Exception.PageSave
 				throw new Exception (string.Format (Strings.Exception.PageSave, this._id.ToString ()));
-			}
+			}			
+		
 		}
-
-		public object GetContent (string Name)
-		{			
-			Field field = this.Template.Fields.Find (delegate (Field f) { return f.Name.ToUpper () == Name.ToUpper (); });
-
-			if (field != null)
-			{
-				return GetContent (field.Id);
-			}
-			else
-			{			
-				throw new Exception (string.Format (Strings.Exception.PageGetContentName, Name));
-			}
+		public object GetContent (Field Field)
+		{
+			return GetContent (Field.Id);
 		}
-
+		
 		public object GetContent (Guid Id)
 		{
-			object result = this._contents.Find (delegate (Content c) { return c.FieldId == Id; }).Data;
+			Content content = this._contents.Find (delegate (Content c) { return c.Id == Id; });
 			
-			if (result == null)
+			if (content != null)
 			{
-				throw new Exception (string.Format (Strings.Exception.PageGetContentGuid, Id.ToString ()));
+				return content.Data;
 			}
 			
-			return result;
+			return default (object);
 		}
+		
+		public void SetContent (Field Field, object Data)
+		{
+			SetContent (Field.Id, Data);
+		}
+		
+		public void SetContent (Guid Id, object Data)
+		{
+			try
+			{
+				Content content = this._contents.Find (delegate (Content c) { return c.Id == Id;});
+				
+				if (content == null)
+				{
+					Template template = Template.Load (this._templateid);
+					content = new Content (template.GetField (Id));					
+				}
+				
+				content.Data = Data;
+				
+				this._contents.Add (content);
+			}
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+				
+				// EXCEPTION: Exception.PageSetContent
+				throw new Exception (string.Format (Strings.Exception.PageSetContent, Id.ToString ()));
+			}
+		}		
 		
 		public XmlDocument ToXmlDocument ()
 		{
@@ -303,139 +293,164 @@ namespace sCMS
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
-			//result.Add ("template", this.Template);
-//			result.Add ("parent", this.Parent);
+			result.Add ("templateid", this._templateid);
+			result.Add ("parentid", this._parentid);
 			result.Add ("path", this.Path);
-			result.Add ("name", this._name);
+			result.Add ("title", this._title);
 			result.Add ("aliases", this._aliases);
-			//result.Add ("contents", this._contents);
+			result.Add ("contents", this._contents);
 
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
-		}
-		
-		public void ToAjaxResponse (SorentoLib.Ajax.Respons Respons)
-		{
-//			Respons.Data = this.ToAjaxItem ();
-		}
-
-		public Hashtable ToAjaxItem ()
-		{
-			Hashtable result = new Hashtable ();
-
-			result.Add ("id", this._id);
-			result.Add ("createtimestamp", this._createtimestamp);
-			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("templateid", this._templateid);
-
-			if (this._parentid != Guid.Empty)
-			{
-				result.Add ("parentid", this._parentid);
-			}
-			else
-			{
-				result.Add ("parentid", string.Empty);
-			}
-
-			result.Add ("path", this.Path);
-			result.Add ("name", this._name);
-
-			List<Hashtable> aliases = new List<Hashtable> ();
-			foreach (string alias in this._aliases)
-			{
-				Hashtable item = new Hashtable ();
-				item.Add ("name", alias);
-
-				aliases.Add (item);
-			}
-			result.Add ("aliases", aliases);
-
-			List<Hashtable> contents = new List<Hashtable> ();
-			foreach (Field field in this.Template.Fields)
-			{
-				Hashtable item = new Hashtable ();
-				item = field.ToAjaxItem ();
-
-				Content content = this._contents.Find (delegate (Content c) { return c.FieldId == field.Id; });
-				if (content != null)
-				{
-					item.Add ("data", content.DataAsString);
-				}
-				else
-				{
-					item.Add ("data", string.Empty);
-				}
-				contents.Add (item);
-			}
-
-			result.Add ("fields", contents);
-			result.Add ("dependantpages", this.DependantPages);
-
-			return result;
 		}
 		#endregion
 
 		#region Public Static Methods
-		public static Page Load (string Name)
+		public static Page Load (string Path)
 		{
-			Page result = null;
-
-			foreach (Page page in List ())
+			try
 			{
-				if (Name == page.Path)
+				return Load (new Guid (SorentoLib.Services.Datastore.FindShelf (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("path", SorentoLib.Enums.DatastoreMetaSearchCondition.Equal, Path))));
+			}
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+
+				// EXCEPTION: Excpetion.PageLoadPath
+				throw new Exception (string.Format (Strings.Exception.PageLoadPath, Path));
+			}	
+		}
+		
+		public static Page Load (Guid Id)
+		{
+			Page result;
+			
+			try
+			{
+				Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (SNDK.Convert.XmlNodeToXmlDocument (SorentoLib.Services.Datastore.Get<XmlDocument> (DatastoreAisle, Id.ToString ()).SelectSingleNode ("(//scms.page)[1]")));
+				result = new Page ();
+
+				result._id = new Guid ((string)item["id"]);
+
+				if (item.ContainsKey ("createtimestamp"))
 				{
-					result = page;
-					break;
+					result._createtimestamp = int.Parse ((string)item["createtimestamp"]);
 				}
-				else
+
+				if (item.ContainsKey ("updatetimestamp"))
 				{
-					if (page.Aliases.Exists (delegate (string a) {string directoryname = System.IO.Path.GetDirectoryName (page.Path); if (directoryname == "/") {return directoryname + a == Name;} else {return directoryname +"/"+ a == Name;}}))
+					result._updatetimestamp = int.Parse ((string)item["updatetimestamp"]);
+				}
+
+				if (item.ContainsKey ("templateid"))
+				{					
+					result._templateid = new Guid ((string)item["templateid"]);
+				}
+				
+				if (item.ContainsKey ("parentid"))
+				{
+					result._parentid = new Guid ((string)item["parentid"]);
+				}
+				
+				if (item.ContainsKey ("title"))
+				{
+					result._title = (string)item["title"];
+				}
+				
+				if (item.ContainsKey ("contents"))
+				{
+					foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
 					{
-						result = page;
-						break;
+						result._contents.Add (Content.FromXmlDocument (content));
 					}
-				}
+				}	
+				
+				if (item.ContainsKey ("aliases"))
+				{
+					result._aliases = new List<string> ();						
+					foreach (XmlDocument alias in (List<XmlDocument>)item["aliases"])
+					{					
+						result._aliases.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alias))["value"]);
+					}
+				}								
 			}
-
-			if (result == null)
+			catch (Exception exception)
 			{
-				throw new Exception (string.Format (Strings.Exception.PageLoadName, Name));
-			}
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+
+				// EXCEPTION: Excpetion.PageLoadName
+				throw new Exception (string.Format (Strings.Exception.PageLoadGuid, Id));
+			}	
+			
+//			Page result = null;
+//
+//			foreach (Page page in List ())
+//			{
+//				if (Name == page.Path)
+//				{
+//					result = page;
+//					break;
+//				}
+//				else
+//				{
+//					if (page.Aliases.Exists (delegate (string a) {string directoryname = System.IO.Path.GetDirectoryName (page.Path); if (directoryname == "/") {return directoryname + a == Name;} else {return directoryname +"/"+ a == Name;}}))
+//					{
+//						result = page;
+//						break;
+//					}
+//				}
+//			}
+//
+//			if (result == null)
+//			{
+//				throw new Exception (string.Format (Strings.Exception.PageLoadName, Name));
+//			}
 
 			return result;
 		}
 
-		public static Page Load (Guid Id)
-		{
-			try
-			{
-				return SNDK.Serializer.DeSerializeObjectFromString<Page> (SorentoLib.Services.Datastore.Get<string> (DatastoreAisle, Id.ToString ()));
-			}
-			catch
-			{
-				throw new Exception (string.Format (Strings.Exception.PageLoadGuid, Id.ToString ()));
-			}
-		}
+//		public static Page Load (Guid Id)
+//		{
+//			try
+//			{
+//				return SNDK.Serializer.DeSerializeObjectFromString<Page> (SorentoLib.Services.Datastore.Get<string> (DatastoreAisle, Id.ToString ()));
+//			}
+//			catch
+//			{
+//				throw new Exception (string.Format (Strings.Exception.PageLoadGuid, Id.ToString ()));
+//			}
+//		}
 
 		public static void Delete (Guid Id)
 		{
 			try
 			{
-				foreach (Page page in Page.List ())
+				foreach (Page page in List (Id))
 				{
-					if (page.ParentId == Id)
+					try
 					{
-						Page.Delete (page.Id);
+						Delete (page.Id);
 					}
+					catch (Exception exception)
+					{
+						// LOG: LogDebug.ExceptionUnknown
+						SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+					}						
 				}
-
+				
 				SorentoLib.Services.Datastore.Delete (DatastoreAisle, Id.ToString ());
 			}
-			catch
+			catch (Exception exception)
 			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+				
+				// EXCEPTION: Exception.PageDelete
 				throw new Exception (string.Format (Strings.Exception.PageDelete, Id.ToString ()));
-			}
+			}			
 		}
-
+		
 		public static List<Page> List ()
 		{
 			List<Page> result = new List<Page> ();
@@ -444,10 +459,14 @@ namespace sCMS
 			{
 				try
 				{
-					result.Add (Page.Load (new Guid (id)));
+					result.Add (Load (new Guid (id)));
 				}
-				catch
+				catch (Exception exception)
 				{
+					// LOG: LogDebug.ExceptionUnknown
+					SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+					
+					// LOG: LogDebug.PageList
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.PageList, id));
 				}
 			}
@@ -455,106 +474,106 @@ namespace sCMS
 			return result;
 		}
 		
-		
-		
-		
-		
-		public static Page FromAjaxRequest (SorentoLib.Ajax.Request Request)
+		public static List<Page> List (Guid ParentId)
 		{
-			return FromAjaxItem (Request.Data);
-		}
+			List<Page> result = new List<Page> ();
 
-		public static Page FromAjaxItem (Hashtable Item)
-		{
-			Page result = null;
-
-			Guid id = Guid.Empty;
-
-			try
-			{
-				id = new Guid ((string)Item["id"]);
-			}
-			catch {}
-
-			if (id != Guid.Empty)
+			foreach (string id in SorentoLib.Services.Datastore.ListOfShelfs (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("parentid", SorentoLib.Enums.DatastoreMetaSearchCondition.Equal, ParentId)))
 			{
 				try
 				{
-					result = Page.Load (id);
+					result.Add (Load (new Guid (id)));
 				}
-				catch
+				catch (Exception exception)
 				{
-					result = new Page ();
-					result._id = id;
-					if (Item.ContainsKey ("createtimestamp"))
-					{
-						result._createtimestamp = int.Parse ((string)Item["createtimestamp"]);
-					}
-
-					if (Item.ContainsKey ("updatetimestamp"))
-					{
-						result._createtimestamp = int.Parse ((string)Item["updatetimestamp"]);
-					}
-				}
-			}
-			else
-			{
-				try
-				{
-					Template template = Template.Load (new Guid ((string)Item["templateid"]));
-					result = new Page (template);
-				}
-				catch
-				{
-					throw new Exception (string.Format (Strings.Exception.PageFromAjaxItem, "TemplateId"));
-				}
-			}
-
-			if (Item.ContainsKey ("templateid"))
-			{
-				if ((string)Item["templateid"] != string.Empty)
-				{
-					result._templateid = new Guid ((string)Item["templateid"]);
-				}
-			}
-
-			if (Item.ContainsKey ("parentid"))
-			{
-				if ((string)Item["parentid"] != string.Empty)
-				{
-					result._parentid = new Guid ((string)Item["parentid"]);
-				}
-			}
-
-			if (Item.ContainsKey ("name"))
-			{
-				result.Name = (string)Item["name"];
-			}
-
-			if (Item.ContainsKey ("aliases"))
-			{
-				result._aliases.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["aliases"])
-				{
-					result._aliases.Add ((string)item["name"]);
-				}
-			}
-
-			if (Item.ContainsKey ("fields"))
-			{
-				result._contents.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["fields"])
-				{
-					Field field = result.Template.GetField (new Guid ((string)item["id"]));
-					if (field != null)
-					{
-						result._contents.Add (new Content (field, (string)item["data"]));
-					}
+					// LOG: LogDebug.ExceptionUnknown
+					SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+					
+					// LOG: LogDebug.PageList
+					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.PageList, id));
 				}
 			}
 
 			return result;
 		}
+		
+		public static Page FromXmlDocument (XmlDocument xmlDocument)
+		{
+			Hashtable item;
+			Page result;
+
+			try
+			{
+				item = (Hashtable)SNDK.Convert.FromXmlDocument (SNDK.Convert.XmlNodeToXmlDocument (xmlDocument.SelectSingleNode ("(//scms.page)[1]")));
+			}
+			catch
+			{
+				item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
+			}
+
+			if (item.ContainsKey ("id"))
+			{
+				try
+				{
+					result = Load (new Guid ((string)item["id"]));
+				}
+				catch
+				{
+					result = new Page ();
+					result._id = new Guid ((string)item["id"]);
+				}
+			}
+			else
+			{
+				// EXCEPTION: Exception.PageFromXMLDocument
+				throw new Exception (Strings.Exception.PageFromXMLDocument);
+			}
+			
+			if (item.ContainsKey ("createtimestamp"))
+			{
+				result._createtimestamp = int.Parse ((string)item["createtimestamp"]);
+			}
+
+			if (item.ContainsKey ("updatetimestamp"))
+			{
+				result._updatetimestamp = int.Parse ((string)item["updatetimestamp"]);
+			}				
+			
+			if (item.ContainsKey ("templateid"))
+			{					
+				result._templateid = new Guid ((string)item["templateid"]);
+			}
+				
+			if (item.ContainsKey ("parentid"))
+			{
+				result._parentid = new Guid ((string)item["parentid"]);
+			}
+				
+			if (item.ContainsKey ("title"))
+			{
+				result._title = (string)item["title"];
+			}
+				
+			if (item.ContainsKey ("contents"))
+			{
+				foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
+				{
+					result._contents.Add (Content.FromXmlDocument (content));
+				}
+			}		
+			
+			if (item.ContainsKey ("aliases"))
+			{
+				result._aliases = new List<string> ();						
+				foreach (XmlDocument alias in (List<XmlDocument>)item["aliases"])
+				{					
+					result._aliases.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alias))["value"]);
+				}
+			}											
+
+			return result;
+		}	
+		
 		#endregion
 	}
 }

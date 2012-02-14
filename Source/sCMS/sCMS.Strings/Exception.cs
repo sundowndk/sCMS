@@ -38,7 +38,7 @@ namespace sCMS.Strings
 
 		#region PAGE
 		public static string PageLoadGuid = "PAGE with id: {0} was not found.";
-		public static string PageLoadName = "PAGE with name: {0} was not found.";
+		public static string PageLoadPath = "PAGE with path: {0} was not found.";
 		public static string PageSave = "Could not save PAGE with id: {0}";
 		public static string PageDelete = "Could not delete PAGE with id: {0}";
 		public static string PageGetGuid = "PAGE does not contain a FIELD with id: {0}";
@@ -46,6 +46,8 @@ namespace sCMS.Strings
 		public static string PageFromAjaxItem = "Could not create PAGE from AjaxItem, missing key: {0}";
 		public static string PageGetContentName = "No content with name: {0}, exists on this page.";
 		public static string PageGetContentGuid = "No content id: {0}, exists on this page.";
+		public static string PageSetContent = "Could not set content. No content with id: {0}";
+		public static string PageFromXMLDocument = "Failed to create PAGE from XMLDocument.";
 		#endregion
 		
 		
@@ -96,6 +98,7 @@ namespace sCMS.Strings
 		
 		#region STYLESHEET
 		public static string StylesheetFromXMLDocument = "Failed to create STYLESHEET from XMLDocument.";
+		public static string StylesheetDelete = "Could not delete STYLESHEET with id: {0}";
 		#endregion
 		
 		#region RESOLVER
