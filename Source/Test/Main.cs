@@ -37,8 +37,6 @@ using System.Reflection;
 
 using SorentoLib;
 using sCMS;
-//using sBlog;
-//using Akvabase;
 
 namespace Test
 {
@@ -46,15 +44,11 @@ namespace Test
 	{
 		public static void Main (string[] args)
 		{
-//			Evaluator.Compile ("using SorentoLib; Test (object lala) {};");
-
-
-
 			SorentoLib.Services.Database.Connection = new Connection (SNDK.Enums.DatabaseConnector.Mysql,
-				"localhost",
-//				"10.0.0.40",
-				"sorento",
-//				"sorentotest.sundown.dk",
+//				"localhost",
+				"10.0.0.40",
+//				"sorento",
+				"sorentotest.sundown.dk",
 				"sorentotest",
 				"scumbukket",
 				true);
@@ -71,10 +65,11 @@ namespace Test
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_temp, "/home/sundown/Skrivebord/mediatest/temp/");
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_media, "/home/sundown/Skrivebord/mediatest/media/");
 			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_publicmedia, "/home/sundown/Skrivebord/mediatest/public/");
+			SorentoLib.Services.Config.Set (sCMS.Enums.ConfigKey.scms_templateplaceholdertag, "[CHILD_TEMPLATE_PLACEHOLDER]");
 								
 			Template template1 = new Template ();
 			template1.Title = "Test Template";
-			template1.Content = "BLA BLA BLA";
+			template1.Content = "BLA BLA BLA [CHILD_TEMPLATE_PLACEHOLDER] BLS BLS BLS";
 			
 			Field field1 = new Field(sCMS.Enums.FieldType.Text, "Field #1", 0);
 			Field field2 = new Field(sCMS.Enums.FieldType.Text, "Field #2", 1);
@@ -87,7 +82,7 @@ namespace Test
 			template1.Save ();
 						
 			Template template2 = new Template ();
-			template2.Parent = template1;
+			template2.ParentId = template1.Id;
 			template2.Title = "Test Template 2";
 			template2.Content = "BLU BLU BLU";
 			
@@ -104,12 +99,19 @@ namespace Test
 			foreach (Template t in Template.List ())
 			{
 				Console.WriteLine (t.Title);
-				if (t.Parent != null)
+				if (t.ParentId != Guid.Empty)
 				{
-					Console.WriteLine ("\t Parent: "+ t.Parent.Title);
+					Template parent = Template.Load (t.ParentId);
+					
+					Console.WriteLine ("\t Parent: "+ parent.Title);
 				}
 				
-				Console.WriteLine ("\t Content: "+ t.Content);
+				Console.WriteLine ("\t Content: ");
+				foreach (string l in t.Build ())
+				{
+					Console.WriteLine (l);
+				}
+				
 				Console.WriteLine ("\t Fields: ");
 				foreach (Field f in t.Fields)
 				{

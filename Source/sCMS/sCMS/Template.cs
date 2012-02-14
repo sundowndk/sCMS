@@ -48,6 +48,32 @@ namespace sCMS
 		private string _title;
 		private string _content;
 		private List<Field> _fields;
+		private List<string> _stylesheetids;
+		
+		private string _stylesheetidsasstring
+		{
+			get
+			{
+				string result = string.Empty;
+				
+				foreach (string id in this._stylesheetids)
+				{
+					result += id +"/";
+				}
+				
+				return result;
+			}
+			
+			set
+			{
+				this._stylesheetids.Clear ();
+				
+				foreach (string id in value.Split ("/".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					this._stylesheetids.Add (id);
+				}
+			}
+		}
 		#endregion
 
 		#region Public Fields
@@ -75,21 +101,16 @@ namespace sCMS
 			}
 		}
 		
-		public Template Parent
+		public Guid ParentId
 		{
 			get
 			{
-				if (this._parentid != Guid.Empty)
-				{
-					return Template.Load (this._parentid);
-				}				
-				
-				return default (Template);
+				return this._parentid;
 			}
-			
+							
 			set
 			{
-				this._parentid = value.Id;
+				this._parentid = value;
 			}
 		}
 
@@ -123,7 +144,22 @@ namespace sCMS
 		{
 			get
 			{
-				return this._fields;
+				return CompileFields ();
+			}
+		}
+		
+		public List<Stylesheet> Stylesheets
+		{
+			get
+			{
+				List<Stylesheet> result = new List<Stylesheet> ();
+				
+				foreach (string id in this._stylesheetids)
+				{
+					result.Add (Stylesheet.Load (id));
+				}
+				
+				return result;
 			}
 		}
  		#endregion
@@ -138,48 +174,48 @@ namespace sCMS
 			this._title = string.Empty;
 			this._content = string.Empty;
 			this._fields = new List<Field> ();
+			this._stylesheetids = new List<string> ();
 		}
 		#endregion
 
 		#region Private Methods
-//		private List<Field> _compilefields ()
-//		{
-//			List<Field> result = new List<Field> ();
-//			this._fields.Sort (delegate(Field o1, Field o2) { return o1.Sort.CompareTo(o2.Sort); });
-//			result.AddRange (this._fields);
-//			if (this.Parent != null)
-//			{
-//				foreach (Field field in this.Parent._compilefields ())
-//				{
-//					field._inherit = true;
-//					result.Add (field);
-//				}
-//			}
-//
-//			// TODO: is this needed?
-////			result.Sort (delegate(Field o1, Field o2) { return o1.Sort.CompareTo(o2.Sort); });
-////			result.Sort (delegate(Field o1, Field o2) { return o1.Name.CompareTo(o2.Name); });
-//
-//
-//			return result;
-//		}
-
-//		private string _compiletemplates ()
-//		{
-//			string result = string.Empty;
-//
-//			if (this._parentid != Guid.Empty)
-//			{
-//				result = Template.Load (this._parentid)._compiletemplates ().Replace (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_templateplaceholdertag), this._content);
-//			}
-//			else
-//			{
-//				result = this._content;
-//			}
-//
-//			return result;
-//		}
-//
+		private List<Field> CompileFields ()
+		{
+			List<Field> result = new List<Field> ();
+		    this._fields.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
+			result.AddRange (this._fields);
+			
+			if (this._parentid != Guid.Empty)
+			{				
+				Template parent = Template.Load (this._parentid);
+				
+				foreach (Field field in parent.CompileFields ())
+				{
+					result.Add (field);
+				}
+			}
+			
+			return result;
+		}
+		
+		private string CompileContent ()
+		{
+			string result = string.Empty;
+			
+			if (this._parentid != Guid.Empty)
+			{						
+				result = Template.Load (this._parentid).CompileContent ().Replace (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_templateplaceholdertag), this._content);
+			}
+			else
+			{
+				result = this._content;
+			}
+			
+			return result;
+		}
+		
+//		private List<string> CompileStylesheet ()
+		
 //		private List<string> _compilestylesheets ()
 //		{
 //			List<string> result = new List<string> ();
@@ -211,6 +247,7 @@ namespace sCMS
 				item.Add ("title", this._title);
 				item.Add ("content", this._content);
 				item.Add ("fields", this._fields);
+				item.Add ("stylesheetids", this._stylesheetidsasstring);
 					
 				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Convert.ToXmlDocument (item, this.GetType ().FullName.ToLower ()));
 			}
@@ -222,96 +259,15 @@ namespace sCMS
 				// EXCEPTION: Exception.TemplateSave
 				throw new Exception (string.Format (Strings.Exception.TemplateSave, this._id.ToString ()));
 			}
-			
-//			// TODO: remove in final;
-//			foreach (Field field in this._fields)
-//			{
-//				if (field.Options == null)
-//				{
-//					field._options = new Hashtable ();
-//				}
-//			}
-//
-//			this._stylesheetfilenames = null; // TODO: remove in final;
-//
-//			this._stylesheetids.Clear ();
-//			foreach (Stylesheet stylesheet in this.Stylesheets)
-//			{
-//				this._stylesheetids.Add (stylesheet.Filename);
-//			}
-//
-//			this._tempparent = null;
-//			this._tempstylesheets = null;
-//
-//			try
-//			{
-//				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Serializer.SerializeObjectToString (this));
-//			}
-//			catch
-//			{
-//				throw new Exception (string.Format (Strings.Exception.TemplateSave, this._id.ToString ()));
-//			}
 		}
+		
+		
+		public List<string> Build ()
+		{
+			List<string> result = new List<string> ();
 
-//		public void AddField (Field Field)
-//		{
-//			int count = 2;
-//			string dummy = Field.Name;
-//			while (this._compilefields ().Exists (delegate (Field o) { return o.Name == Field.Name; }))
-//			{
-//				Field._name = dummy +"_"+ count++;
-//			}
-//
-//			this._fields.Add (Field);
-//		}
-
-//		public void RemoveField (string Name)
-//		{
-//
-//			int index = 0;
-//			foreach (Field field in this._fields)
-//			{
-//				if (field.Name == Name.Replace (" ", "_").ToUpper ())
-//				{
-//					break;
-//				}
-//				index++;
-//			}
-//
-//			this._fields.RemoveAt (index);
-//		}
-
-//		public void RemoveField (Guid Id)
-//		{
-//			int index = 0;
-//			foreach (Field field in this._fields)
-//			{
-//				if (field.Id == Id)
-//				{
-//					break;
-//				}
-//				index++;
-//			}
-//
-//			this._fields.RemoveAt (index);
-//		}
-
-//		public Field GetField (string Name)
-//		{
-//			return this._compilefields ().Find (delegate (Field o) { return o.Name == Name.Replace (" ", "_").ToUpper (); });
-//		}
-//
-//		public Field GetField (Guid Id)
-//		{
-//			return this._compilefields ().Find (delegate (Field o) { return o.Id == Id; });
-//		}
-
-//		public List<string> Build ()
-//		{
-//			List<string> result = new List<string> ();
-//
-//			foreach (string line in this._compiletemplates ().Split ("\n".ToCharArray ()))
-//			{
+			foreach (string line in this.CompileContent ().Split ("\n".ToCharArray ()))
+			{
 //				if (line.Contains (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetplaceholdertag)))
 //				{
 //					foreach (string filename in this._compilestylesheets ())
@@ -321,12 +277,12 @@ namespace sCMS
 //
 //					continue;
 //				}
-//
-//				result.Add (line);
-//			}
-//
-//			return result;
-//		}
+
+				result.Add (line);
+			}
+
+			return result;	
+		}
 		
 		public void AddField (Field Field)
 		{
@@ -354,6 +310,7 @@ namespace sCMS
 			result.Add ("title", this._title);
 			result.Add ("content", this._content);
 			result.Add ("fields", this._fields);
+			
 
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
@@ -402,7 +359,12 @@ namespace sCMS
 					{
 						result._fields.Add (Field.FromXmlDocument (field));
 					}
-				}				
+				}	
+				
+				if (item.ContainsKey ("stylesheetids"))
+				{
+					result._stylesheetidsasstring = (string)item["stylesheetids"];
+				}
 			}
 			catch (Exception exception)
 			{
