@@ -253,8 +253,11 @@ namespace sCMS
 				{
 					result.Add (Load (new Guid (id)));
 				}
-				catch
+				catch (Exception exception)
 				{
+					// LOG: LogDebug.ExceptionUnknown
+					SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.GLOBAL", exception.Message));
+					
 					// LOG: LogDebug.GlobalList
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.GlobalList, id));
 				}

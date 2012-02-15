@@ -236,8 +236,8 @@ namespace sCMS.Addin
 					{
 						try
 						{
-							Root _root = Root.FromAjaxItem (SorentoLib.Tools.Helpers.FileToItem (filepath));
-							_root.Save ();
+//							Root _root = Root.FromAjaxItem (SorentoLib.Tools.Helpers.FileToItem (filepath));
+//							_root.Save ();
 						}
 						catch (Exception exception)
 						{

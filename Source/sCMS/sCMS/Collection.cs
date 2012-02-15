@@ -210,7 +210,8 @@ namespace sCMS
 				// LOG: LogDebug.ExceptionUnknown
 				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.COLLECTION", exception.Message));
 				
-				
+				// EXCEPTION: Exception.CollectionGetContent
+				throw new Exception (string.Format (Strings.Exception.CollectionGetContent, Id));
 			}
 		}
 		

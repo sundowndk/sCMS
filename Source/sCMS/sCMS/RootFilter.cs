@@ -31,7 +31,6 @@ using System.Collections.Generic;
 
 namespace sCMS
 {
-	[Serializable]
 	public class RootFilter
 	{
 		#region Private Fields
@@ -75,8 +74,7 @@ namespace sCMS
 		}
 		#endregion
 
-		#region Public Methods
-		
+		#region Public Methods		
 		public void ToAjaxRespons (SorentoLib.Ajax.Respons Respons)
 		{
 			Respons.Data = this.ToAjaxItem ();
@@ -104,32 +102,6 @@ namespace sCMS
 		#endregion
 
 		#region Public Static Methods
-		public static RootFilter FromAjaxRequest (SorentoLib.Ajax.Request Request)
-		{
-			return FromAjaxItem (Request.Data);
-		}
-
-		public static RootFilter FromAjaxItem (Hashtable Item)
-		{
-			RootFilter result;
-
-			try
-			{
-				result = new RootFilter ( SNDK.Convert.StringToEnum<Enums.RootFilterType> ((string)Item["type"]));
-			}
-			catch
-			{
-				throw new Exception (string.Format (Strings.Exception.RootFilterFromAjaxItem, "Type"));
-			}
-
-			if (Item.ContainsKey ("data"))
-			{
-				result._data = (string)Item["data"];
-			}
-
-			return result;
-		}
-		
 		public static RootFilter FromXmlDocument (XmlDocument xmlDocument)
 		{
 			Hashtable item;

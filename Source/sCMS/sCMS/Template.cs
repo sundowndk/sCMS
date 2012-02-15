@@ -54,21 +54,18 @@ namespace sCMS
 		{
 			get
 			{
-				string result = string.Empty;
-				
+				string result = string.Empty;				
 				foreach (string id in this._stylesheetids)
 				{
-					result += id +"/";
-				}
-				
+					result += id +";";
+				}				
 				return result;
 			}
 			
 			set
 			{
-				this._stylesheetids.Clear ();
-				
-				foreach (string id in value.Split ("/".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				this._stylesheetids.Clear ();				
+				foreach (string id in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
 				{
 					this._stylesheetids.Add (id);
 				}
@@ -160,8 +157,14 @@ namespace sCMS
 					{
 						result.Add (Stylesheet.Load (id));
 					}
-					catch
-					{}
+					catch (Exception exception)
+					{
+						// LOG: LogDebug.ExceptionUnknown
+						SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+						// LOG: LogDebug.StylesheetList
+						SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.StylesheetList, id));
+					}
 				}
 				
 				return result;
@@ -187,17 +190,29 @@ namespace sCMS
 		private List<Field> CompileFields ()
 		{
 			List<Field> result = new List<Field> ();
-		    this._fields.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
-			result.AddRange (this._fields);
 			
-			if (this._parentid != Guid.Empty)
-			{				
-				Template parent = Template.Load (this._parentid);
-				
-				foreach (Field field in parent.CompileFields ())
-				{
-					result.Add (field);
+			try 
+			{
+			    this._fields.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
+				result.AddRange (this._fields);
+			
+				if (this._parentid != Guid.Empty)
+				{				
+					Template parent = Template.Load (this._parentid);
+					
+					foreach (Field field in parent.CompileFields ())
+					{
+						result.Add (field);
+					}
 				}
+			}
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+				// EXCEPTION: Exception.TemplateCompileField
+				throw new Exception (Strings.Exception.TemplateCompileField);
 			}
 			
 			return result;
@@ -207,13 +222,24 @@ namespace sCMS
 		{
 			string result = string.Empty;
 			
-			if (this._parentid != Guid.Empty)
-			{						
-				result = Template.Load (this._parentid).CompileContent ().Replace (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_templateplaceholdertag), this._content);
+			try
+			{									
+				if (this._parentid != Guid.Empty)
+				{										
+					result = Template.Load (this._parentid).CompileContent ().Replace (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_templateplaceholdertag), this._content);
+				}
+				else
+				{
+					result = this._content;
+				}
 			}
-			else
+			catch (Exception exception)
 			{
-				result = this._content;
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+				// EXCEPTION: Exception.TemplateCompileContent
+				throw new Exception (Strings.Exception.TemplateCompileContent);
 			}
 			
 			return result;
@@ -222,13 +248,24 @@ namespace sCMS
 		private List<string> CompileStylesheet ()
 		{
 			List<string> result = new List<string> ();
-			
-			if (this._parentid != Guid.Empty)
-			{
-				result.AddRange (Load (this._parentid).CompileStylesheet ());
+		
+			try
+			{														
+				if (this._parentid != Guid.Empty)
+				{
+					result.AddRange (Load (this._parentid).CompileStylesheet ());
+				}
+				
+				result.AddRange (this._stylesheetids);
 			}
-			
-			result.AddRange (this._stylesheetids);
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+				// EXCEPTION: Exception.TemplateCompileStylesheet
+				throw new Exception (Strings.Exception.TemplateCompileStylesheet);
+			}
 			
 			return result;
 		}
@@ -421,8 +458,11 @@ namespace sCMS
 				{
 					result.Add (Load (new Guid (id)));
 				}
-				catch
+				catch (Exception exception)
 				{
+					// LOG: LogDebug.ExceptionUnknown
+					SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+					
 					// LOG: LogDebug.TemplateListe
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.TemplateList, id));
 				}

@@ -30,7 +30,6 @@ namespace sCMS.Strings
 	{
 		#region TEMPLATE
 		public static string TemplateList = "[sCMS.TEMPLATE]: Cannot load TEMPLATE with id: {0}, will be excluded from list.";
-
 		#endregion
 
 		#region PAGE

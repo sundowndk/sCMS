@@ -103,7 +103,6 @@ namespace sCMS
 			}
 		}
 			
-
 		public string Path
 		{
 			get
@@ -245,14 +244,27 @@ namespace sCMS
 		
 		public object GetContent (Guid Id)
 		{
-			Content content = this._contents.Find (delegate (Content c) { return c.Id == Id; });
-			
-			if (content != null)
+			try
 			{
-				return content.Data;
+			    Content content = this._contents.Find (delegate (Content c) { return c.Id == Id; });
+				
+				if (content != null)
+				{
+					return content.Data;
+				}
+				else
+				{						
+					return Field.DefaultValue (CollectionSchema.Load (this._templateid).GetField (Id).Type);
+				}
 			}
-			
-			return default (object);
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.PAGE", exception.Message));
+				
+				// EXCEPTION: Exception.PageGetContent
+				throw new Exception (string.Format (Strings.Exception.PageGetContent, Id));
+			}			
 		}
 		
 		public void SetContent (Field Field, object Data)
@@ -382,45 +394,9 @@ namespace sCMS
 				// EXCEPTION: Excpetion.PageLoadName
 				throw new Exception (string.Format (Strings.Exception.PageLoadGuid, Id));
 			}	
-			
-//			Page result = null;
-//
-//			foreach (Page page in List ())
-//			{
-//				if (Name == page.Path)
-//				{
-//					result = page;
-//					break;
-//				}
-//				else
-//				{
-//					if (page.Aliases.Exists (delegate (string a) {string directoryname = System.IO.Path.GetDirectoryName (page.Path); if (directoryname == "/") {return directoryname + a == Name;} else {return directoryname +"/"+ a == Name;}}))
-//					{
-//						result = page;
-//						break;
-//					}
-//				}
-//			}
-//
-//			if (result == null)
-//			{
-//				throw new Exception (string.Format (Strings.Exception.PageLoadName, Name));
-//			}
 
 			return result;
 		}
-
-//		public static Page Load (Guid Id)
-//		{
-//			try
-//			{
-//				return SNDK.Serializer.DeSerializeObjectFromString<Page> (SorentoLib.Services.Datastore.Get<string> (DatastoreAisle, Id.ToString ()));
-//			}
-//			catch
-//			{
-//				throw new Exception (string.Format (Strings.Exception.PageLoadGuid, Id.ToString ()));
-//			}
-//		}
 
 		public static void Delete (Guid Id)
 		{

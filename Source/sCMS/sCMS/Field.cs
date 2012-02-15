@@ -96,8 +96,7 @@ namespace sCMS
 		}
 		#endregion
 
-		#region Constructors
-		
+		#region Constructors		
 		public Field (sCMS.Enums.FieldType Type, string Name, int Sort)
 		{
 			this._id = Guid.NewGuid ();

@@ -147,11 +147,11 @@ namespace sCMS
 //						break;
 //					#endregion
 
-					#region LISTHASHTABLE
-					case sCMS.Enums.FieldType.ListHashtable:
-
-						break;
-					#endregion
+//					#region LISTHASHTABLE
+//					case sCMS.Enums.FieldType.ListHashtable:
+//
+//						break;
+//					#endregion
 				}
 
 				return result;
@@ -343,7 +343,7 @@ namespace sCMS
 //						break;
 //					#endregion
 
-					#region HASHTABLE
+//					#region HASHTABLE
 //					case sCMS.Enums.FieldType.ListHashtable:
 //						// Figure out if a String or Hashtable was passed.
 //						switch (value.GetType ().FullName.ToLower ())
@@ -380,7 +380,7 @@ namespace sCMS
 //						}
 //
 //						break;
-					#endregion
+//					#endregion
 				}
 			}
 		}

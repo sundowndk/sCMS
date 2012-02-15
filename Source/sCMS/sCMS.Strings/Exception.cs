@@ -34,7 +34,10 @@ namespace sCMS.Strings
 		public static string TemplateSave = "Could not save TEMPLATE with id: {0}";
 		public static string TemplateDelete = "Could not delete TEMPLATE with id: {0}";
 		public static string TemplateFromXMLDocument = "Failed to create TEMPLATE from XMLDocument.";
-		#endregion
+		public static string TemplateCompileContent = "Failed to compile template content.";
+		public static string TemplateCompileStylesheet = "Failed to compile template stylesheets.";
+		public static string TemplateCompileField = "Failed to compile template fields.";		
+ 		#endregion
 
 		#region PAGE
 		public static string PageLoadGuid = "PAGE with id: {0} was not found.";
@@ -44,8 +47,7 @@ namespace sCMS.Strings
 		public static string PageGetGuid = "PAGE does not contain a FIELD with id: {0}";
 		public static string PageGetName = "PAGE does not contain a FIELD with name: {0}";
 		public static string PageFromAjaxItem = "Could not create PAGE from AjaxItem, missing key: {0}";
-		public static string PageGetContentName = "No content with name: {0}, exists on this page.";
-		public static string PageGetContentGuid = "No content id: {0}, exists on this page.";
+		public static string PageGetContent = "Could not get content. No content or field with id: {0}";
 		public static string PageSetContent = "Could not set content. No content with id: {0}";
 		public static string PageFromXMLDocument = "Failed to create PAGE from XMLDocument.";
 		#endregion
@@ -86,7 +88,7 @@ namespace sCMS.Strings
 		public static string CollectionSave = "Could not save COLLECTION with id: {0}";
 		public static string CollectionDelete = "Could not delete COLLECTION with id: {0}";
 		public static string CollectionSetContent = "Could not set content. No content with id: {0}";
-		public static string CollectionGetContent = "Could not get content. No content with id: {0}";
+		public static string CollectionGetContent = "Could not get content. No content or field with id: {0}";
 		public static string CollectionFromAjaxItem = "Could not create COLLECTION from AjaxItem, missing key: {0}";
 		public static string CollectionFromXMLDocument = "Failed to create COLLECTION from XMLDocument.";
 		#endregion
