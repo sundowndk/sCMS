@@ -4,7 +4,7 @@
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
 // 
-// Copyright (c) 2010 Rasmus Pedersen
+// Copyright (c) 2010-2012 Rasmus Pedersen
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -192,14 +192,26 @@ namespace sCMS
 		
 		public object GetContent (Guid Id)
 		{
-			Content content = this._contents.Find (delegate (Content c) { return c.Id == Id; });
-			
-			if (content != null)
+			try
 			{
-				return content.Data;
+			    Content content = this._contents.Find (delegate (Content c) { return c.Id == Id; });
+				
+				if (content != null)
+				{
+					return content.Data;
+				}
+				else
+				{						
+					return Field.DefaultValue (CollectionSchema.Load (this._collectionschemaid).GetField (Id).Type);
+				}
 			}
-			
-			return default (object);
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.COLLECTION", exception.Message));
+				
+				
+			}
 		}
 		
 		public void SetContent (Field Field, object Data)
@@ -217,16 +229,16 @@ namespace sCMS
 				{
 					CollectionSchema collectionschema = CollectionSchema.Load (this._collectionschemaid);					
 					content = new Content (collectionschema.GetField (Id));					
+					content.Data = Data;
 				}
-				
-				content.Data = Data;
-				
-				this._contents.Add (content);
+				else
+				{
+					content.Data = Data;
+					this._contents.Add (content);
+				}
 			}
 			catch (Exception exception)
 			{
-				Console.WriteLine (exception);
-				
 				// LOG: LogDebug.ExceptionUnknown
 				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.COLLECTION", exception.Message));
 				

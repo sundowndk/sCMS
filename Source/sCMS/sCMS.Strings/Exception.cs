@@ -55,9 +55,11 @@ namespace sCMS.Strings
 		public static string FieldFromXMLDocument = "Failed to create FIELD from XMLDocument.";
 		#endregion
 		
-		#region CONTENT
+		#region CONTENT		
 		public static string ContentFromXMLDocument = "Failed to create CONTENT from XMLDocument.";
 		#endregion
+		
+		
 		
 		#region ROOT
 		public static string RootLoad = "ROOT with id: {0} was not found.";
@@ -84,6 +86,7 @@ namespace sCMS.Strings
 		public static string CollectionSave = "Could not save COLLECTION with id: {0}";
 		public static string CollectionDelete = "Could not delete COLLECTION with id: {0}";
 		public static string CollectionSetContent = "Could not set content. No content with id: {0}";
+		public static string CollectionGetContent = "Could not get content. No content with id: {0}";
 		public static string CollectionFromAjaxItem = "Could not create COLLECTION from AjaxItem, missing key: {0}";
 		public static string CollectionFromXMLDocument = "Failed to create COLLECTION from XMLDocument.";
 		#endregion
