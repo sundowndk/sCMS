@@ -1,11 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/build.sh">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
     <Files>
       <File FileName="web/build.sh" Line="30" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Init.cs" Line="1" Column="1" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="64" Column="5" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="47" Column="59" />
       <File FileName="Test/Main.cs" Line="87" Column="1" />
+      <File FileName="sCMS/sCMS/Content.cs" Line="448" Column="5" />
+      <File FileName="sCMS/sCMS.Enums/ConfigKey.cs" Line="38" Column="30" />
+      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="240" Column="2" />
+      <File FileName="sCMS/sCMS/Field.cs" Line="1" Column="1" />
+      <File FileName="sCMS/sCMS/CollectionSchema.cs" Line="97" Column="109" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
