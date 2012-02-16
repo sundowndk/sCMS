@@ -12,15 +12,7 @@ OUTPUTDIR="$1"
 # CLEAN                                            #
 ####################################################
 echo "Cleaning previous build..."
-#rm "$OUTPUTDIR/html/sconsole/" -r
 rm "$OUTPUTDIR/cgi-bin/Addins/sCMS/data/" -r
-
-####################################################
-# SETUP                                            #
-####################################################
-echo "Setting up build structur..."
-#mkdir "$OUTPUTDIR/html/sconsole/"
-#mkdir "$OUTPUTDIR/html/sconsole/js"
 
 ####################################################
 # CGI-BIN                                          #
@@ -31,16 +23,13 @@ for file in cgi-bin/*; do
 done
 
 ####################################################
-# HTML                                             #
+# SETUP                                            #
 ####################################################
-#echo "Building 'html'..."
-#for file in html/*; do
-#echo $file
-#    cp -rv $file "$OUTPUTDIR/html/"
-#done
+echo "Setting up build structur..."
+mkdir "$OUTPUTDIR/cgi-bin/Addins/sCMS/data/html/js/"
 
 ####################################################
 # JAVASCRIPT                                       #
 ####################################################
 echo "Building 'javascript'..."
-jsbuilder javascript.jsb "$OUTPUTDIR/cgi-bin/Addins/sCMS/data/html/scms/js/"
+jsbuilder javascript.jsb "$OUTPUTDIR/cgi-bin/Addins/sCMS/data/html/js/"

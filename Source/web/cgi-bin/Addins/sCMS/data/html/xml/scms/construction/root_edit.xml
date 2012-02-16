@@ -1,0 +1,57 @@
+<sui elementheight="50px">
+	<canvas width="800px" height="400px" canScroll="false">	
+		<container title="Edit root" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+				<panel size="*">
+
+					<layoutbox type="horizontal">			
+						<panel size="%elementheight%">
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Title"/>
+								</panel>					
+								<panel size="*">
+									<textbox tag="title" width="100%" />
+								</panel>					
+							</layoutbox>
+						</panel>
+						<panel size="*">													
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Filters" />
+								</panel>
+								<panel size="*">
+									<listview tag="filters" width="100%" height="100%">
+										<column tag="type" label="Type" width="200px" visible="true" />
+										<column tag="data" label="Data" width="200px" visible="true" />	
+									</listview>
+								</panel>					
+								<panel size="80px">
+									<button tag="filteradd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+									<button tag="filteredit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+									<button tag="filterremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+								</panel>
+							</layoutbox>														
+						</panel>
+					</layoutbox>
+											
+				</panel>
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="*">							
+						</panel>
+						<panel size="210px">
+							<button tag="save" label="Save" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>						
+					</layoutbox>
+				</panel>
+			</layoutbox>				
+		</container>
+	</canvas>
+</sui>
+
+
+
+
+

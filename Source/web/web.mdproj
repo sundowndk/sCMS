@@ -26,35 +26,22 @@
     <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\content\" />
     <Folder Include="javascript\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\html\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\js\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\" />
-    <Folder Include="cgi-bin\Addins\sConsole\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\content\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\html\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\includes\" />
-    <Folder Include="cgi-bin\Addins\sConsole\data\html\sconsole\xml\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\content\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\construction\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\content\scms\settings\" />
-    <Folder Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\settings\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\settings\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript.jsb" />
     <None Include="build.sh" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\content\index.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\index.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\settings\index.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\settings\index_script.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\settings\index.xml" />
     <None Include="javascript\template.js" />
     <None Include="javascript\root.js" />
     <None Include="javascript\page.js" />
@@ -63,15 +50,18 @@
     <None Include="javascript\global.js" />
     <None Include="javascript\other.js" />
     <None Include="javascript\collectionschema.js" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\stylesheet_create.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_stylesheet.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\stylesheet_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_root.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_create.xml" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_root_rootfilter.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\root_rootfilter_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_global.stpl" />
-    <None Include="cgi-bin\Addins\sCMS\data\html\scms\xml\scms\construction\global_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\index.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\index.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\settings\index.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\stylesheet_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\stylesheet_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\root_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\root_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\root_rootfilter_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\global_edit.xml" />
   </ItemGroup>
 </Project>

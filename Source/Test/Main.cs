@@ -24,6 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.IO;
 using Mono.CSharp;
 using System.Threading;
 using System.Text;
@@ -32,6 +33,7 @@ using System.Collections;
 using SNDK.DBI;
 using SNDK.Enums;
 using System.Xml;
+using Mono.Unix;
 
 using System.Reflection;
 
@@ -74,7 +76,38 @@ namespace Test
 			SorentoLib.Services.Config.Set (sCMS.Enums.ConfigKey.scms_stylesheethtmltag, "<link rel=\"stylesheet\" href=\"{0}\" type=\"text/css\" />");
 			SorentoLib.Services.Config.Set (sCMS.Enums.ConfigKey.scms_stylesheetplaceholdertag, "[STYLESHEET_PLACEHOLDER]");
 			SorentoLib.Services.Config.Set (sCMS.Enums.ConfigKey.scms_templateplaceholdertag, "[CHILD_TEMPLATE_PLACEHOLDER]");
+			SorentoLib.Services.Config.Set (SorentoLib.Enums.ConfigKey.path_addins, "Addins/");
 						
+//			if (!Directory.Exists (Services.Config.Get<string> (Enums.ConfigKey.path_publicmedia) + System.IO.Path.GetDirectoryName (this._temppath)))
+//			{
+//			}
+
+				// Create a new symlink.
+			
+			if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms"))
+			{
+				UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/content/scms");			
+				dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms");
+			}
+			
+			if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/xml/scms"))
+			{
+				UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/html/xml/scms");
+				dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/xml/scms");
+			}
+			
+			if (!File.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/js/scms.js"))
+			{
+				UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/html/js/scms.js");
+				dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/js/scms.js");
+			}
+			
+//			UnixFileInfo fileinfo = new UnixFileInfo (this.DataPath);
+//			unixfileinfo.CreateSymbolicLink (Services.Config.Get<string> (Enums.ConfigKey.path_publicmedia) + this._temppath);			
+			
+			
+			
+			Environment.Exit (0);
 			
 			
 			Stylesheet stylesheet1 = new Stylesheet ("Default1");

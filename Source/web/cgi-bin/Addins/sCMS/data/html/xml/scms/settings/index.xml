@@ -1,0 +1,138 @@
+<sui>
+	<container title="Settings" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">
+			<panel size="*">				
+				<tabview>
+					<tab label="Templates" selected="true">
+						<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+							<panel size="*">
+								<layoutbox type="horizontal">			
+									<panel size="*">
+										<text text=""/>
+									</panel>					
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Placeholder tag"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="scmstemplateplaceholdertag" width="100%" />
+											</panel>					
+										</layoutbox>
+									</panel>
+									<panel size="*">
+										<text text=""/>
+									</panel>														
+								</layoutbox>
+							</panel>
+						</layoutbox>												
+					</tab>
+				<tab label="Stylesheets">
+					<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+						<panel size="*">
+							<layoutbox type="horizontal">										
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Path"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheetpath" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="URL"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheeturl" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>		
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Extension"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheetfileextension" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="HTML Tag"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheethtmltag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>									
+								<panel size="*">
+									<text text=""/>
+								</panel>									
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Encoding"/>
+										</panel>					
+										<panel size="*">
+											<dropbox tag="scmsstylesheetencoding" width="100%">
+												<item value="UTF-8" label="UTF-8" />				
+												<item value="ISO-8859-15" label="ISO-8859-15"/>										
+											</dropbox>											
+										</panel>					
+									</layoutbox>
+								</panel>																				
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Placeholder tag"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsstylesheetplaceholdertag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>							
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+							</layoutbox>
+						</panel>
+					</layoutbox>										
+				</tab>								
+			</tabview>
+		</panel>	
+		<panel size="45px">
+			<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
+				<panel size="*">								
+				</panel>
+				<panel size="105px">
+					<button tag="button1" label="Save" width="100px" disabled="true"/>							
+				</panel>						
+			</layoutbox>
+		</panel>
+			</layoutbox>
+
+	</container>	
+</sui>
+

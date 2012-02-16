@@ -1,0 +1,122 @@
+#!<script language = "JavaScript">							
+// ##################################################################################################################################
+// # ROOTFILTER
+// ##################################################################################################################################
+var rootfilter =
+{
+	add : function ()
+	{
+		var filter = new Array ();
+		filter.type = "Hostname";
+		filter.data = "";
+		
+		rootfilter.edit ({current: filter});
+	},
+	
+	edit : function (attributes)
+	{						
+		if (!attributes) attributes = new Array ();
+								
+		console.log (attributes.dd)
+								
+		if (attributes.current != null)
+		{				
+			attributes.mode = "add";
+		}
+		else
+		{	
+			attributes.current = modal.getUIElement ("filters").getItem ();			
+			attributes.mode = "edit";
+		}	
+										
+		// BUTTON1
+		var button1 = 	function ()
+						{
+							var item = get ();
+							
+							switch (attributes.mode)
+							{
+								case "add":
+								{
+									modal.getUIElement ("filters").addItem (item);							
+									break;
+								}	
+								
+								case "edit":
+								{
+									modal.getUIElement ("filters").setItem (item);
+									break;
+								}					
+							}							
+																
+							modal2.dispose ();		
+						};			
+			
+		// ONCHANGE
+		var onChange =	function ()
+						{													
+							if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal2.getUIElement ("data").getAttribute ("value") != ""))
+							{
+								modal2.getUIElement ("button1").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal2.getUIElement ("button1").setAttribute ("disabled", true);
+							}										
+						};							
+															
+		// SET	
+		var set =		function ()
+						{
+							modal2.getUIElement ("type").setAttribute ("selectedItemByValue", attributes.current.type);						
+							modal2.getUIElement ("data").setAttribute ("value", attributes.current.data);						
+							
+							switch (attributes.mode)
+							{
+								case "add":
+								{
+									modal2.getUIElement ("container").setAttribute ("title", "Add filter");
+									modal2.getUIElement ("button1").setAttribute ("label", "Add");
+									break;
+								}
+								
+								case "edit":
+								{
+									modal2.getUIElement ("container").setAttribute ("title", "Edit filter");
+									modal2.getUIElement ("button1").setAttribute ("label", "Apply");
+									break;
+								}
+							}
+						};
+						
+		// GET
+		var get =		function ()
+						{
+							var item = new Array ();
+							item.type = modal2.getUIElement ("type").getAttribute ("selectedItem").value;
+							item.data = modal2.getUIElement ("data").getAttribute ("value");
+							return item;
+						};						
+																																						
+		// INIT
+		var modal2 = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml"});
+						
+		modal2.getUIElement ("type").setAttribute ("onChange", onChange);
+		modal2.getUIElement ("data").setAttribute ("onChange", onChange);
+																																									
+		modal2.getUIElement ("button1").setAttribute ("onClick", button1);
+		modal2.getUIElement ("close").setAttribute ("onClick", modal2.dispose);		
+		
+		// SET
+		set ();
+		
+		// SHOW
+		modal2.show ();		
+	},
+	
+	remove : function ()
+	{
+		modal.getUIElement ("filters").removeItem ();
+	}									
+}					
+			
