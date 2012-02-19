@@ -1,16 +1,25 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/stylesheet_edit.xml">
     <Files>
       <File FileName="web/build.sh" Line="30" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Init.cs" Line="1" Column="1" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="47" Column="59" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="49" Column="11" />
       <File FileName="Test/Main.cs" Line="87" Column="1" />
       <File FileName="sCMS/sCMS/Content.cs" Line="448" Column="5" />
       <File FileName="sCMS/sCMS.Enums/ConfigKey.cs" Line="38" Column="30" />
       <File FileName="sCMS/sCMS.Addin/Render.cs" Line="240" Column="2" />
       <File FileName="sCMS/sCMS/Field.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS/CollectionSchema.cs" Line="97" Column="109" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index.stpl" Line="12" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script.stpl" Line="15" Column="88" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/index.xml" Line="12" Column="31" />
+      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="35" Column="81" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/root_create.xml" Line="32" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_root.stpl" Line="4" Column="10" />
+      <File FileName="web/javascript/root.js" Line="1" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/root_edit.xml" Line="58" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/stylesheet_edit.xml" Line="52" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

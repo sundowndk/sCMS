@@ -44,9 +44,10 @@ namespace sCMS
 		{				
 			try
 			{
-				Include.Add (sConsole.Enums.IncludeType.Javascript, "/js/scms.js", "SCMS", 101);
-				
-				sConsole.Menu.AddCategory ("scms", "sCMS", 10);
+				// Set defaults
+				SetDefaults ();
+												
+				sConsole.Menu.AddCategory ("scms", "Content Management", 10);
 				sConsole.Menu.AddItem ("scms", "content", "Content", "/scms/content/", 1);
 				sConsole.Menu.AddItem ("scms", "styling", "Construction", "/scms/construction/", 2);
 				sConsole.Menu.AddItem ("scms", "settings", "Settings", "/scms/settings/", 3);
@@ -70,8 +71,7 @@ namespace sCMS
 					dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/js/scms.js");
 				}
 										
-				// Set defaults
-				SetDefaults ();
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/js/scms.js", "SCMS", 101);
 			
 				// Set default usergroups
 //			UsergroupGuest = Usergroup.AddBuildInUsergroup (new Guid ("10de93c3-4d70-445a-8457-97beefd6809d"), "sCMS Guest");			
