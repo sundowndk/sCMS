@@ -348,52 +348,38 @@ namespace sCMS.Addin
 						case "new":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "global.new"));
-
-//							Global global = Global.FromAjaxRequest (request);
-//							global.Save ();
-//							global.ToAjaxRespons (result);
-
+							
+							result.Add (new Global (SNDK.Convert.StringToEnum<Enums.FieldType> (request.getValue<string> ("type")), request.getValue<string> ("name")));							
 							break;
 						}
 
 						case "load":
 						{
-//							Global global = Global.Load (new Guid (request.Key<string> ("id")));
-//							global.ToAjaxRespons (result);
-
+							result.Add (Global.Load (request.getValue<Guid> ("id")));
 							break;
 						}
 
 						case "save":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "global.save"));
-
-//							Global global = Global.FromAjaxRequest (request);
-//							global.Save ();
-
+							
+							request.getValue<Global> ("scms.global").Save ();
 							break;
 						}
 
 						case "delete":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "global.delete"));
-
-							Global.Delete (new Guid (request.Key<string> ("id")));
-
+							
+							Global.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
 
 						case "list":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "stylesheet.list"));
-
-//							List<Hashtable> globals = new List<Hashtable> ();
-//							foreach (Global global in Global.List ())
-//							{
-//								globals.Add (global.ToAjaxItem ());
-//							}
-//							result.Data.Add ("globals", globals);
-//
+							
+							result.Add (Global.List ());
 							break;
 						}
 					}

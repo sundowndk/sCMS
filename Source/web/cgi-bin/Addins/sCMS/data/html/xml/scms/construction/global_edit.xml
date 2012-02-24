@@ -9,10 +9,8 @@
 						</panel>					
 						<panel size="*">
 							<dropbox tag="type" width="100%">
-								<item label="Hostname" value="Hostname" selected="true"/>
-								<item label="Language" value="Language" />
-								<item label="Client" value="Client" />
-								<item label="OS" value="OS" />
+								<item label="String" value="String" selected="true"/>
+								<item label="Text" value="Text" />								
 							</dropbox>
 						</panel>					
 					</layoutbox>
@@ -20,10 +18,10 @@
 				<panel size="%elementheight%">
 					<layoutbox type="vertical">
 						<panel size="100px">
-							<label text="Data"/>
+							<label text="Name"/>
 						</panel>					
 						<panel size="*">
-							<textbox tag="data" width="100%" />
+							<textbox tag="name" width="100%" />
 						</panel>					
 					</layoutbox>
 				</panel>				

@@ -1,6 +1,9 @@
 <solution name="sCMS" outputdirectory="">	
 	<project name="scms">
 		<class name="sCMS">	
+			<class name="global">
+				<js file="javascript/global.js" />
+			</class>				
 			<class name="root">
 				<js file="javascript/root.js" />
 			</class>		

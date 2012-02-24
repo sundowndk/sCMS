@@ -167,6 +167,11 @@ namespace sCMS
 				throw new Exception (Strings.Exception.FieldFromXMLDocument);
 			}
 			
+			if (item.ContainsKey ("type"))
+			{
+				result._type = SNDK.Convert.StringToEnum<Enums.FieldType> ((string)item["type"]);
+			}
+			
 			if (item.ContainsKey ("name"))
 			{
 				result._name = (string)item["name"];
@@ -177,10 +182,10 @@ namespace sCMS
 				result._sort = int.Parse ((string)item["sort"]);
 			}
 			
-			if (item.ContainsKey ("options"))
-			{
-				result._options = (Hashtable)item["options"];
-			}
+//			if (item.ContainsKey ("options"))
+//			{
+//				result._options = (Hashtable)item["options"];
+//			}
 
 			return result;
 		}				

@@ -9,6 +9,11 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								 						
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.globalcreate.setAttribute ("onClick", global.create);
+						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
+						UI.elements.content.globaldelete.setAttribute ("onClick", global.delete);
+					
 						UI.elements.content.stylesheets.setAttribute ("onChange", UI.onChange);										
 						UI.elements.content.stylesheetcreate.setAttribute ("onClick", stylesheet.create);
 						UI.elements.content.stylesheetedit.setAttribute ("onClick", stylesheet.edit);
@@ -25,6 +30,7 @@
 	
 	UI.set =		function ()
 					{													
+						UI.elements.content.globals.setItems (sCMS.global.list ());
 						UI.elements.content.stylesheets.setItems (sCMS.stylesheet.list ());
 						UI.elements.content.roots.setItems (sCMS.root.list ());
 						
@@ -33,6 +39,17 @@
 				
 	UI.onChange = 	function ()
 					{			
+						if (UI.elements.content.globals.getItem ())
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", false);
+		 					UI.elements.content.globaldelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", true);
+		 					UI.elements.content.globaldelete.setAttribute ("disabled", true);
+		 				}		 	
+					
 						if (UI.elements.content.stylesheets.getItem ())
 		 				{
 		 					UI.elements.content.stylesheetedit.setAttribute ("disabled", false);

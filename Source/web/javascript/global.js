@@ -1,41 +1,43 @@
-// Delay before executing asyncronis request.
-_asyncdelay : 10,
-
-create : function (global)
+new : function (type, name)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.New", "data", "POST", false);		
-	request.send (global);
+	var content = new Array ();
+	content["type"] = type;
+	content["name"] = name;
 
-	return request.respons ();
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.New", "data", "POST", false);		
+	request.send (content);
+
+	return request.respons ()["scms.global"];
 },		
 
 load : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.Load", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.Load", "data", "POST", false);	
 	request.send (content);
 
-	return request.respons ();
+	return request.respons ()["scms.global"];
 },
 
 save : function (global)
 {					
+	var content = new Array ();
+	content["scms.global"] = global;
+
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.Save", "data", "POST", false);						
-	request.send (global);
+	request.send (content);
 					
 	return true;
 },
 
-remove : function (id)
+delete : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.Delete", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.Delete", "data", "POST", false);	
 	request.send (content);
 
 	return true;					
@@ -46,6 +48,5 @@ list : function ()
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Global.List", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ()["globals"];
-}
+	return request.respons ()["scms.globals"];
 }

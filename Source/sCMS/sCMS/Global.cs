@@ -287,9 +287,9 @@ namespace sCMS
 					result = Load (new Guid ((string)item["id"]));
 				}
 				catch
-				{
+				{					
 					result = new Global ();
-					result._id = new Guid ((string)item["id"]);
+					result._id = new Guid ((string)item["id"]);					
 				}
 			}
 			else
@@ -317,7 +317,7 @@ namespace sCMS
 			{
 				result._content = Content.FromXmlDocument ((XmlDocument)item["content"]);
 			}
-
+			
 			return result;
 		}				
 		#endregion

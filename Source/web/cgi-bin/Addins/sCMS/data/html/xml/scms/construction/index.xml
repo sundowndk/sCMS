@@ -29,7 +29,25 @@
 					</tab>	
 					<tab label="Collections">
 					</tab>
-					<tab label="Globals">
+					<tab label="Globals" selected="true">
+						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+							<panel size="*">
+								<listview tag="globals" width="100%" height="100%">
+									<column tag="id" />		
+									<column tag="name" label="Name" width="200px" visible="true" />								
+									<column tag="type" label="Type" width="150px" visible="true" />									
+								</listview>
+							</panel>
+							<panel size="100px">
+								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+									<panel size="*">
+										<button tag="globalcreate" width="100%" label="Create" disabled="false"/>
+										<button tag="globaledit" width="100%" label="Edit" disabled="true"/>
+										<button tag="globaldelete" width="100%" label="Delete" disabled="true"/>
+									</panel>
+								</layoutbox>				
+							</panel>
+						</layoutbox>												
 					</tab>					
 					<tab label="Stylesheets">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
