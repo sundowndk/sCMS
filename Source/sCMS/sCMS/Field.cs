@@ -153,7 +153,7 @@ namespace sCMS
 			{
 				item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			}
-			
+									
 			try
 			{
 				result._id = new Guid ((string)item["id"]);

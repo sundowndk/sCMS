@@ -252,29 +252,22 @@ namespace sCMS.Addin
 						case "new":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collectionschema.new"));
-
-//							CollectionSchema collectionschema = CollectionSchema.FromAjaxRequest (request);
-//							collectionschema.Save ();
-//							collectionschema.ToAjaxResponse (result);
-
+																					
+							result.Add (new CollectionSchema (request.getValue<string>("title")));
 							break;
 						}
 
 						case "load":
 						{
-//							CollectionSchema collectionschema = CollectionSchema.Load (new Guid (request.Key<string> ("id")));
-//							collectionschema.ToAjaxResponse (result);
-
+							result.Add (CollectionSchema.Load (request.getValue<Guid> ("id")));
 							break;
 						}
 
 						case "save":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collectionschema.save"));
-
-//							CollectionSchema collectionschema = CollectionSchema.FromAjaxRequest (request);
-//							collectionschema.Save ();
-
+							
+							request.getValue<CollectionSchema> ("scms.collectionschema").Save ();
 							break;
 						}
 
@@ -282,8 +275,7 @@ namespace sCMS.Addin
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collectionschema.delete"));
 
-							CollectionSchema.Delete (new Guid (request.Key<string> ("id")));
-
+							CollectionSchema.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
 
@@ -291,13 +283,7 @@ namespace sCMS.Addin
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collectionschema.list"));
 
-							List<Hashtable> collectionschemas = new List<Hashtable> ();
-							foreach (CollectionSchema collectionschema in CollectionSchema.List ())
-							{
-//								collectionschemas.Add (collectionschema.ToAjaxItem ());
-							}
-							result.Data.Add ("collectionschemas", collectionschemas);
-
+							result.Add (CollectionSchema.List ());
 							break;
 						}
 					}
@@ -340,6 +326,43 @@ namespace sCMS.Addin
 					}
 					break;
 				#endregion
+					
+				#region sCMS.Javascript
+				case "scms.javascript":
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new Javascript (request.getValue<string> ("title")));
+							break;
+						}
+
+						case "load":
+						{
+							result.Add (Javascript.Load (request.getValue<string> ("id")));
+							break;
+						}
+
+						case "save":
+						{
+							request.getValue<Javascript> ("scms.javascript").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							Javascript.Delete (request.getValue<string> ("id"));
+							break;
+						}
+
+						case "list":
+						{
+							result.Add (Javascript.List ());
+							break;
+						}
+					}
+					break;
+				#endregion					
 //
 				#region sCMS.Global
 				case "scms.global":

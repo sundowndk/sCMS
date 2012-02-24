@@ -1,19 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_global.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_javascript.stpl">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_global.stpl" Line="87" Column="10" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/index.xml" Line="32" Column="41" />
-      <File FileName="sCMS/sCMS/Global.cs" Line="311" Column="35" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script.stpl" Line="50" Column="41" />
-      <File FileName="web/javascript/global.js" Line="1" Column="1" />
-      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="383" Column="14" />
-      <File FileName="web/javascript.jsb" Line="5" Column="32" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/root_create.xml" Line="1" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/global_edit.xml" Line="37" Column="21" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_root_rootfilter.stpl" Line="123" Column="1" />
-      <File FileName="sCMS/sCMS/Field.cs" Line="164" Column="70" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_root.stpl" Line="158" Column="144" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_javascript.stpl" Line="139" Column="98" />
+      <File FileName="sCMS/sCMS/Javascript.cs" Line="152" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

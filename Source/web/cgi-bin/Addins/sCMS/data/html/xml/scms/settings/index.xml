@@ -119,6 +119,99 @@
 							</layoutbox>
 						</panel>
 					</layoutbox>										
+				</tab>		
+				<tab label="Javascripts">
+					<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+						<panel size="*">
+							<layoutbox type="horizontal">										
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Path"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsjavascriptpath" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="URL"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsjavascripturl" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>		
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Extension"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsjavascriptfileextension" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="HTML Tag"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsjavascripthtmltag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>									
+								<panel size="*">
+									<text text=""/>
+								</panel>									
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Encoding"/>
+										</panel>					
+										<panel size="*">
+											<dropbox tag="scmsjavascriptencoding" width="100%">
+												<item value="UTF-8" label="UTF-8" />				
+												<item value="ISO-8859-15" label="ISO-8859-15"/>										
+											</dropbox>											
+										</panel>					
+									</layoutbox>
+								</panel>																				
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Placeholder tag"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="scmsjavascriptplaceholdertag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>							
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+							</layoutbox>
+						</panel>
+					</layoutbox>										
 				</tab>								
 			</tabview>
 		</panel>	

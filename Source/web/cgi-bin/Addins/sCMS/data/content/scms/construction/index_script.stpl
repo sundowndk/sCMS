@@ -1,7 +1,9 @@
 <script language="JavaScript">
 
+	<%Include ("index_script_collectionschema.stpl")%>
 	<%Include ("index_script_global.stpl")%>
 	<%Include ("index_script_stylesheet.stpl")%>
+	<%Include ("index_script_javascript.stpl")%>
 	<%Include ("index_script_root.stpl")%>
 
 	// ##########################################################################################################################################
@@ -9,6 +11,11 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								 						
+						UI.elements.content.collectionschemas.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.collectionschemacreate.setAttribute ("onClick", collectionSchema.create);
+						UI.elements.content.collectionschemaedit.setAttribute ("onClick", collectionSchema.edit);
+						UI.elements.content.collectionschemadelete.setAttribute ("onClick", collectionSchema.delete);
+					
 						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);											
 						UI.elements.content.globalcreate.setAttribute ("onClick", global.create);
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
@@ -18,6 +25,11 @@
 						UI.elements.content.stylesheetcreate.setAttribute ("onClick", stylesheet.create);
 						UI.elements.content.stylesheetedit.setAttribute ("onClick", stylesheet.edit);
 						UI.elements.content.stylesheetdelete.setAttribute ("onClick", stylesheet.delete);
+						
+						UI.elements.content.javascripts.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.javascriptcreate.setAttribute ("onClick", javascript.create);
+						UI.elements.content.javascriptedit.setAttribute ("onClick", javascript.edit);
+						UI.elements.content.javascriptdelete.setAttribute ("onClick", javascript.delete);
 						
 						UI.elements.content.roots.setAttribute ("onChange", UI.onChange);										
 						UI.elements.content.rootcreate.setAttribute ("onClick", root.create);
@@ -30,8 +42,10 @@
 	
 	UI.set =		function ()
 					{													
+						UI.elements.content.collectionschemas.setItems (sCMS.collectionSchema.list ());
 						UI.elements.content.globals.setItems (sCMS.global.list ());
 						UI.elements.content.stylesheets.setItems (sCMS.stylesheet.list ());
+						UI.elements.content.javascripts.setItems (sCMS.javascript.list ());
 						UI.elements.content.roots.setItems (sCMS.root.list ());
 						
 						UI.onChange ();
@@ -39,6 +53,17 @@
 				
 	UI.onChange = 	function ()
 					{			
+						if (UI.elements.content.collectionschemas.getItem ())
+		 				{
+		 					UI.elements.content.collectionschemaedit.setAttribute ("disabled", false);
+		 					UI.elements.content.collectionschemadelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.collectionschemaedit.setAttribute ("disabled", true);
+		 					UI.elements.content.collectionschemadelete.setAttribute ("disabled", true);
+		 				}					
+					
 						if (UI.elements.content.globals.getItem ())
 		 				{
 		 					UI.elements.content.globaledit.setAttribute ("disabled", false);
@@ -59,7 +84,18 @@
 		 				{
 		 					UI.elements.content.stylesheetedit.setAttribute ("disabled", true);
 		 					UI.elements.content.stylesheetdelete.setAttribute ("disabled", true);
-		 				}		 	
+		 				}		
+		 				
+						if (UI.elements.content.javascripts.getItem ())
+		 				{
+		 					UI.elements.content.javascriptedit.setAttribute ("disabled", false);
+		 					UI.elements.content.javascriptdelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.javascriptedit.setAttribute ("disabled", true);
+		 					UI.elements.content.javascriptdelete.setAttribute ("disabled", true);
+		 				}		 				 	 	
 		 				
 		 				if (UI.elements.content.roots.getItem ())
 		 				{

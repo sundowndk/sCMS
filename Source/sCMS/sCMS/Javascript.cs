@@ -1,5 +1,5 @@
 //
-// Stylesheet.cs
+// Javascript.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -35,7 +35,7 @@ using SNDK;
 
 namespace sCMS
 {
-	public class Stylesheet
+	public class Javascript
 	{
 		#region Private Fields
 		private string _filename;
@@ -77,7 +77,7 @@ namespace sCMS
 				{
 					try
 					{
-						foreach (string line in SNDK.IO.ReadTextFile (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetpath) + this._filename, Encoding.GetEncoding (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetencoding))))
+						foreach (string line in SNDK.IO.ReadTextFile (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptpath) + this._filename, Encoding.GetEncoding (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptencoding))))
 						{
 							this._content += line +"\n";
 						}
@@ -85,7 +85,7 @@ namespace sCMS
 					catch
 					{
 						this._content = string.Empty;
-						SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.StylesheetLoadContent, this.Filename));
+						SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.JavascriptLoadContent, this.Filename));
 					}
 					this._contentloaded = true;
 				}
@@ -101,16 +101,16 @@ namespace sCMS
 		#endregion
 
 		#region Constructor
-		public Stylesheet (string Title)
+		public Javascript (string Title)
 		{
-			this._filename = Path.GetFileNameWithoutExtension (Helpers.MakeStringURLSafe (Title)) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension);
+			this._filename = Path.GetFileNameWithoutExtension (Helpers.MakeStringURLSafe (Title)) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascriptfileextension);
 			this._content = string.Empty;
 			this._contentloaded = false;
 
-			this._filename = SNDK.IO.IncrementFilename (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetpath) + this._filename);
+			this._filename = SNDK.IO.IncrementFilename (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptpath) + this._filename);
 		}
 
-		private Stylesheet ()
+		private Javascript ()
 		{
 			this._filename = string.Empty;
 			this._content = string.Empty;
@@ -121,7 +121,7 @@ namespace sCMS
 		#region Public Methods
 		public void Save ()
 		{
-			SNDK.IO.WriteTextFile (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetpath) + this._filename, this._content, Encoding.GetEncoding (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetencoding)));
+			SNDK.IO.WriteTextFile (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptpath) + this._filename, this._content, Encoding.GetEncoding (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptencoding)));
 		}
 		
 		public XmlDocument ToXmlDocument ()
@@ -138,35 +138,34 @@ namespace sCMS
 		#endregion
 
 		#region Public Static Methods
-		public static Stylesheet Load (string Id)
+		public static Javascript Load (string Id)
 		{
-			Stylesheet stylesheet = new Stylesheet ();
-			stylesheet._filename = Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension);
-
-			return stylesheet;
+			Javascript result = new Javascript ();
+			result._filename = Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascriptfileextension);
+			return result;
 		}
 
 		public static void Delete (string Id)
 		{
 			try
 			{
-				File.Delete (SorentoLib.Services.Config.Get<string> (sCMS.Enums.ConfigKey.scms_stylesheetpath) + Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheetfileextension));
+				File.Delete (SorentoLib.Services.Config.Get<string> (sCMS.Enums.ConfigKey.scms_javascriptpath) + Path.GetFileNameWithoutExtension (Id) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascriptfileextension));
 			}
 			catch (Exception exception)
 			{
 				// LOG: LogDebug.ExceptionUnknown
-				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.STYLESHEET", exception.Message));
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.JAVASCRIPT", exception.Message));
 				
-				// EXCEPTION: Exception.StylesheetDelete
-				throw new Exception (string.Format (Strings.Exception.StylesheetDelete, Id.ToString ()));
+				// EXCEPTION: Exception.JavascriptDelete
+				throw new Exception (string.Format (Strings.Exception.JavascriptDelete, Id.ToString ()));
 			}							
 		}
 
-		public static List<Stylesheet> List ()
+		public static List<Javascript> List ()
 		{
-			List<Stylesheet> result = new List<Stylesheet> ();
+			List<Javascript> result = new List<Javascript> ();
 
-			foreach (string path in Directory.GetFiles (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_stylesheetpath)))
+			foreach (string path in Directory.GetFiles (SorentoLib.Services.Config.Get<string>(sCMS.Enums.ConfigKey.scms_javascriptpath)))
 			{
 				try
 				{
@@ -174,21 +173,21 @@ namespace sCMS
 				}
 				catch
 				{
-					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.StylesheetList, path));
+					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.JavascriptList, path));
 				}
 			}
 
 			return result;
 		}
 		
-		public static Stylesheet FromXmlDocument (XmlDocument xmlDocument)
+		public static Javascript FromXmlDocument (XmlDocument xmlDocument)
 		{
 			Hashtable item;
-			Stylesheet result;
+			Javascript result;
 			
 			try
 			{				
-				item = (Hashtable)SNDK.Convert.FromXmlDocument (SNDK.Convert.XmlNodeToXmlDocument (xmlDocument.SelectSingleNode ("(//scms.stylesheet)[1]")));
+				item = (Hashtable)SNDK.Convert.FromXmlDocument (SNDK.Convert.XmlNodeToXmlDocument (xmlDocument.SelectSingleNode ("(//scms.javascript)[1]")));
 			}
 			catch
 			{
@@ -203,7 +202,7 @@ namespace sCMS
 				}
 				catch
 				{
-					result = new Stylesheet ((string)item["id"]);
+					result = new Javascript ((string)item["id"]);
 				}
 			}
 			else
@@ -221,3 +220,4 @@ namespace sCMS
 		#endregion
 	}
 }
+

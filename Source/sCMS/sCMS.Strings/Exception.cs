@@ -101,10 +101,15 @@ namespace sCMS.Strings
 		public static string CollectionSchemaFromXMLDocument = "Failed to create COLLECTIONSCHEMA from XMLDocument.";
 		#endregion
 		
-		#region STYLESHEET
+		#region Javascript
 		public static string StylesheetFromXMLDocument = "Failed to create STYLESHEET from XMLDocument.";
 		public static string StylesheetDelete = "Could not delete STYLESHEET with id: {0}";
 		#endregion
+		
+		#region Javascript
+		public static string JavascriptFromXMLDocument = "Failed to create JAVASCRIPT from XMLDocument.";
+		public static string JavascriptDelete = "Could not delete JAVASCRIPT with id: {0}";
+		#endregion		
 		
 		#region RESOLVER
 		public static string ResolverMethodNotFound = "[sCMS]: Method {0} was not found.";

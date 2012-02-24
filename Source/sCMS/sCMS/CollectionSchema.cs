@@ -322,8 +322,14 @@ namespace sCMS
 				result._updatetimestamp = int.Parse ((string)item["updatetimestamp"]);
 			}				
 			
+			if (item.ContainsKey ("title"))
+			{					
+				result._title = (string)item["title"];
+			}			
+			
 			if (item.ContainsKey ("fields"))
 			{
+				result._fields.Clear ();
 				foreach (XmlDocument field in (List<XmlDocument>)item["fields"])
 				{
 					result._fields.Add (Field.FromXmlDocument (field));

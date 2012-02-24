@@ -27,9 +27,26 @@
 							</panel>
 						</layoutbox>												
 					</tab>	
-					<tab label="Collections">
+					<tab label="Collections"  >
+						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+							<panel size="*">
+								<listview tag="collectionschemas" width="100%" height="100%">
+									<column tag="id" />		
+									<column tag="title" label="Title" width="200px" visible="true" />																	
+								</listview>
+							</panel>
+							<panel size="100px">
+								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+									<panel size="*">
+										<button tag="collectionschemacreate" width="100%" label="Create" disabled="false"/>
+										<button tag="collectionschemaedit" width="100%" label="Edit" disabled="true"/>
+										<button tag="collectionschemadelete" width="100%" label="Delete" disabled="true"/>
+									</panel>
+								</layoutbox>				
+							</panel>
+						</layoutbox>							
 					</tab>
-					<tab label="Globals" selected="true">
+					<tab label="Globals">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 							<panel size="*">
 								<listview tag="globals" width="100%" height="100%">
@@ -68,7 +85,24 @@
 							</panel>
 						</layoutbox>												
 					</tab>
-					<tab label="Javascript">
+					<tab label="Javascript" selected="true">
+						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+							<panel size="*">
+								<listview tag="javascripts" width="100%" height="100%">
+									<column tag="id" />											
+									<column tag="title" label="Title" width="200px" visible="true" />
+								</listview>
+							</panel>
+							<panel size="100px">
+								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+									<panel size="*">
+										<button tag="javascriptcreate" width="100%" label="Create" disabled="false"/>
+										<button tag="javascriptedit" width="100%" label="Edit" disabled="true"/>
+										<button tag="javascriptdelete" width="100%" label="Delete" disabled="true"/>
+									</panel>
+								</layoutbox>				
+							</panel>
+						</layoutbox>												
 					</tab>
 					<tab label="Roots">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">

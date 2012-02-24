@@ -32,6 +32,10 @@
     <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\settings\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\edit\" />
+    <Folder Include="javascript\modal\" />
+    <Folder Include="javascript\modal\edit\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript.jsb" />
@@ -63,5 +67,15 @@
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\root_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\root_rootfilter_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\global_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_collectionschema.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\collectionschema_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\collectionschema_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\edit\field.xml" />
+    <None Include="javascript\modal\edit\field.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_collectionschema_field.stpl" />
+    <None Include="javascript\javascript.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_javascript.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_edit.xml" />
   </ItemGroup>
 </Project>

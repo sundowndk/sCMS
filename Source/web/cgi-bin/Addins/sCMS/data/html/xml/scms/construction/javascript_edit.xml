@@ -1,6 +1,6 @@
 <sui elementheight="50px">
 	<canvas width="800px" height="400px" canScroll="false">	
-		<container title="Edit stylesheet" icon="Icon32Edit" stylesheet="SUIContainerModal">
+		<container title="Edit javascript" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 				<panel size="*">
 					<tabview>
@@ -45,6 +45,7 @@
 		</container>
 	</canvas>
 </sui>
+
 
 
 

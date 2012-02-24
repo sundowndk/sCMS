@@ -36,6 +36,12 @@ namespace sCMS.Enums
 		scms_stylesheetencoding,
 		scms_stylesheethtmltag,
 		scms_stylesheetplaceholdertag,
-		scms_templateplaceholdertag
+		scms_templateplaceholdertag,
+		scms_javascriptpath,
+		scms_javascripturl,
+		scms_javascriptfileextension,
+		scms_javascriptencoding,
+		scms_javascripthtmltag,
+		scms_javascriptplaceholdertag		
 	}
 }

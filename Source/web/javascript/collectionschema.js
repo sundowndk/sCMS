@@ -1,41 +1,42 @@
-// Delay before executing asyncronis request.
-_asyncdelay : 10,
-
-create : function (global)
+new : function (title)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.New", "data", "POST", false);		
-	request.send (global);
+	var content = new Array ();
+	content["title"] = title;
 
-	return request.respons ();
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.New", "data", "POST", false);		
+	request.send (content);
+
+	return request.respons ()["scms.collectionschema"];
 },		
 
 load : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.Load", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.Load", "data", "POST", false);	
 	request.send (content);
 
-	return request.respons ();
+	return request.respons ()["scms.collectionschema"];
 },
 
 save : function (collectionschema)
 {					
+	var content = new Array ();
+	content["scms.collectionschema"] = collectionschema
+
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.Save", "data", "POST", false);						
-	request.send (collectionschema);
+	request.send (content);
 					
 	return true;
 },
 
-remove : function (id)
+delete : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.Delete", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.Delete", "data", "POST", false);	
 	request.send (content);
 
 	return true;					
@@ -46,5 +47,5 @@ list : function ()
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.CollectionSchema.List", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ()["collectionschemas"];
+	return request.respons ()["scms.collectionschemas"];
 }

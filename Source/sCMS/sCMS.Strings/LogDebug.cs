@@ -54,10 +54,15 @@ namespace sCMS.Strings
 		public static string CollectionSchemaList = "[sCMS.COLLECTIONSCHEMA]: Cannot load COLLECTIONSCHEMA with id: {0}, will be excluded from list.";
 		#endregion
 
-		#region STYLESHEET
+		#region Stylesheet
 		public static string StylesheetLoadContent = "[sCMS.STYLESHEET]: Cannot load content for stylesheet: {0}";
 		public static string StylesheetList = "[sCMS.STYLEHSEET]: Cannot load STYLESHEET with path: '{0}', will be excluded from list.";
 		#endregion
+		
+		#region Javascript
+		public static string JavascriptLoadContent = "[sCMS.JAVASCRIPT]: Cannot load content for javascript: {0}";
+		public static string JavascriptList = "[sCMS.JAVASCRIPT]: Cannot load JAVASCRIPT with path: '{0}', will be excluded from list.";
+		#endregion		
 
 	}
 }

@@ -6,132 +6,32 @@ var global =
 {
 	create : function ()
 	{
-		var _global = new Array ();
-		_global.type = "String";
-		_global.name = "";			
-		
-		global.edit ({current: _global});
-	},
+		var current = {};
 	
-	edit : function (attributes)
-	{						
-		if (!attributes) attributes = new Array ();
-																		
-		if (attributes.current != null)
-		{				
-			attributes.mode = "create";
-		}
-		else
-		{	
-			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);			
-			attributes.mode = "edit";
-		}	
-										
-		// BUTTON1
-		var button1 = 	function ()
+		var onDone = 	function (field)
 						{
-							var item = get ();
-							
-							switch (attributes.mode)
-							{
-								case "create":
-								{																	
-									item = sCMS.global.new (item.type, item.name);	
-									sCMS.global.save (item);							
-									UI.elements.content.globals.addItem (item);							
-									break;
-								}	
-								
-								case "edit":
-								{
-									sCMS.global.save (item);
-									UI.elements.content.globals.setItem (item);
-									break;
-								}					
-							}							
-																
-							modal.dispose ();		
-						};			
-			
-		// ONCHANGE
-		var onChange =	function ()
-						{													
-							if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
-							{
-								modal.getUIElement ("button1").setAttribute ("disabled", false);
-							}
-							else
-							{
-								modal.getUIElement ("button1").setAttribute ("disabled", true);
-							}										
-						};							
-															
-		// SET	
-		var set =		function ()
-						{
-							modal.getUIElement ("type").setAttribute ("selectedItemByValue", attributes.current.type);						
-							modal.getUIElement ("name").setAttribute ("value", attributes.current.name);
-							
-							switch (attributes.mode)
-							{
-								case "create":
-								{
-									modal.getUIElement ("container").setAttribute ("title", "Create global");
-									modal.getUIElement ("button1").setAttribute ("label", "Create");
-									break;
-								}
-								
-								case "edit":
-								{
-									modal.getUIElement ("container").setAttribute ("title", "Edit global");
-									modal.getUIElement ("type").setAttribute ("disabled", true);
-									modal.getUIElement ("button1").setAttribute ("label", "Save");
-									break;
-								}
-							}
+							current = sCMS.global.new (field.type, field.name);
+							sCMS.global.save (current);
+																				
+							UI.elements.content.globals.addItem (sCMS.global.load (current.id));	
 						};
 						
-		// GET
-		var get =		function ()
+		sCMS.modal.edit.field ({title: "Create field", button1Label: "Create", button2Label: "Close", onDone: onDone});
+	},
+	
+	edit : function ()
+	{	
+		var current = sCMS.global.load (UI.elements.content.globals.getItem ().id);
+	
+		var onDone = 	function (field)
 						{
-							var item = {};
-							item.id = attributes.current.id;
-							item.createtimestamp = attributes.current.createtimestamp;
-							item.updatetimestamp = attributes.current.updatetimestamp;
-							item.field = attributes.current.field;
-							item.content = attributes.current.content;
-							
-							item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;
-							item.name = modal.getUIElement ("name").getAttribute ("value");
-							
-							if (attributes.current.field) 
-							{
-								item.field.type = item.type;
-							}
-							
-							if (attributes.current.content)
-							{	
-								item.field.name = item.name;							
-							}
-							
-							return item;
-						};						
-																																															
-																																														
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/global_edit.xml"});
+							current.field = field;
+							sCMS.global.save (current);							
 						
-		modal.getUIElement ("type").setAttribute ("onChange", onChange);
-		modal.getUIElement ("name").setAttribute ("onChange", onChange);
-																																									
-		modal.getUIElement ("button1").setAttribute ("onClick", button1);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-		
-		// SET
-		set ();
-		
-		// SHOW
-		modal.show ();		
+							UI.elements.content.globals.setItem (sCMS.global.load (current.id));	
+						};
+												
+		sCMS.modal.edit.field ({field: current.field, title: "Edit field", button1Label: "Save", button2Label: "Close", onDone: onDone});												
 	},
 	
 	delete : function ()

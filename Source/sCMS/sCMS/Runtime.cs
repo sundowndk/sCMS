@@ -92,12 +92,20 @@ namespace sCMS
 		private static void SetDefaults ()
 		{			
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_templateplaceholdertag, "[PLACEHOLDER_STYLESHEETS]");
+			
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheetpath, "../../html/css/");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheetfileextension, ".css");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheeturl, "/css/");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheethtmltag, "<link rel=\"stylesheet\" href=\"{0}\" type=\"text/css\" />");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheetencoding, "ISO-8859-15");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_stylesheetplaceholdertag, "[PLACEHOLDER_STYLESHEETS]");
+			
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptpath, "../../html/js/");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptfileextension, ".js");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascripturl, "/js/");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascripthtmltag, "<script language=\"JavaScript\" type=\"text/javascript\" src=\"{0}\"></script>");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptencoding, "ISO-8859-15");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptplaceholdertag, "[PLACEHOLDER_JAVASCRIPTS]");
 		}
 	}
 }

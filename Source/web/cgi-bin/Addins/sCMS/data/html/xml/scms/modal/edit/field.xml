@@ -1,0 +1,45 @@
+<sui elementheight="50px">
+	<canvas width="600px" height="230px" canScroll="false">	
+		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+				<panel size="%elementheight%">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Name"/>
+						</panel>					
+						<panel size="*">
+							<textbox tag="name" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>				
+				<panel size="%elementheight%">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Type"/>
+						</panel>					
+						<panel size="*">
+							<dropbox tag="type" width="100%">
+								<item label="String" value="String" selected="true"/>
+								<item label="Text" value="Text" />								
+							</dropbox>
+						</panel>					
+					</layoutbox>
+				</panel>												
+				<panel size="*">
+				</panel>
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="*">
+						</panel>
+						<panel size="210px">
+							<button tag="button1" label="" width="100px" disabled="true"/>
+							<button tag="button2" label="" width="100px" />
+						</panel>						
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+

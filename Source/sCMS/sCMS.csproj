@@ -53,12 +53,12 @@
       <HintPath>..\Lib\sConsole.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4423.39294, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4416.25851, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4429.37565, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SorentoLib, Version=1.0.4436.19629, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
@@ -89,6 +89,7 @@
     <Compile Include="sCMS\Template.cs" />
     <Compile Include="sCMS\Page.cs" />
     <Compile Include="sCMS.Addin\Render.cs" />
+    <Compile Include="sCMS\Javascript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sCMS\" />
