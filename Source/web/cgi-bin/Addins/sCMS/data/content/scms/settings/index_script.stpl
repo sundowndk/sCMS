@@ -32,8 +32,8 @@
 	UI.set =		function ()
 					{		
 						current = sorentoLib.services.config.get ({keys: [	"scms_templateplaceholdertag", 
-																			"scms_stylesheetpath", "scms_stylesheeturl", "scms_stylesheetencoding", "scms_stylesheetplaceholdertag", "scms_stylesheetfileextension", "scms_stylesheethtmltag"]
-																			"scms_javascriptpath", "scms_javascripturl", "scms_javascriptencoding", "scms_javascriptplaceholdertag", "scms_javascriptfileextension", "scms_javascriptthtmltag"]});
+																			"scms_stylesheetpath", "scms_stylesheeturl", "scms_stylesheetencoding", "scms_stylesheetplaceholdertag", "scms_stylesheetfileextension", "scms_stylesheethtmltag",
+																			"scms_javascriptpath", "scms_javascripturl", "scms_javascriptencoding", "scms_javascriptplaceholdertag", "scms_javascriptfileextension", "scms_javascripthtmltag"]});
 					
 						UI.elements.content.scmstemplateplaceholdertag.setAttribute ("value", current.scms_templateplaceholdertag);
 												

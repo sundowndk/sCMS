@@ -77,5 +77,6 @@
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_javascript.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_create.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template.stpl" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 <script language="JavaScript">
 
+	<%Include ("index_script_template.stpl")%>
 	<%Include ("index_script_collectionschema.stpl")%>
 	<%Include ("index_script_global.stpl")%>
 	<%Include ("index_script_stylesheet.stpl")%>
@@ -11,6 +12,11 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								 						
+						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.templatecreate.setAttribute ("onClick", template.create);
+						UI.elements.content.templateedit.setAttribute ("onClick", template.edit);
+						UI.elements.content.templatedelete.setAttribute ("onClick", template.delete);
+					
 						UI.elements.content.collectionschemas.setAttribute ("onChange", UI.onChange);											
 						UI.elements.content.collectionschemacreate.setAttribute ("onClick", collectionSchema.create);
 						UI.elements.content.collectionschemaedit.setAttribute ("onClick", collectionSchema.edit);
@@ -41,7 +47,8 @@
 					};
 	
 	UI.set =		function ()
-					{													
+					{	
+						UI.elements.content.templates.setItems (sCMS.template.list ());												
 						UI.elements.content.collectionschemas.setItems (sCMS.collectionSchema.list ());
 						UI.elements.content.globals.setItems (sCMS.global.list ());
 						UI.elements.content.stylesheets.setItems (sCMS.stylesheet.list ());
@@ -52,7 +59,18 @@
 					};
 				
 	UI.onChange = 	function ()
-					{			
+					{		
+						if (UI.elements.content.templates.getItem ())
+		 				{
+		 					UI.elements.content.templateedit.setAttribute ("disabled", false);
+		 					UI.elements.content.templatedelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.templateedit.setAttribute ("disabled", true);
+		 					UI.elements.content.templatedelete.setAttribute ("disabled", true);
+		 				}					
+							
 						if (UI.elements.content.collectionschemas.getItem ())
 		 				{
 		 					UI.elements.content.collectionschemaedit.setAttribute ("disabled", false);

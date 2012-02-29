@@ -1,11 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_javascript.stpl">
-    <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_javascript.stpl" Line="139" Column="98" />
-      <File FileName="sCMS/sCMS/Javascript.cs" Line="152" Column="5" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
