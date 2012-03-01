@@ -3,18 +3,19 @@
 		<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 			<panel size="*">
 				<tabview>
-					<tab label="Templates">
+					<tab label="Templates" selected="true">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 							<panel size="*">
-								<listview tag="templates" width="100%" height="100%">
-									<column tag="id" />		
-									<column tag="title" label="" width="70px" visible="true" />																	
+								<listview tag="templates" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">
+									<column tag="id" />									
+									<column tag="title" label="Title" width="250px" visible="true" />									
+									<column tag="parentid" />
 								</listview>
 							</panel>
 							<panel size="100px">
 								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 									<panel size="*">
-										<button tag="templatecreate" width="100%" label="Create" disabled="true"/>
+										<button tag="templatecreate" width="100%" label="Create" disabled="false"/>
 										<button tag="templateedit" width="100%" label="Edit" disabled="true"/>
 										<button tag="templatedelete" width="100%" label="Delete" disabled="true"/>
 									</panel>
@@ -66,7 +67,7 @@
 							<panel size="*">
 								<listview tag="stylesheets" width="100%" height="100%">
 									<column tag="id" />											
-									<column tag="title" label="Filename" width="200px" visible="true" />
+									<column tag="title" label="Title" width="200px" visible="true" />
 								</listview>
 							</panel>
 							<panel size="100px">

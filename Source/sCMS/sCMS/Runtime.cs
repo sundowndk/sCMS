@@ -72,6 +72,10 @@ namespace sCMS
 				}
 										
 				Include.Add (sConsole.Enums.IncludeType.Javascript, "/js/scms.js", "SCMS", 101);
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/css/css.js", "SCMS", 101);
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/javascript/javascript.js", "SCMS", 101);
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/htmlmixed/htmlmixed.js", "SCMS", 101);								
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/xml/xml.js", "SCMS", 101);	
 			
 				// Set default usergroups
 //			UsergroupGuest = Usergroup.AddBuildInUsergroup (new Guid ("10de93c3-4d70-445a-8457-97beefd6809d"), "sCMS Guest");			

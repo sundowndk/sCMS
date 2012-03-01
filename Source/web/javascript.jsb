@@ -1,6 +1,9 @@
 <solution name="sCMS" outputdirectory="">	
 	<project name="scms">
 		<class name="sCMS">	
+			<class name="template">
+				<js file="javascript/template.js" />
+			</class>				
 			<class name="collectionSchema">
 				<js file="javascript/collectionschema.js" />
 			</class>				
@@ -23,6 +26,10 @@
 				<class name="edit">
 					<js file="javascript/modal/edit/field.js" />					
 				</class>
+				<class name="chooser">				
+					<js file="javascript/modal/chooser/stylesheet.js" />
+					<js file="javascript/modal/chooser/javascript.js" />
+				</class>								
 			</class>			
 		</class>
 	</project>	

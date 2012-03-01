@@ -49,66 +49,52 @@ namespace sCMS.Addin
 			
 			switch (Fullname.ToLower ())
 			{
-//				#region sCMS.Template
-//				case "scms.template":
-//				
-//					switch (Method.ToLower ())
-//					{
-//						
-//						case "new":
-//						{
-//					//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.new"));
-//					
-//							Template template = Template.FromAjaxRequest (request);
-//							template.Save ();
-//					template.ToAjaxRespons (result);
-//					
-//					break;
-//				}
-//
-//				case "load":
-//				{
-//					sCMS.Template template = Template.Load (new Guid (request.Key<string> ("id")));
-//					template.ToAjaxRespons (result);
-//					
-//					break;
-//				}
-//
-//						case "save":
-//						{
-////							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.save"));
-//
-//							Template template = Template.FromAjaxRequest (request);
-//							template.Save ();
-//
-//							break;
-//						}
-//
-//						case "delete":
-//						{
-////							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.delete"));
-//
-//							sCMS.Template.Delete (new Guid (request.Key<string> ("id")));
-//
-//							break;
-//						}
-//
-//						case "list":
-//						{
-////							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.list"));
-//
-//							List<Hashtable> templates = new List<Hashtable> ();
-//							foreach (Template template in Template.List ())
-//							{
-//								templates.Add (template.ToAjaxItem ());
-//							}
-//							result.Data.Add ("templates", templates);
-//
-//							break;
-//						}
-//					}
-//					break;
-//				#endregion
+				#region sCMS.Template
+				case "scms.template":
+				
+					switch (Method.ToLower ())
+					{
+						
+						case "new":
+						{
+//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.new"));
+					
+							result.Add (new Template ());
+							break;
+						}
+
+						case "load":
+						{
+							result.Add (Template.Load (request.getValue<Guid>("id")));
+							break;
+						}
+
+						case "save":
+						{
+//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.save"));
+							
+							request.getValue<Template> ("scms.template").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.delete"));
+							
+							Template.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{
+//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "template.list"));
+							
+							result.Add (Template.List ());
+							break;
+						}
+					}
+					break;
+				#endregion
 
 				#region sCMS.Root
 				case "scms.root":

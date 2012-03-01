@@ -1,0 +1,113 @@
+<sui elementheight="50px">
+	<canvas width="800px" height="450px" canScroll="false">	
+		<container title="Edit template" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+				<panel size="*">
+					<tabview>
+						<tab label="Details" selected="true">
+							<layoutbox type="horizontal">			
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Title"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="title" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>																									
+							</layoutbox>	
+						</tab>
+						<tab label="Content">
+							<layoutbox type="horizontal">			
+								<panel size="*">										
+									<textarea tag="content" width="100%" height="100%">
+										<codemirror lineNumbers="true" textWrapping="false" enterMode="keep" mode="htmlmixed"/>
+									</textarea>		
+								</panel>
+							</layoutbox>		
+						</tab>
+						<tab label="Fields">
+							<layoutbox type="horizontal">					
+								<panel size="*">													
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Fields" />
+										</panel>
+										<panel size="*">
+											<listview tag="fields" width="100%" height="100%">
+												<column tag="id" />
+												<column tag="name" label="Name" width="200px" visible="true" />
+												<column tag="type" label="Type" width="200px" visible="true" />	
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="fieldadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+											<button tag="fieldedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+											<button tag="fieldremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>														
+								</panel>
+							</layoutbox>
+						</tab>
+						<tab label="Includes">
+							<layoutbox type="horizontal">					
+								<panel size="*">													
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Stylesheets" />
+										</panel>
+										<panel size="*">
+											<listview tag="stylesheets" width="100%" height="100%">
+												<column tag="id" />
+												<column tag="title" label="Title" width="200px" visible="true" />												
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="stylesheetadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />											
+											<button tag="stylesheetremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>														
+								</panel>								
+								<panel size="*">													
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Javascripts" />
+										</panel>
+										<panel size="*">
+											<listview tag="javascripts" width="100%" height="100%">
+												<column tag="id" />
+												<column tag="title" label="Title" width="200px" visible="true" />												
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="javascriptadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />											
+											<button tag="javascriptremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>														
+								</panel>
+							</layoutbox>
+						</tab>						
+					</tabview>																	
+				</panel>
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="*">							
+						</panel>
+						<panel size="210px">
+							<button tag="save" label="Save" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>						
+					</layoutbox>
+				</panel>
+			</layoutbox>				
+		</container>
+	</canvas>
+</sui>
+
+
+
+
+
+
+

@@ -49,6 +49,7 @@ namespace sCMS
 		private string _content;
 		private List<Field> _fields;
 		private List<string> _stylesheetids;
+		private List<string> _javascriptids;
 		
 		private string _stylesheetidsasstring
 		{
@@ -71,6 +72,28 @@ namespace sCMS
 				}
 			}
 		}
+		
+		private string _javascriptidsasstring
+		{
+			get
+			{
+				string result = string.Empty;				
+				foreach (string id in this._javascriptids)
+				{
+					result += id +";";
+				}				
+				return result;
+			}
+			
+			set
+			{
+				this._javascriptids.Clear ();				
+				foreach (string id in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					this._javascriptids.Add (id);
+				}
+			}
+		}		
 		#endregion
 
 		#region Public Fields
@@ -170,6 +193,32 @@ namespace sCMS
 				return result;
 			}
 		}
+		
+		public List<Javascript> Javascripts
+		{
+			get
+			{
+				List<Javascript> result = new List<Javascript> ();
+				
+				foreach (string id in this._javascriptids)
+				{
+					try
+					{
+						result.Add (Javascript.Load (id));
+					}
+					catch (Exception exception)
+					{
+						// LOG: LogDebug.ExceptionUnknown
+						SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+						// LOG: LogDebug.JavascriptList
+						SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.JavascriptList, id));
+					}
+				}
+				
+				return result;
+			}
+		}		
  		#endregion
 
 		#region Public Constructors
@@ -183,6 +232,7 @@ namespace sCMS
 			this._content = string.Empty;
 			this._fields = new List<Field> ();
 			this._stylesheetids = new List<string> ();
+			this._javascriptids = new List<string> ();
 		}
 		#endregion
 
@@ -269,6 +319,31 @@ namespace sCMS
 			
 			return result;
 		}
+		
+		private List<string> CompileJavascript ()
+		{
+			List<string> result = new List<string> ();
+		
+			try
+			{														
+				if (this._parentid != Guid.Empty)
+				{
+					result.AddRange (Load (this._parentid).CompileJavascript ());
+				}
+				
+				result.AddRange (this._javascriptids);
+			}
+			catch (Exception exception)
+			{
+				// LOG: LogDebug.ExceptionUnknown
+				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.TEMPLATE", exception.Message));
+						
+				// EXCEPTION: Exception.TemplateCompileJavascript
+				throw new Exception (Strings.Exception.TemplateCompileJavascript);
+			}
+			
+			return result;
+		}		
 		#endregion
 
 		#region Public Methods
@@ -288,6 +363,7 @@ namespace sCMS
 				item.Add ("content", this._content);
 				item.Add ("fields", this._fields);
 				item.Add ("stylesheetids", this._stylesheetidsasstring);
+				item.Add ("javascriptids", this._javascriptidsasstring);
 					
 				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Convert.ToXmlDocument (item, this.GetType ().FullName.ToLower ()));
 			}
@@ -312,7 +388,16 @@ namespace sCMS
 				{
 					foreach (string id in this.CompileStylesheet ())
 					{
-						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheethtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheeturl) + id));
+						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheethtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascripturl) + id));
+					}
+					continue;
+				}
+				
+				if (line.Contains (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascriptplaceholdertag)))
+				{
+					foreach (string id in this.CompileJavascript ())
+					{
+						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascripthtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascripturl) + id));
 					}
 					continue;
 				}
@@ -332,6 +417,16 @@ namespace sCMS
 		{
 			this._stylesheetids.RemoveAll (delegate (string s) { return s == Id; });
 		}
+		
+		public void AddJavascript (Javascript Javascript)
+		{
+			this._stylesheetids.Add (Javascript.Id);
+		}
+		
+		public void RemoveJavascript (string Id)
+		{
+			this._javascriptids.RemoveAll (delegate (string s) { return s == Id; });
+		}		
 		
 		public void AddField (Field Field)
 		{
@@ -365,6 +460,7 @@ namespace sCMS
 			result.Add ("content", this._content);
 			result.Add ("fields", this._fields);
 			result.Add ("stylesheets", this.Stylesheets);
+			result.Add ("javascripts", this.Javascripts);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
@@ -408,7 +504,7 @@ namespace sCMS
 				}
 				
 				if (item.ContainsKey ("fields"))
-				{
+				{					
 					foreach (XmlDocument field in (List<XmlDocument>)item["fields"])
 					{
 						result._fields.Add (Field.FromXmlDocument (field));
@@ -419,6 +515,11 @@ namespace sCMS
 				{
 					result._stylesheetidsasstring = (string)item["stylesheetids"];
 				}				
+				
+				if (item.ContainsKey ("javascriptids"))
+				{
+					result._javascriptidsasstring = (string)item["javascriptids"];
+				}			
 			}
 			catch (Exception exception)
 			{
@@ -530,6 +631,7 @@ namespace sCMS
 			
 			if (item.ContainsKey ("fields"))
 			{
+				result._fields.Clear ();
 				foreach (XmlDocument field in (List<XmlDocument>)item["fields"])
 				{
 					result._fields.Add (Field.FromXmlDocument (field));
@@ -538,11 +640,21 @@ namespace sCMS
 			
 			if (item.ContainsKey ("stylesheets"))
 			{
+				result._stylesheetids.Clear ();
 				foreach (XmlDocument stylesheet in (List<XmlDocument>)item["stylesheets"])
 				{
 					result._stylesheetids.Add (Stylesheet.FromXmlDocument (stylesheet).Id);
 				}
-			}			
+			}	
+			
+			if (item.ContainsKey ("javascripts"))
+			{
+				result._javascriptids.Clear ();
+				foreach (XmlDocument javascript in (List<XmlDocument>)item["javascripts"])
+				{
+					result._javascriptids.Add (Stylesheet.FromXmlDocument (javascript).Id);
+				}
+			}	
 
 			return result;
 		}						

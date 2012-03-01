@@ -36,6 +36,8 @@
     <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\edit\" />
     <Folder Include="javascript\modal\" />
     <Folder Include="javascript\modal\edit\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\chooser\" />
+    <Folder Include="javascript\modal\chooser\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript.jsb" />
@@ -78,5 +80,12 @@
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_create.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\javascript_edit.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\template_create.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template_field.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\construction\template_edit.xml" />
+    <None Include="javascript\modal\chooser\stylesheet.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template_stylesheet.stpl" />
+    <None Include="javascript\modal\chooser\javascript.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template_javascript.stpl" />
   </ItemGroup>
 </Project>

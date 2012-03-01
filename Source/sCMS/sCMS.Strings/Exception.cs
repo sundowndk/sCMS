@@ -36,6 +36,7 @@ namespace sCMS.Strings
 		public static string TemplateFromXMLDocument = "Failed to create TEMPLATE from XMLDocument.";
 		public static string TemplateCompileContent = "Failed to compile template content.";
 		public static string TemplateCompileStylesheet = "Failed to compile template stylesheets.";
+		public static string TemplateCompileJavascript = "Failed to compile template javascripts.";
 		public static string TemplateCompileField = "Failed to compile template fields.";		
  		#endregion
 

@@ -1,6 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
+    <Files>
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_template.stpl" Line="24" Column="8" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/index.xml" Line="12" Column="33" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="78" Column="101" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index.stpl" Line="1" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/template_edit.xml" Line="25" Column="95" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/javascript_edit.xml" Line="27" Column="96" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/stylesheet_edit.xml" Line="27" Column="89" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/template_create.xml" Line="17" Column="24" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

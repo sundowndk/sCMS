@@ -11,14 +11,22 @@ var template =
 		// CREATE			
 		var create =	function ()
 						{
-							var item = get ();
+							//var item = get ();
 							modal.dispose ();
 							
-							item = sCMS.collectionSchema.new (item.title);
-							sCMS.collectionSchema.save (item);
-							UI.elements.content.collectionschemas.addItem (item);
+							var item = sCMS.template.new ();
+							item.title = get ().title
+							
+							if (UI.elements.content.templates.getItem () != null)
+							{
+								item.parentid = UI.elements.content.templates.getItem ().id;							
+							}
+							
+							sCMS.template.save (item);
+							
+							UI.elements.content.templates.addItem (item);
 								
-							collectionSchema.edit ({id: item.id});		
+							template.edit ({id: item.id});		
 						};			
 	
 		// ONCHANGE
@@ -60,21 +68,23 @@ var template =
 	
 		if (!attributes.id)
 		{
-			attributes.current = sCMS.collectionSchema.load (UI.elements.content.collectionschemas.getItem ().id);		
+			attributes.current = sCMS.template.load (UI.elements.content.templates.getItem ().id);		
 		}
 		else
 		{
-			attributes.current = sCMS.collectionSchema.load (attributes.id);
+			attributes.current = sCMS.template.load (attributes.id);
 		}
-		
-		<%Include ("index_script_collectionschema_field.stpl")%>
+				
+		<%Include ("index_script_template_field.stpl")%>
+		<%Include ("index_script_template_stylesheet.stpl")%>
+		<%Include ("index_script_template_javascript.stpl")%>
 	
 		// SAVE
 		var save = 		function ()
 						{
 							var item = get ();														
-							sCMS.collectionSchema.save (item);								
-							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
+							sCMS.template.save (item);								
+							UI.elements.content.templates.setItem (sCMS.template.load (item.id));
 																
 							modal.dispose ();		
 						};
@@ -83,7 +93,10 @@ var template =
 		var set =		function ()
 						{
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
-							modal.getUIElement ("fields").setItems (attributes.current.fields);
+							modal.getUIElement ("content").setAttribute ("value", attributes.current.content);
+							modal.getUIElement ("fields").setItems (attributes.current.fields);							
+							modal.getUIElement ("stylesheets").setItems (attributes.current.stylesheets);
+							modal.getUIElement ("javascripts").setItems (attributes.current.javascripts);
 						};
 				
 		// GET		
@@ -92,7 +105,10 @@ var template =
 							var item = {};
 							item.id = attributes.current.id;
 							item.title = modal.getUIElement ("title").getAttribute ("value");
+							item.content = modal.getUIElement ("content").getAttribute ("value");
 							item.fields = modal.getUIElement ("fields").getItems ();	
+							item.stylesheets = modal.getUIElement ("stylesheets").getItems ();
+							item.javascripts = modal.getUIElement ("javascripts").getItems ();
 							
 							return item;								
 						};
@@ -119,17 +135,44 @@ var template =
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
 							}
+							
+							if (modal.getUIElement ("stylesheets").getItem ())
+							{								
+								modal.getUIElement ("stylesheetremove").setAttribute ("disabled", false);
+							}
+							else
+							{							
+								modal.getUIElement ("stylesheetremove").setAttribute ("disabled", true);
+							}
+							
+							if (modal.getUIElement ("javascripts").getItem ())
+							{								
+								modal.getUIElement ("javascriptremove").setAttribute ("disabled", false);
+							}
+							else
+							{							
+								modal.getUIElement ("javascriptremove").setAttribute ("disabled", true);
+							}							
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_edit.xml"});
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_edit.xml"});
 		
-		modal.getUIElement ("title").setAttribute ("onChange", onChange);
+		modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+		modal.getUIElement ("content").setAttribute ("onChange", onChange);
 		modal.getUIElement ("fields").setAttribute ("onChange", onChange);
+		modal.getUIElement ("stylesheets").setAttribute ("onChange", onChange);
+		modal.getUIElement ("javascripts").setAttribute ("onChange", onChange);
 		
 		modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
 		modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
 		modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
+		
+		modal.getUIElement ("stylesheetadd").setAttribute ("onClick", stylesheet.add);		
+		modal.getUIElement ("stylesheetremove").setAttribute ("onClick", stylesheet.remove);
+		
+		modal.getUIElement ("javascriptadd").setAttribute ("onClick", javascript.add);		
+		modal.getUIElement ("javascriptremove").setAttribute ("onClick", javascript.remove);
 																																											
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
@@ -148,14 +191,14 @@ var template =
 						{
 							if (result == 1)
 							{														
-								if (sCMS.collectionSchema.delete (UI.elements.content.collectionschemas.getItem ().id))
+								if (sCMS.template.delete (UI.elements.content.templates.getItem ().id))
 								{
-									UI.elements.content.collectionschemas.removeItem ();
+									UI.elements.content.templates.removeItem ();
 								}										
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete collectionschema", text: "Do you really want to delete this collectionschema ?", buttonLabel: "Yes|No", onDone: action});				
+		sConsole.modal.question ({title: "Delete template", text: "Do you really want to delete this template ?", buttonLabel: "Yes|No", onDone: action});				
 	}				
 }
 
