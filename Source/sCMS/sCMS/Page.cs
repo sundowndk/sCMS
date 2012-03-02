@@ -548,8 +548,7 @@ namespace sCMS
 			}											
 
 			return result;
-		}	
-		
+		}			
 		#endregion
 	}
 }

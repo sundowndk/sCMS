@@ -54,25 +54,19 @@
 							</panel>
 						</layoutbox>												
 					</tab>
-					<tab label="Globals">
+					<tab label="Globals" selected="true">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 							<panel size="*">
 								<listview tag="globals" width="100%" height="100%">
-									<column tag="id" />		
-									<column tag="enabled" label="" width="70px" visible="true" />								
-									<column tag="name" label="Name" width="150px" visible="true" />
-									<column tag="version" label="Version" width="70px" visible="true" />
-									<column tag="description" label="Description" width="400px" visible="true" />
-									<column tag="author" label="Author" width="130px" visible="true" />								
-									<column tag="candisable" />								
+									<column tag="id" />										
+									<column tag="name" label="Name" width="200px" visible="true" />
+									<column tag="Type" label="Type" width="70px" visible="true" />									
 								</listview>
 							</panel>
 							<panel size="100px">
 								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
-									<panel size="*">
-										<button tag="globalcreate" width="100%" label="Create" disabled="true"/>
-										<button tag="globaledit" width="100%" label="Edit" disabled="true"/>
-										<button tag="globaldelete" width="100%" label="Delete" disabled="true"/>
+									<panel size="*">										
+										<button tag="globaledit" width="100%" label="Edit" disabled="true"/>										
 									</panel>
 								</layoutbox>				
 							</panel>

@@ -87,5 +87,6 @@
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template_stylesheet.stpl" />
     <None Include="javascript\modal\chooser\javascript.js" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\construction\index_script_template_javascript.stpl" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\global_edit.xml" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,23 @@
+<sui elementheight="50px">
+	<canvas width="600px" height="230px" canScroll="false">	
+		<container tag="container" title="Edit global" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+				<panel tag="content" size="%elementheight%">
+					
+				</panel>												
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="*">
+						</panel>
+						<panel size="210px">
+							<button tag="save" label="Save" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>						
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+

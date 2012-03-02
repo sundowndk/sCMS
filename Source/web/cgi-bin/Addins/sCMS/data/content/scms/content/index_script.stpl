@@ -1,48 +1,39 @@
 <script language="JavaScript">
-	// ##########################################################################################################################################
-	// # ADDIN
-	// ##########################################################################################################################################		
-	var addin = 
-	{
-		//TOGGLE
-		toggle : function ()
-		{
-			var item = UI.elements.content.addins.getItem ();
-			if (item.enabled)
-			{
-				sorentoLib.services.addins.disableAddin (item.id);
-				item.enabled = false;
-				UI.elements.content.addins.setItem (item)
-			}
-			else
-			{
-				sorentoLib.services.addins.enableAddin (item.id);
-				
-				item.enabled = true;
-				UI.elements.content.addins.setItem (item)
-			}
-		}		
-	};
+
+	<%Include ("index_script_global.stpl")%>	
 
 	// ##########################################################################################################################################
 	// # UI
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
-					{			
-					 										 																 										 																 										 																
+					{								 						
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);																	
+						UI.elements.content.globaledit.setAttribute ("onClick", template.edit);						
+
 						UI.set ();
 						SNDK.SUI.init ();
 					};
 	
 	UI.set =		function ()
-					{		
-						UI.elements.content.addins.setItems (sCMS.page.list ());	
+					{	
+						UI.elements.content.templates.setItems (sCMS.template.list ());												
+						
+						
 						UI.onChange ();
 					};
 				
 	UI.onChange = 	function ()
-					{			
-							
+					{		
+						if (UI.elements.content.templates.getItem ())
+		 				{
+		 					UI.elements.content.templateedit.setAttribute ("disabled", false);
+		 					UI.elements.content.templatedelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.templateedit.setAttribute ("disabled", true);
+		 					UI.elements.content.templatedelete.setAttribute ("disabled", true);
+		 				}											
 					};
 	
 	UI.init ();		
