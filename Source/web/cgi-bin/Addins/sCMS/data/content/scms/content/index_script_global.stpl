@@ -1,0 +1,96 @@
+ 	// ###  <script language="JavaScript">
+	
+// #######################################################################################################################################
+// # GLOBAL
+// #######################################################################################################################################		
+var global =
+{
+	// EDIT
+	edit : function (attributes)
+	{				
+		if (!attributes) attributes = new Array ();
+	
+		if (!attributes.id)
+		{
+			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+		}
+		else
+		{
+			attributes.current = sCMS.global.load (attributes.id);
+		}
+					
+		// SAVE
+		var save = 		function ()
+						{
+//							var item = get ();														
+//							sCMS.collectionSchema.save (item);								
+//							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
+																
+							modal.dispose ();		
+						};
+										
+		// SET	
+		var set =		function ()
+						{
+//							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
+//							modal.getUIElement ("fields").setItems (attributes.current.fields);
+						};
+				
+		// GET		
+		var get = 		function ()
+						{
+							var item = {};
+//							item.id = attributes.current.id;
+//							item.title = modal.getUIElement ("title").getAttribute ("value");
+//							item.fields = modal.getUIElement ("fields").getItems ();	
+							
+							return item;								
+						};
+						
+		// ONCHANGE	
+		var onChange =	function ()
+						{							
+//							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+//							{
+//								modal.getUIElement ("save").setAttribute ("disabled", false);
+//							}
+//							else
+//							{
+//								modal.getUIElement ("save").setAttribute ("disabled", true);									
+//							}		
+//							
+//							if (modal.getUIElement ("fields").getItem ())
+//							{
+//								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
+//								modal.getUIElement ("fieldremove").setAttribute ("disabled", false);
+//							}
+//							else
+//							{
+//								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
+//								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
+//							}
+						};							
+	
+		// INIT
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
+		
+//		modal.getUIElement ("title").setAttribute ("onChange", onChange);
+//		modal.getUIElement ("fields").setAttribute ("onChange", onChange);
+		
+//		modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
+//		modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
+//		modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
+																																											
+		modal.getUIElement ("save").setAttribute ("onClick", save);
+		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+		
+		// SET
+	//	set ();
+		
+		// SHOW
+		modal.show ();		
+	}
+}
+
+
+
