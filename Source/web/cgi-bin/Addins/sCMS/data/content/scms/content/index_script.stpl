@@ -8,15 +8,15 @@
 	UI.init = 		function ()
 					{								 						
 						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);																	
-						UI.elements.content.globaledit.setAttribute ("onClick", template.edit);						
+						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);						
 
 						UI.set ();
-						SNDK.SUI.init ();
+						SNDK.SUI.init ();											
 					};
 	
 	UI.set =		function ()
 					{	
-						UI.elements.content.templates.setItems (sCMS.template.list ());												
+						UI.elements.content.globals.setItems (sCMS.global.list ());												
 						
 						
 						UI.onChange ();
@@ -24,15 +24,13 @@
 				
 	UI.onChange = 	function ()
 					{		
-						if (UI.elements.content.templates.getItem ())
+						if (UI.elements.content.globals.getItem ())
 		 				{
-		 					UI.elements.content.templateedit.setAttribute ("disabled", false);
-		 					UI.elements.content.templatedelete.setAttribute ("disabled", false);
+		 					UI.elements.content.globaledit.setAttribute ("disabled", false);		 					
 		 				}
 		 				else
 		 				{
-		 					UI.elements.content.templateedit.setAttribute ("disabled", true);
-		 					UI.elements.content.templatedelete.setAttribute ("disabled", true);
+		 					UI.elements.content.globaledit.setAttribute ("disabled", true);		 					
 		 				}											
 					};
 	

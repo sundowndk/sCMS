@@ -22,6 +22,9 @@
 			<class name="javascript">
 				<js file="javascript/javascript.js" />
 			</class>			
+			<class name="sui">
+				<js file="javascript/sui/field.js" />
+			</class>
 			<class name="modal">
 				<class name="edit">
 					<js file="javascript/modal/edit/field.js" />					
