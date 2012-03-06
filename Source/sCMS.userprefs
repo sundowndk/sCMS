@@ -4,7 +4,7 @@
     <Files>
       <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="12" Column="1" />
       <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/global_edit.xml" Line="11" Column="14" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="112" Column="14" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="113" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
