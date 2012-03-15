@@ -70,6 +70,8 @@ namespace sCMS.Addin
 			{
 				return false;
 			}
+			
+			return false;
 
 //			SorentoLib.Render.Template template = new SorentoLib.Render.Template (Session, page.Template.Build ());
 //			Session.Page.Variables.Add ("!PAGE", page);

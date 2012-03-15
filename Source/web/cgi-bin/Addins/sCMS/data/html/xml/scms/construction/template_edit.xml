@@ -22,7 +22,7 @@
 							<layoutbox type="horizontal">			
 								<panel size="*">										
 									<textarea tag="content" width="100%" height="100%">
-										<codemirror lineNumbers="true" textWrapping="false" enterMode="keep" mode="htmlmixed"/>
+										<tinymce />
 									</textarea>		
 								</panel>
 							</layoutbox>		
