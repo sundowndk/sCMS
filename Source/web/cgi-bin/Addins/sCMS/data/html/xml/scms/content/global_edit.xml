@@ -1,9 +1,15 @@
-<sui elementheight="50px">
-	<canvas width="600px" height="230px" canScroll="false">	
+<sui>
+	<canvas width="800px" height="330px" canScroll="false">	
 		<container tag="container" title="Edit global" icon="Icon32Edit" stylesheet="SUIContainerModal">
-			<layoutbox tag="content" type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel tag="content" size="%elementheight%">
-					
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+				<panel size="*">
+					<layoutbox tag="fieldlayoutbox" type="vertical">
+						<panel size="100px">
+							<label tag="fieldtext" text="Type"/>
+						</panel>					
+						<panel tag="fieldpanel" size="*">							
+						</panel>					
+					</layoutbox>					
 				</panel>												
 				<panel size="45px">
 					<layoutbox type="vertical">			

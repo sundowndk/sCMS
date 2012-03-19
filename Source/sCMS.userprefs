@@ -1,13 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_template.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="12" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/global_edit.xml" Line="11" Column="14" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="113" Column="22" />
-      <File FileName="sCMS/sCMS.Addin/PageResponder.cs" Line="61" Column="8" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/template_edit.xml" Line="25" Column="567" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_template.stpl" Line="95" Column="38" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="109" Column="12" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="31" Column="12" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/global_edit.xml" Line="6" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

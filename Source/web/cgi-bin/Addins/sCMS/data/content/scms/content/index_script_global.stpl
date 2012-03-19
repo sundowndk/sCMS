@@ -32,17 +32,18 @@ var global =
 		// SET	
 		var set =		function ()
 						{
-//							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
-//							modal.getUIElement ("fields").setItems (attributes.current.fields);
+							var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});
+		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
+		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);
+
+		SNDK.SUI.redraw ();
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = {};
-//							item.id = attributes.current.id;
-//							item.title = modal.getUIElement ("title").getAttribute ("value");
-//							item.fields = modal.getUIElement ("fields").getItems ();	
+							var item = SNDK.tools.derefItem (attributes.current);							
+							item.content.data = field.getAttribute ("value");
 							
 							return item;								
 						};
@@ -50,15 +51,15 @@ var global =
 		// ONCHANGE	
 		var onChange =	function ()
 						{							
-//							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
-//							{
-//								modal.getUIElement ("save").setAttribute ("disabled", false);
-//							}
-//							else
-//							{
-//								modal.getUIElement ("save").setAttribute ("disabled", true);									
-//							}		
-//							
+							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+							{
+								modal.getUIElement ("save").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("save").setAttribute ("disabled", true);									
+							}		
+							
 //							if (modal.getUIElement ("fields").getItem ())
 //							{
 //								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
@@ -75,6 +76,9 @@ var global =
 		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
 		
 
+	
+
+
 		//var test = new SNDK.SUI.field ({tag: "test", type: "string", width: "100%", height: "100%"});
 		
 		
@@ -87,7 +91,7 @@ var global =
 //				debugUI["tester"].setAttribute ("onClick", debug.getContent);
 		
 		
-//		modal.getUIElement ("title").setAttribute ("onChange", onChange);
+	//	field.setAttribute ("onChange", onChange);
 //		modal.getUIElement ("fields").setAttribute ("onChange", onChange);
 		
 //		modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
@@ -97,21 +101,23 @@ var global =
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
 		
-		// SET
-	//	set ();
+		
 		
 		// SHOW
 		modal.show ();		
+		// SET
+		set ();		
+
 		
-		setTimeout (	
-		function () 
-				{ 
-				var test = new SNDK.SUI.field ({tag: "test", type: "string", width: "100%", height: "100%"});
+//		setTimeout (	
+//		function () 
+//				{ 
+//				var test = new SNDK.SUI.field ({tag: "test", type: "string", width: "100%", height: "100%"});
 				//var test = new SNDK.SUI.textbox ({width: "100%"});
-		modal.getUIElement ("content").getPanel ("content").addUIElement (test);			
+//		modal.getUIElement ("content").getPanel ("content").addUIElement (test);			
 		
-				SNDK.SUI.init ();
-				}, 1000);
+//				SNDK.SUI.init ();
+//				}, 1000);
 
 		
 				
