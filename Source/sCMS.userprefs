@@ -2,9 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="109" Column="12" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="116" Column="5" />
       <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="31" Column="12" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/global_edit.xml" Line="6" Column="33" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/global_edit.xml" Line="5" Column="21" />
+      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="1" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script_global.stpl" Line="1" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/construction/index_script.stpl" Line="14" Column="10" />
+      <File FileName="web/javascript/global.js" Line="47" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

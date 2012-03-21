@@ -11,7 +11,7 @@
 	// # UI
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
-					{								 						
+					{								
 						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);											
 						UI.elements.content.templatecreate.setAttribute ("onClick", template.create);
 						UI.elements.content.templateedit.setAttribute ("onClick", template.edit);
@@ -42,12 +42,12 @@
 						UI.elements.content.rootedit.setAttribute ("onClick", root.edit);
 						UI.elements.content.rootdelete.setAttribute ("onClick", root.delete);
 
-						UI.set ();
+						UI.set ();						
 						SNDK.SUI.init ();
 					};
 	
 	UI.set =		function ()
-					{	
+					{						
 						UI.elements.content.templates.setItems (sCMS.template.list ());												
 						UI.elements.content.collectionschemas.setItems (sCMS.collectionSchema.list ());
 						UI.elements.content.globals.setItems (sCMS.global.list ());
