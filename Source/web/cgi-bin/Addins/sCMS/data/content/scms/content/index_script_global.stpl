@@ -22,8 +22,9 @@ var global =
 		// SAVE
 		var save = 		function ()
 						{
-//							var item = get ();														
-//							sCMS.collectionSchema.save (item);								
+							var item = get ();			
+							item.content.data = field.getAttribute ("value");											
+							sCMS.global.save (item);	
 //							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
 										
 						//	field.dispose ();			
@@ -33,6 +34,7 @@ var global =
 		// SET	
 		var set =		function ()
 						{
+							field.setAttribute ("value", attributes.current.content.data);
 						};
 				
 		// GET		

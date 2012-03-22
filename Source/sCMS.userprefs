@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="84" Column="1" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="26" Column="57" />
       <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="14" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
