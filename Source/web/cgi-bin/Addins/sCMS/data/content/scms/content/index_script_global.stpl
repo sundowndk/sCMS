@@ -26,7 +26,7 @@ var global =
 //							sCMS.collectionSchema.save (item);								
 //							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
 										
-							field.dispose ();			
+						//	field.dispose ();			
 							modal.dispose ();		
 						};
 										
@@ -46,7 +46,7 @@ var global =
 						
 		var dispose =	function ()
 						{
-							field.dispose (); 
+							//field.dispose (); 
 							modal.dispose ();
 						};
 						
@@ -60,82 +60,27 @@ var global =
 							else
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", true);									
-							}		
-							
-//							if (modal.getUIElement ("fields").getItem ())
-//							{
-//								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
-//								modal.getUIElement ("fieldremove").setAttribute ("disabled", false);
-//							}
-//							else
-//							{
-//								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
-//								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
-//							}
+							}									
 						};							
 	
 		// INIT
 		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
-
-		
-				
-		
-		
-		
-		
-
-		//var test = new SNDK.SUI.field ({tag: "test", type: "string", width: "100%", height: "100%"});
-		
-		
-		
-										
-//		debugUI["fieldbox"].getPanel ("field").addUIElement (debug.field);
-//		
-//				debug.field.setAttribute ("value", "TEST VALUE");
-//		
-//				debugUI["tester"].setAttribute ("onClick", debug.getContent);
-		
-		
-	
-//		modal.getUIElement ("fields").setAttribute ("onChange", onChange);
-		
-//		modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
-//		modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
-//		modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
-																																											
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+								
+		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});	
+		field.setAttribute ("onChange", onChange);
+
+		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
+		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
 		
+		SNDK.SUI.redraw ();
+				
 		// SET
 		set ();		
 		
 		// SHOW
 		modal.show ();		
-		
-		
-		//SNDK.SUI.init ();
-		
-		setTimeout (	
-		function () 
-				{ 
-	var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});
-		field.setAttribute ("onChange", onChange);
-		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
-		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
-		
-SNDK.SUI.redraw ();
-
-
-//				var test = new SNDK.SUI.field ({tag: "test", type: "string", width: "100%", height: "100%"});
-				//var test = new SNDK.SUI.textbox ({width: "100%"});
-//		modal.getUIElement ("content").getPanel ("content").addUIElement (test);			
-		
-//				SNDK.SUI.init ();
-				}, 1000);
-
-		
-				
-		
 	}
 }
 

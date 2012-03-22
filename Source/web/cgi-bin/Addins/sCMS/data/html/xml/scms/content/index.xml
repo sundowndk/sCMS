@@ -64,8 +64,8 @@
 								</listview>
 							</panel>
 							<panel size="100px">
-								<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
-									<panel size="*">										
+								<layoutbox tag="test" type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+									<panel tag="test" size="*">										
 										<button tag="globaledit" width="100%" label="Edit" disabled="true"/>										
 									</panel>
 								</layoutbox>				

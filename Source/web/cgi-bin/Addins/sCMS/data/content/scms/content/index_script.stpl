@@ -11,7 +11,7 @@
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);						
 
 						UI.set ();
-						SNDK.SUI.init ();											
+						SNDK.SUI.init ();																																																
 					};
 	
 	UI.set =		function ()
