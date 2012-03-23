@@ -180,51 +180,35 @@ namespace sCMS.Addin
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collection.new"));
 
-//							Collection collection = Collection.FromAjaxRequest (request);
-//							collection.ToAjaxResponse (result);
-							//							collection.Save ();
-
+							result.Add (new Collection (CollectionSchema.Load (request.getValue<Guid> ("collectionschemaid")), request.getValue<string> ("title")));
 							break;
 						}
 
 						case "load":
 						{
-							Collection collection = Collection.Load (new Guid (request.Key<string> ("id")));
-//							collection.ToAjaxResponse (result);
-
+							result.Add (Collection.Load (request.getValue<Guid> ("id")));
 							break;
 						}
 
 						case "save":
 						{
-//							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collection.save"));
-
-//							Collection collection = Collection.FromAjaxRequest (request);
-//							collection.Save ();
-
+							request.getValue<Collection> ("scms.collection").Save ();
 							break;
 						}
 
 						case "delete":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collection.delete"));
-
-							Collection.Delete (new Guid (request.Key<string> ("id")));
-
+							
+							Collection.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
 
 						case "list":
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Author) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "collection.list"));
-
-							List<Hashtable> collections = new List<Hashtable> ();
-							foreach (Collection collection in Collection.List ())
-							{
-//								collections.Add (collection.ToAjaxItem ());
-							}
-							result.Data.Add ("collections", collections);
-
+							
+							result.Add (Collection.List ());
 							break;
 						}
 					}

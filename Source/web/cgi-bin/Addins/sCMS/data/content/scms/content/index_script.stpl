@@ -1,14 +1,20 @@
 <script language="JavaScript">
 
 	<%Include ("index_script_global.stpl")%>	
+	<%Include ("index_script_collection.stpl")%>	
 
 	// ##########################################################################################################################################
 	// # UI
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								 						
-						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);																	
-						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);						
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
+						
+						UI.elements.content.collections.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.collectioncreate.setAttribute ("onClick", collection.create);
+						UI.elements.content.collectionedit.setAttribute ("onClick", collection.edit);
+						UI.elements.content.collectiondelete.setAttribute ("onClick", collection.delete);
 
 						UI.set ();
 						SNDK.SUI.init ();																																																
@@ -16,9 +22,22 @@
 	
 	UI.set =		function ()
 					{	
-						UI.elements.content.globals.setItems (sCMS.global.list ());												
+						UI.elements.content.globals.setItems (sCMS.global.list ());
+																		
+						var collectionschemas = sCMS.collectionSchema.list ();						
+						for (index in collectionschemas)
+						{
+							collectionschemas[index].type = "schema";
+						}
+						UI.elements.content.collections.addItems (collectionschemas);
 						
-						
+						var collections = sCMS.collection.list ();						
+						for (index in collections)
+						{
+							collections[index].type = "collection";
+						}
+						UI.elements.content.collections.addItems (collections);
+												
 						UI.onChange ();
 					};
 				
@@ -32,6 +51,28 @@
 		 				{
 		 					UI.elements.content.globaledit.setAttribute ("disabled", true);		 					
 		 				}											
+		 				
+						if (UI.elements.content.collections.getItem ())
+		 				{
+		 					if (UI.elements.content.collections.getItem ().type == "schema")
+		 					{
+		 						UI.elements.content.collectioncreate.setAttribute ("disabled", false);
+		 						UI.elements.content.collectionedit.setAttribute ("disabled", true);
+		 						UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 					}		 							 					
+		 					else if (UI.elements.content.collections.getItem ().type == "collection")
+		 					{
+		 						UI.elements.content.collectioncreate.setAttribute ("disabled", true);
+		 						UI.elements.content.collectionedit.setAttribute ("disabled", false);
+		 						UI.elements.content.collectiondelete.setAttribute ("disabled", false);
+		 					}		 					
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.collectioncreate.setAttribute ("disabled", true);
+		 					UI.elements.content.collectionedit.setAttribute ("disabled", true);
+		 					UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 				}													 				
 					};
 	
 	UI.init ();		

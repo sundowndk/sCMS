@@ -7,6 +7,9 @@
 			<class name="collectionSchema">
 				<js file="javascript/collectionschema.js" />
 			</class>				
+			<class name="collection">
+				<js file="javascript/collection.js" />
+			</class>				
 			<class name="global">
 				<js file="javascript/global.js" />
 			</class>				

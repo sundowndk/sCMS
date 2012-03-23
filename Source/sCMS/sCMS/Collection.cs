@@ -431,6 +431,11 @@ namespace sCMS
 				result._title = (string)item["title"];
 			}
 			
+			if (item.ContainsKey ("collectionschemaid"))
+			{					
+				result._collectionschemaid = new Guid ((string)item["collectionschemaid"]);
+			}
+			
 			if (item.ContainsKey ("sort"))
 			{
 				result._sort = int.Parse ((string)item["sort"]);

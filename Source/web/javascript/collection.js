@@ -1,41 +1,43 @@
-// Delay before executing asyncronis request.
-_asyncdelay : 10,
-
-create : function (global)
+new : function (collectionSchemaId, Title)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.New", "data", "POST", false);		
-	request.send (global);
+	var content = new Array ();
+	content["collectionschemaid"] = collectionSchemaId;
+	content["title"] = Title;
 
-	return request.respons ();
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.New", "data", "POST", false);		
+	request.send (content);
+
+	return request.respons ()["scms.collection"];
 },		
 
 load : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.Load", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.Load", "data", "POST", false);	
 	request.send (content);
 
-	return request.respons ();
+	return request.respons ()["scms.collection"];
 },
 
 save : function (collection)
 {					
+	var content = new Array ();
+	content["scms.collection"] = collection
+
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.Save", "data", "POST", false);						
-	request.send (collection);
+	request.send (content);
 					
 	return true;
 },
 
-remove : function (id)
+delete : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.Delete", "data", "POST", false);	
-
 	var content = new Array ();
 	content["id"] = id;
 
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.Delete", "data", "POST", false);	
 	request.send (content);
 
 	return true;					
@@ -46,5 +48,5 @@ list : function ()
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Collection.List", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ()["collections"];
+	return request.respons ()["scms.collections"];
 }

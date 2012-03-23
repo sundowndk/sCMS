@@ -1,9 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/collection_edit.xml">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="26" Column="57" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="14" Column="26" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="25" Column="34" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_collection.stpl" Line="163" Column="78" />
+      <File FileName="web/javascript/collection.js" Line="30" Column="23" />
+      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="195" Column="54" />
+      <File FileName="sCMS/sCMS/Collection.cs" Line="437" Column="5" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_global.stpl" Line="81" Column="3" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/collection_edit.xml" Line="8" Column="67" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/construction/template_edit.xml" Line="114" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

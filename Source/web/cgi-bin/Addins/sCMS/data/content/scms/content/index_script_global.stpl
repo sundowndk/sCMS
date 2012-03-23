@@ -77,6 +77,8 @@ var global =
 		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
 		
 		SNDK.SUI.redraw ();
+		
+		console.log (attributes.current)
 				
 		// SET
 		set ();		
