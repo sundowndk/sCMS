@@ -72,10 +72,9 @@ var collection =
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();			
-							//item.content.data = field.getAttribute ("value");											
+							var item = get ();										
 							sCMS.collection.save (item);	
-//							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
+							UI.elements.content.collections.setItem (sCMS.collection.load (item.id));
 										
 						//	field.dispose ();			
 							modal.dispose ();		
@@ -84,6 +83,8 @@ var collection =
 		// SET	
 		var set =		function ()
 						{
+							
+							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
 							
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
@@ -96,6 +97,7 @@ var collection =
 		var get = 		function ()
 						{
 							var item = SNDK.tools.derefItem (attributes.current);
+							//item.title = modal.getUIElement ("title").getAttribute ("value");
 							
 							item.contents = new Array ();
 							for (i=0; i <collectionschema.fields.length; i++)
@@ -134,6 +136,8 @@ var collection =
 		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml"});
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+						
+		modal.getUIElement ("title").setAttribute ("onChange", onChange);
 						
 		var collectionschema = sCMS.collectionSchema.load (attributes.current.collectionschemaid);				
 		var fields = new Array ();

@@ -45,11 +45,27 @@ delete : function (id)
 	return true;					
 },
 
-list : function (options)
+list : function (attributes)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Root.List", "data", "POST", false);		
-	request.send ()
+	if (!attributes) attributes = new Array ();
 	
-	return request.respons ()["scms.roots"];	
-}		
+	if (attributes.async)
+	{
+		var onDone = 	function (respons)
+						{
+							attributes.onDone (respons["scms.roots"]);
+						};
+						
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Root.List", "data", "POST", true);
+		request.onLoaded (onDone);
+		request.send ();
+	}
+	else
+	{
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Root.List", "data", "POST", false);		
+		request.send ();
+
+		return request.respons ()["scms.roots"];	
+	}
+}
 

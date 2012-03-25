@@ -94,5 +94,6 @@
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script_collection.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\collection_create.xml" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\collection_edit.xml" />
+    <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script_page.stpl" />
   </ItemGroup>
 </Project>

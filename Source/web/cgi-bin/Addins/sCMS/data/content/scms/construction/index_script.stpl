@@ -48,12 +48,42 @@
 	
 	UI.set =		function ()
 					{						
-						UI.elements.content.templates.setItems (sCMS.template.list ());												
-						UI.elements.content.collectionschemas.setItems (sCMS.collectionSchema.list ());
-						UI.elements.content.globals.setItems (sCMS.global.list ());
-						UI.elements.content.stylesheets.setItems (sCMS.stylesheet.list ());
-						UI.elements.content.javascripts.setItems (sCMS.javascript.list ());
-						UI.elements.content.roots.setItems (sCMS.root.list ());
+						var onTemplateDone = 			function (result)
+														{
+															UI.elements.content.templates.setItems (result);
+														};
+					
+						var onCollectionSchemaDone = 	function (result)
+														{
+															UI.elements.content.collectionschemas.setItems (result);
+														};
+														
+						var onGlobalDone =				function (result)
+														{
+															UI.elements.content.globals.setItems (result);
+														};
+														
+						var onStylesheetDone =			function (result)
+														{
+															UI.elements.content.stylesheets.setItems (result);
+														};
+														
+						var onJavascriptDone =			function (result)
+														{
+															UI.elements.content.javascripts.setItems (result);
+														};
+														
+						var onRootDone =				function (result)		
+														{
+															UI.elements.content.roots.setItems (result);
+														};														
+				
+						sCMS.template.list ({async: true, onDone: onTemplateDone});
+						sCMS.collectionSchema.list ({async: true, onDone: onCollectionSchemaDone});
+						sCMS.global.list ({async: true, onDone: onGlobalDone});
+						sCMS.stylesheet.list ({async: true, onDone: onStylesheetDone});
+						sCMS.javascript.list ({async: true, onDone: onJavascriptDone});
+						sCMS.root.list ({async: true, onDone: onRootDone});
 						
 						UI.onChange ();
 					};

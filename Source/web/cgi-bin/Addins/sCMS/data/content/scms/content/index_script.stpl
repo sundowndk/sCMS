@@ -21,22 +21,34 @@
 					};
 	
 	UI.set =		function ()
-					{	
-						UI.elements.content.globals.setItems (sCMS.global.list ());
+					{												
+						var onCollectionSchemaDone =	function (result)
+														{
+															
+															for (index in result)
+															{
+																result[index].type = "schema";
+															}
+															UI.elements.content.collections.addItems (result);
+														};
 																		
-						var collectionschemas = sCMS.collectionSchema.list ();						
-						for (index in collectionschemas)
-						{
-							collectionschemas[index].type = "schema";
-						}
-						UI.elements.content.collections.addItems (collectionschemas);
+						var onCollectionDone =			function (result)
+														{															
+															for (index in result)
+															{
+																result[index].type = "collection";
+															}	
+															UI.elements.content.collections.addItems (result);
+														};
+														
+						var onGlobalDone = 				function (result)
+														{
+															UI.elements.content.globals.setItems (result);
+														};														
 						
-						var collections = sCMS.collection.list ();						
-						for (index in collections)
-						{
-							collections[index].type = "collection";
-						}
-						UI.elements.content.collections.addItems (collections);
+						sCMS.collectionSchema.list ({async: true, onDone: onCollectionSchemaDone});
+						sCMS.collection.list ({async: true, onDone: onCollectionDone});
+						sCMS.global.list ({async: true, onDone: onGlobalDone});
 												
 						UI.onChange ();
 					};

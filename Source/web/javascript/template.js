@@ -39,11 +39,27 @@ delete : function (id)
 	return true;
 },				
 		
-list : function ()
+list : function (attributes)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Template.List", "data", "POST", false);		
-	request.send ();
+	if (!attributes) attributes = new Array ();
+	
+	if (attributes.async)
+	{
+		var onDone = 	function (respons)
+						{
+							attributes.onDone (respons["scms.templates"]);
+						};
+		
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Template.List", "data", "POST", true);
+		request.onLoaded (onDone);
+		request.send ();						
+	}
+	else
+	{
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Template.List", "data", "POST", false);		
+		request.send ();
 
-	return request.respons ()["scms.templates"];		
+		return request.respons ()["scms.templates"];		
+	}
 }	
 
