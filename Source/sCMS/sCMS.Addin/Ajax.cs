@@ -133,44 +133,44 @@ namespace sCMS.Addin
 					break;
 				#endregion
 
-//				#region sCMS.Page
-//				case "scms.page":
-//				{
-//					switch (Method.ToLower ())
-//					{
-//						case "new":
-//						{
-//							result.Add (new Page (Template.Load (request.getValue<Guid> ("templateid"))));
-//							break;
-//						}
-//
-//						case "load":
-//						{
-//							result.Add (Page.Load (request.getValue<Guid> ("id")));
-//							break;
-//						}
-//
-//						case "save":
-//						{
-//							request.getValue<Page> ("scms.page").Save ();
-//							break;
-//						}
-//
-//						case "delete":
-//						{
-//							Page.Delete (request.getValue<Guid> ("id"));
-//							break;
-//						}
-//
-//						case "list":
-//						{
-//							result.Add (Page.List ());
-//							break;
-//						}
-//					}
-//					break;
-//				}
-//				#endregion
+				#region sCMS.Page
+				case "scms.page":
+				{
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new Page (Root.Load (request.getValue<Guid> ("rootid")), Template.Load (request.getValue<Guid> ("templateid")), request.getValue<string> ("title")));
+							break;
+						}
+
+						case "load":
+						{
+							result.Add (Page.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+
+						case "save":
+						{
+							request.getValue<Page> ("scms.page").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							Page.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{
+							result.Add (Page.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion
 
 				#region sCMS.Collection
 				case "scms.collection":

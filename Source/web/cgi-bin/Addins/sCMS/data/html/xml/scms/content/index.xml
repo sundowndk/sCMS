@@ -6,9 +6,11 @@
 					<tab label="Pages" selected="true">							
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 							<panel size="*">
-								<listview tag="addins" width="100%" height="100%">
+								<listview tag="pages" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">
 									<column tag="id" />		
-									<column tag="name" label="" width="70px" visible="true" />																	
+									<column tag="title" label="Title" width="150px" visible="true" />		
+									<column tag="type" />
+									<column tag="parentid" />
 								</listview>
 							</panel>
 							<panel size="100px">
@@ -26,7 +28,7 @@
 							</panel>
 						</layoutbox>												
 					</tab>	
-					<tab label="Collections" selected="true">
+					<tab label="Collections">
 						<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 							<panel size="*">								
 								<listview tag="collections" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:collectionschemaid" treeviewRootValue="00000000-0000-0000-0000-000000000000">

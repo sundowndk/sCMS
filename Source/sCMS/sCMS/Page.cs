@@ -46,6 +46,7 @@ namespace sCMS
 		private int _updatetimestamp;
 		private Guid _templateid;
 		internal Guid _parentid;
+		private Guid _rootid;
 		private string _title;
 		private List<string> _aliases;
 		private List<Content> _contents;
@@ -102,7 +103,15 @@ namespace sCMS
 				this._parentid = value.Id;
 			}
 		}
-			
+		
+		public Guid RootId
+		{
+			get
+			{
+				return this._rootid;
+			}
+		}
+		
 		public string Path
 		{
 			get
@@ -171,14 +180,24 @@ namespace sCMS
 		#endregion
 
 		#region Constructors
-		public Page (Template Template)
+		public Page (Root Root, Template Template, string Title)
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._templateid = Template.Id;
+			this._rootid = Root.Id;
 			this._parentid = Guid.Empty;
-			this.Title = "Untitled";
+			
+			if (Title != string.Empty)
+			{
+				this.Title = Title;
+			}
+			else
+			{
+				this.Title = "untitled";
+			}
+			
 			this._aliases = new List<string> ();
 			this._contents = new List<Content> ();
 		}
@@ -189,6 +208,7 @@ namespace sCMS
 			this._createtimestamp = 0;
 			this._updatetimestamp = 0;
 			this._templateid = Guid.Empty;
+			this._rootid = Guid.Empty;
 			this._parentid = Guid.Empty;
 			this._title = string.Empty;
 			this._aliases = new List<string> ();
@@ -209,6 +229,7 @@ namespace sCMS
 				item.Add ("createtimestamp", this._createtimestamp);
 				item.Add ("updatetimestamp", this._updatetimestamp);				
 				item.Add ("templateid", this._templateid);
+				item.Add ("rootid", this._rootid);
 				item.Add ("parentid", this._parentid);
 				item.Add ("title", this._title);
 				item.Add ("aliases", this._aliases);
@@ -306,6 +327,7 @@ namespace sCMS
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("templateid", this._templateid);
+			result.Add ("rootid", this._rootid);
 			result.Add ("parentid", this._parentid);
 			result.Add ("path", this.Path);
 			result.Add ("title", this._title);
@@ -357,6 +379,11 @@ namespace sCMS
 				if (item.ContainsKey ("templateid"))
 				{					
 					result._templateid = new Guid ((string)item["templateid"]);
+				}
+				
+				if (item.ContainsKey ("rootid"))
+				{
+					result._rootid = new Guid ((string)item["rootid"]);
 				}
 				
 				if (item.ContainsKey ("parentid"))
@@ -519,7 +546,12 @@ namespace sCMS
 			{					
 				result._templateid = new Guid ((string)item["templateid"]);
 			}
-				
+			
+			if (item.ContainsKey ("rootid"))
+			{
+				result._rootid = new Guid ((string)item["rootid"]);
+			}
+			
 			if (item.ContainsKey ("parentid"))
 			{
 				result._parentid = new Guid ((string)item["parentid"]);

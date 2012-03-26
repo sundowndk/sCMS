@@ -1,10 +1,15 @@
 // Delay before executing asyncronis request.
 _asyncdelay : 10,
 
-new : function ()
+new : function (rootid, templateid, title)
 {	
+	var content = new Array ();
+	content["rootid"] = rootid;
+	content["templateid"] = templateid;
+	content["title"] = title;
+
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.New", "data", "POST", false);		
-	request.send ();
+	request.send (content);
 
 	return request.respons ()["scms.page"];
 },
@@ -26,7 +31,7 @@ save : function (page)
 	content["scms.page"] = page;
 								
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.Save", "data", "POST", false);			
-	request.send (page);
+	request.send (content);
 
 	return true;
 },
@@ -42,13 +47,31 @@ delete : function (id)
 	return true;					
 },
 
-list : function ()
+list : function (attributes)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.List", "data", "POST", false);		
-	request.send ();
-		
-	return request.respons ()["scms.pages"];	
+	if (!attributes) attributes = new Array ();
+	
+	if (attributes.async)
+	{
+		var onDone = 	function (respons)
+						{
+							attributes.onDone (respons["scms.pages"]);
+						};
+						
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.List", "data", "POST", true);
+		request.onLoaded (onDone);
+		request.send ();
+	}
+	else
+	{
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.List", "data", "POST", false);		
+		request.send ();
+
+		return request.respons ()["scms.pages"];	
+	}
 },
+
+
 
 listold : function (options)
 {

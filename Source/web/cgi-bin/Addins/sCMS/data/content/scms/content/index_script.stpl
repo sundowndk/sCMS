@@ -1,5 +1,6 @@
 <script language="JavaScript">
 
+	<%Include ("index_script_page.stpl")%>	
 	<%Include ("index_script_global.stpl")%>	
 	<%Include ("index_script_collection.stpl")%>	
 
@@ -8,6 +9,11 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								 						
+						UI.elements.content.pages.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.pagecreate.setAttribute ("onClick", page.create);
+						UI.elements.content.pageedit.setAttribute ("onClick", page.edit);
+						UI.elements.content.pagedelete.setAttribute ("onClick", page.delete);
+					
 						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
 						
@@ -21,7 +27,29 @@
 					};
 	
 	UI.set =		function ()
-					{												
+					{					
+						var onRootDone =				function (result)
+														{
+															for (index in result)
+															{
+																result[index].type = "root";
+															}	
+															UI.elements.content.pages.addItems (result);
+														};
+																			
+						var onPageDone =				function (result)
+														{
+															for (index in result)
+															{
+																result[index].type = "page";
+																if (result[index].parentid == "00000000-0000-0000-0000-000000000000")
+																{
+																	result[index].parentid = result[index].rootid;
+																}
+															}	
+															UI.elements.content.pages.addItems (result);
+														};
+					
 						var onCollectionSchemaDone =	function (result)
 														{
 															
@@ -46,6 +74,8 @@
 															UI.elements.content.globals.setItems (result);
 														};														
 						
+						sCMS.root.list ({async: true, onDone: onRootDone});
+						sCMS.page.list ({async: true, onDone: onPageDone});
 						sCMS.collectionSchema.list ({async: true, onDone: onCollectionSchemaDone});
 						sCMS.collection.list ({async: true, onDone: onCollectionDone});
 						sCMS.global.list ({async: true, onDone: onGlobalDone});
@@ -55,14 +85,27 @@
 				
 	UI.onChange = 	function ()
 					{		
-						if (UI.elements.content.globals.getItem ())
+						if (UI.elements.content.pages.getItem ())
 		 				{
-		 					UI.elements.content.globaledit.setAttribute ("disabled", false);		 					
+		 					if (UI.elements.content.pages.getItem ().type == "root")
+		 					{
+		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
+		 						UI.elements.content.pageedit.setAttribute ("disabled", true);
+		 						UI.elements.content.pagedelete.setAttribute ("disabled", true);
+		 					}		 							 					
+		 					else if (UI.elements.content.pages.getItem ().type == "page")
+		 					{
+		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
+		 						UI.elements.content.pageedit.setAttribute ("disabled", false);
+		 						UI.elements.content.pagedelete.setAttribute ("disabled", false);
+		 					}		 					
 		 				}
 		 				else
 		 				{
-		 					UI.elements.content.globaledit.setAttribute ("disabled", true);		 					
-		 				}											
+		 					UI.elements.content.pagecreate.setAttribute ("disabled", true);
+		 					UI.elements.content.pageedit.setAttribute ("disabled", true);
+		 					UI.elements.content.pagedelete.setAttribute ("disabled", true);
+		 				}																			
 		 				
 						if (UI.elements.content.collections.getItem ())
 		 				{
@@ -84,7 +127,16 @@
 		 					UI.elements.content.collectioncreate.setAttribute ("disabled", true);
 		 					UI.elements.content.collectionedit.setAttribute ("disabled", true);
 		 					UI.elements.content.collectiondelete.setAttribute ("disabled", true);
-		 				}													 				
+		 				}
+		 				
+		 				if (UI.elements.content.globals.getItem ())
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", false);		 					
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", true);		 					
+		 				}		
 					};
 	
 	UI.init ();		

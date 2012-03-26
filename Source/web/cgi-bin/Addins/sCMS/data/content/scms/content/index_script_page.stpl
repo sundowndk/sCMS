@@ -1,31 +1,104 @@
  	// ###  <script language="JavaScript">
 	
 // #######################################################################################################################################
-// # GLOBAL
+// # PAGE
 // #######################################################################################################################################		
-var global =
+var page =
 {
+	// CREATE
+	create : function ()
+	{
+		<%Include ("index_script_page_template.stpl")%>
+	
+		// CREATE			
+		var create =	function ()
+						{
+							var item = get ();
+							modal.dispose ();
+							
+							if (UI.elements.content.pages.getItem ().type == "root")
+							{
+								item = sCMS.page.new (UI.elements.content.pages.getItem ().id, item.templateid, item.title);								
+							}
+							else if (UI.elements.content.pages.getItem ().type == "page")
+							{
+								var old = sCMS.page.load (UI.elements.content.pages.getItem ().id)
+							
+								item = sCMS.page.new (old.rootid, item.templateid, item.title);
+								item.parentid = UI.elements.content.pages.getItem ().id;
+							}
+							
+							sCMS.page.save (item);
+														
+							if (UI.elements.content.pages.getItem ().type == "root")
+							{
+								item.parentid = UI.elements.content.pages.getItem ().id;
+							}
+																																			
+							item.type = "page";
+							UI.elements.content.pages.addItem (item);
+								
+							//collection.edit ({id: item.id});		
+						};			
+	
+		// ONCHANGE
+		var onChange =	function ()
+						{						
+							if ((modal.getUIElement ("title").getAttribute ("value") != "") && (templateid != ""))
+							{
+								modal.getUIElement ("create").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("create").setAttribute ("disabled", true);
+							}										
+						};
+						
+		// GET
+		var get =		function ()
+						{
+							var item = new Array ();							
+							item.title = modal.getUIElement ("title").getAttribute ("value");
+							item.templateid = templateid;
+							return item;
+						};
+
+		// INIT
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_create.xml"});
+		
+		var templateid = "";
+						
+		modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+		modal.getUIElement ("template").setAttribute ("onChange", onChange);
+		
+		modal.getUIElement ("choosetemplate").setAttribute ("onClick", template.add);
+		
+		modal.getUIElement ("create").setAttribute ("onClick", create);
+		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+		
+		modal.show ();		
+	},
+
 	// EDIT
 	edit : function (attributes)
 	{				
 		if (!attributes) attributes = new Array ();
-	
+				
 		if (!attributes.id)
 		{
-			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+			attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
 		}
 		else
 		{
-			attributes.current = sCMS.global.load (attributes.id);
-		}
+			attributes.current = sCMS.page.load (attributes.id);
+		}		
 					
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();			
-							item.content.data = field.getAttribute ("value");											
-							sCMS.global.save (item);	
-//							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
+							var item = get ();										
+							sCMS.page.save (item);	
+							UI.elements.content.pages.setItem (sCMS.page.load (item.id));
 										
 						//	field.dispose ();			
 							modal.dispose ();		
@@ -34,14 +107,32 @@ var global =
 		// SET	
 		var set =		function ()
 						{
-							field.setAttribute ("value", attributes.current.content.data);
+							
+							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
+							
+							for (i=0; i <attributes.current.contents.length; i++)
+							{
+								var content = attributes.current.contents[i];												
+								fields[content.id].setAttribute ("value", content.data);
+							}
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = SNDK.tools.derefItem (attributes.current);							
-							item.content.data = field.getAttribute ("value");
+							var item = SNDK.tools.derefItem (attributes.current);
+							//item.title = modal.getUIElement ("title").getAttribute ("value");
+							
+							item.contents = new Array ();
+							for (i=0; i <collectionschema.fields.length; i++)
+							{
+								var content = {};
+								content.id = collectionschema.fields[i].id;
+								content.type = collectionschema.fields[i].type;
+								content.data = collectionschema.fields[i].data = fields[collectionschema.fields[i].id].getAttribute ("value");
+								
+								item.contents[i] = content;
+							}
 							
 							return item;								
 						};
@@ -66,25 +157,79 @@ var global =
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml"});
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
-								
-		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});	
-		field.setAttribute ("onChange", onChange);
-
-		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
-		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
+						
+		modal.getUIElement ("title").setAttribute ("onChange", onChange);
+						
+		var collectionschema = sCMS.template.load (attributes.current.templateid);
+		var fields = new Array ();
+		
+		for (i=0; i <collectionschema.fields.length; i++)			
+		{
+			var height = "200px";
+		
+			switch (collectionschema.fields[i].type.toLowerCase ())
+			{
+				case "string":
+				{
+					height = "65px";
+					break;
+				}
+				
+				default:
+				{
+					break;				
+				}
+			}
+																
+			//var layoutbox1 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+			//layoutbox1.addPanel ({tag: "field", size: "*"});			
+			//modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox1);
+			
+			var layoutbox2 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+			layoutbox2.addPanel ({tag: "text", size: "100px"});
+			layoutbox2.addPanel ({tag: "field", size: "*"});
+			
+			layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.fields[i].name}));
+			
+			//layoutbox1.getPanel ("field").addUIElement (layoutbox2);
+			
+			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
+			
+			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), width: "100%", height: "100%"});	
+			fields[collectionschema.fields[i].id].setAttribute ("onChange", onChange);
+			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.fields[i].id]);
+		}		
 		
 		SNDK.SUI.redraw ();
-								
+				
 		// SET
 		set ();		
 		
 		// SHOW
 		modal.show ();		
-	}
+	},
+	
+	// DELETE
+	delete : function ()
+	{
+		var action =	function (result)
+						{
+							if (result == 1)
+							{														
+								if (sCMS.page.delete (UI.elements.content.pages.getItem ().id))
+								{
+									UI.elements.content.pages.removeItem ();
+								}										
+							}
+						};
+	
+		sConsole.modal.question ({title: "Delete page", text: "Do you really want to delete this page ?", buttonLabel: "Yes|No", onDone: action});
+	}	
 }
+
 
 
 

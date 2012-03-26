@@ -35,6 +35,7 @@
 				<class name="chooser">				
 					<js file="javascript/modal/chooser/stylesheet.js" />
 					<js file="javascript/modal/chooser/javascript.js" />
+					<js file="javascript/modal/chooser/template.js" />
 				</class>								
 			</class>			
 		</class>
