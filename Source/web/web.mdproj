@@ -99,5 +99,7 @@
     <None Include="javascript\modal\chooser\template.js" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script_page_template.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\page_edit.xml" />
+    <None Include="javascript\modal\chooser\page.js" />
+    <None Include="javascript\modal\link.js" />
   </ItemGroup>
 </Project>
