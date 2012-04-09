@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/collection_create.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/javascript/modal/chooser/page.js">
     <Files>
-      <File FileName="web/javascript/modal/chooser/page.js" Line="77" Column="30" />
+      <File FileName="web/javascript/modal/chooser/page.js" Line="76" Column="1" />
       <File FileName="web/javascript/modal/chooser/template.js" Line="64" Column="1" />
       <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="33" Column="20" />
       <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/index.xml" Line="14" Column="20" />

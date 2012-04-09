@@ -73,8 +73,8 @@ page : function (attributes)
 	suixml += '						<column tag="type" />'
 	suixml += '						<column tag="parentid" />'
 	suixml += '					</listview>';
-	suixml += '				</panel>';
 	suixml += '			</layoutbox>';
+	suixml += '				</panel>';
 	suixml += '		</panel>';
 	suixml += '	</layoutbox>';
 	suixml += '</sui>';
