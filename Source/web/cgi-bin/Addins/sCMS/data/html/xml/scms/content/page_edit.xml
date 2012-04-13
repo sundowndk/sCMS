@@ -15,7 +15,24 @@
 											<textbox tag="title" width="100%" />
 										</panel>					
 									</layoutbox>
-								</panel>																									
+								</panel>		
+								<panel size="*">			
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Aliases" />
+										</panel>
+										<panel size="*">
+											<listview tag="aliases" width="100%" height="100%" unique="value">												
+												<column tag="value" label="" width="200px" visible="true" />												
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="aliasadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+											<button tag="aliasedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+											<button tag="aliasremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>			
+								</panel>								
 							</layoutbox>	
 						</tab>
 						<tab label="Content">

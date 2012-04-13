@@ -8,7 +8,7 @@
 							<panel size="*">
 								<listview tag="pages" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">
 									<column tag="id" />		
-									<column tag="title" label="Title" width="150px" visible="true" />		
+									<column tag="title" label="Title" width="300px" visible="true" />		
 									<column tag="type" />
 									<column tag="parentid" />
 								</listview>

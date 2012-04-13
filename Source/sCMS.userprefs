@@ -1,16 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/javascript/modal/chooser/page.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Content.cs">
     <Files>
-      <File FileName="web/javascript/modal/chooser/page.js" Line="76" Column="1" />
-      <File FileName="web/javascript/modal/chooser/template.js" Line="64" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="33" Column="20" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/index.xml" Line="14" Column="20" />
-      <File FileName="web/javascript.jsb" Line="33" Column="37" />
-      <File FileName="web/javascript/modal/link.js" Line="39" Column="69" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/content/collection_create.xml" Line="1" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_collection.stpl" Line="132" Column="18" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_page_template.stpl" Line="18" Column="52" />
+      <File FileName="web/javascript/modal/edit/field.js" Line="60" Column="21" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/modal/edit/field.xml" Line="24" Column="41" />
+      <File FileName="sCMS/sCMS/Global.cs" Line="180" Column="38" />
+      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="346" Column="35" />
+      <File FileName="sCMS/sCMS/Field.cs" Line="194" Column="4" />
+      <File FileName="sCMS/sCMS/Content.cs" Line="217" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

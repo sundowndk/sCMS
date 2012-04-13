@@ -20,7 +20,8 @@
 						<panel size="*">
 							<dropbox tag="type" width="100%">
 								<item label="String" value="String" selected="true"/>
-								<item label="Text" value="Text" />								
+								<item label="Text" value="Text" />
+								<item label="Image" value="Image" />
 							</dropbox>
 						</panel>					
 					</layoutbox>

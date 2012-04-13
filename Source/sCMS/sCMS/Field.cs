@@ -128,10 +128,10 @@ namespace sCMS
 		public XmlDocument ToXmlDocument ()
 		{
 			Hashtable result = new Hashtable ();
-
+			
 			result.Add ("id", this._id);
 			result.Add ("type", this._type);
-			result.Add ("name", this._name);
+			result.Add ("name", this._name);			
 			result.Add ("sort", this._sort);
 			result.Add ("options", this._options);
 
@@ -206,7 +206,7 @@ namespace sCMS
 
 				case sCMS.Enums.FieldType.Image:
 				{
-					return null;
+					return string.Empty;
 				}						
 
 				case sCMS.Enums.FieldType.ListImage:

@@ -100,6 +100,14 @@ namespace sCMS
 						break;
 					}
 					#endregion
+						
+					#region IMAGE
+					case sCMS.Enums.FieldType.Image:
+					{
+						result = this._data;
+						break;
+					}
+					#endregion
 
 //					#region IMAGE
 //					case sCMS.Enums.FieldType.Image:
@@ -203,6 +211,14 @@ namespace sCMS
 						break;
 					}
 					#endregion
+						
+					#region IMAGE
+					case sCMS.Enums.FieldType.Image:
+					{					
+						this._data = value;
+						break;
+					}
+					#endregion						
 
 //					#region IMAGE
 //					case sCMS.Enums.FieldType.Image:

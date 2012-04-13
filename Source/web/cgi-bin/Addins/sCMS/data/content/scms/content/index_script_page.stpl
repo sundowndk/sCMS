@@ -82,6 +82,8 @@ var page =
 	// EDIT
 	edit : function (attributes)
 	{				
+		<%Include ("index_script_page_alias.stpl")%>
+	
 		if (!attributes) attributes = new Array ();
 				
 		if (!attributes.id)
@@ -98,7 +100,15 @@ var page =
 						{
 							var item = get ();										
 							sCMS.page.save (item);	
-							UI.elements.content.pages.setItem (sCMS.page.load (item.id));
+							
+							if (item.parentid == "00000000-0000-0000-0000-000000000000")
+							{
+								item.parentid = item.rootid;
+							}
+							
+							item.type = "page";
+							//UI.elements.content.pages.setItem (sCMS.page.load (item.id));
+							UI.elements.content.pages.setItem (item);
 										
 						//	field.dispose ();			
 							modal.dispose ();		
@@ -109,6 +119,7 @@ var page =
 						{
 							
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
+							modal.getUIElement ("aliases").setItems (attributes.current.aliases);
 							
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
@@ -121,7 +132,9 @@ var page =
 		var get = 		function ()
 						{
 							var item = SNDK.tools.derefItem (attributes.current);
-							//item.title = modal.getUIElement ("title").getAttribute ("value");
+							
+							item.title = modal.getUIElement ("title").getAttribute ("value");
+							item.aliases = modal.getUIElement ("aliases").getItems ();
 							
 							item.contents = new Array ();
 							for (i=0; i <collectionschema.fields.length; i++)
@@ -153,7 +166,18 @@ var page =
 							else
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", true);									
-							}									
+							}		
+							
+							if (modal.getUIElement ("aliases").getItem () != null)
+							{
+								modal.getUIElement ("aliasedit").setAttribute ("disabled", false);
+								modal.getUIElement ("aliasremove").setAttribute ("disabled", false);
+							}	
+							else
+							{
+								modal.getUIElement ("aliasedit").setAttribute ("disabled", true);
+								modal.getUIElement ("aliasremove").setAttribute ("disabled", true);
+							}							
 						};							
 	
 		// INIT
@@ -162,6 +186,11 @@ var page =
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 						
 		modal.getUIElement ("title").setAttribute ("onChange", onChange);
+		
+		modal.getUIElement ("aliases").setAttribute ("onChange", onChange);
+		modal.getUIElement ("aliasadd").setAttribute ("onClick", alias.add);
+		modal.getUIElement ("aliasedit").setAttribute ("onClick", alias.edit);
+		modal.getUIElement ("aliasremove").setAttribute ("onClick", alias.remove);
 						
 		var collectionschema = sCMS.template.load (attributes.current.templateid);
 		var fields = new Array ();

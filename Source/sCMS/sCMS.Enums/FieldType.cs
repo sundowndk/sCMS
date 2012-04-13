@@ -32,8 +32,8 @@ namespace sCMS.Enums
 	{
 		String,
 		Text,
-		File,
 		Image,
+		File,		
 		ListString,
 		ListText,
 		ListImage,

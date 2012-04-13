@@ -333,7 +333,7 @@ namespace sCMS.Addin
 					}
 					break;
 				#endregion					
-//
+
 				#region sCMS.Global
 				case "scms.global":
 					switch (Method.ToLower ())
@@ -342,7 +342,8 @@ namespace sCMS.Addin
 						{
 //							if (Session.AccessLevel < SorentoLib.Enums.Accesslevel.Editor) throw new Exception (string.Format (sCMS.Strings.Exception.AjaxSessionPriviliges, "global.new"));
 							
-							result.Add (new Global (SNDK.Convert.StringToEnum<Enums.FieldType> (request.getValue<string> ("type")), request.getValue<string> ("name")));							
+							result.Add (new Global (SNDK.Convert.StringToEnum<Enums.FieldType> (request.getValue<string> ("type")), request.getValue<string> ("name")));		
+							Console.WriteLine ("test");
 							break;
 						}
 

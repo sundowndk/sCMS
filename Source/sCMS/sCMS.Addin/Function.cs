@@ -71,17 +71,17 @@ namespace sCMS.Addin
 							if (allowedfiletypes.Contains (Session.Request.QueryJar.Get ("UploadImage").BinaryContentType))
 							{
 								SorentoLib.Media image = new SorentoLib.Media ("/media/content/"+ Guid.NewGuid ().ToString () +".jpg", Session.Request.QueryJar.Get ("UploadImage").BinaryData);
-								image.Status = SorentoLib.Enums.MediaStatus.Public;
+								image.Type = SorentoLib.Enums.MediaType.Public;
 								image.Save ();
 
 								
 
-								SNDK.IO.CopyFile (image.DataPath, SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_publicmedia) +"/administration/cache/thumbnails/"+ image.FileName);
-
-								SorentoLib.MediaTransformation.Transform (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_publicmedia) +"/administration/cache/thumbnails/"+ image.FileName, "data/scripts/media_image_thumbnail.xml");
-
-
-								SorentoLib.MediaTransformation.Transform (image.DataPath, "data/scripts/test.xml");
+//								SNDK.IO.CopyFile (image.DataPath, SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_publicmedia) +"/administration/cache/thumbnails/"+ image.FileName);
+//
+//								SorentoLib.MediaTransformation.Transform (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_publicmedia) +"/administration/cache/thumbnails/"+ image.FileName, "data/scripts/media_image_thumbnail.xml");
+//
+//
+//								SorentoLib.MediaTransformation.Transform (image.DataPath, "data/scripts/test.xml");
 //								SorentoLib.MediaTransformation.Transform (image, "data/scripts/test.xml");
 
 
