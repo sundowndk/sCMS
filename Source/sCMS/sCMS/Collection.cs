@@ -185,6 +185,13 @@ namespace sCMS
 			}
 		}
 		
+		public object GetContent (string Name)
+		{
+			CollectionSchema collectionschema = CollectionSchema.Load (this._collectionschemaid);
+			
+			return GetContent (collectionschema.GetField (Name).Id);
+		}
+		
 		public object GetContent (Field Field)
 		{
 			return GetContent (Field.Id);
@@ -359,7 +366,13 @@ namespace sCMS
 				}			
 			}
 			
-			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Sort.CompareTo (collection2.Sort);});
+//			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Sort.CompareTo (collection2.Sort);});
+			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Title.CompareTo (collection2.Title);});
+			
+			foreach (Collection c in result)
+			{
+				Console.WriteLine (c.Title);
+			}
 			
 			return result;
 		}
@@ -443,6 +456,7 @@ namespace sCMS
 			
 			if (item.ContainsKey ("contents"))
 			{
+				result._contents.Clear ();
 				foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
 				{
 					result._contents.Add (Content.FromXmlDocument (content));

@@ -198,6 +198,8 @@ break;
 #region sCMS.Collection
 				case "scms.collection":
 				{
+					
+					
 					switch (Method)
 					{
 						case "":
@@ -220,8 +222,7 @@ break;
 							// #endregion
 
 						case "content":
-						{
-							Console.WriteLine ("content");
+						{							
 							 switch (Parameters.Type (0).Name.ToLower())
 							 {
 								case "guid":
@@ -229,10 +230,10 @@ break;
 									return ((sCMS.Collection)Variable).GetContent (Parameters.Get<Guid>(0));
 								}
 							
-//								case "string":
-//								{
-//									return ((sCMS.Collection)Variable).GetContent (Parameters.Get<string>(0));
-//								}
+								case "string":
+								{
+									return ((sCMS.Collection)Variable).GetContent (Parameters.Get<string>(0));
+								}
 							 }
 							break;
 						}

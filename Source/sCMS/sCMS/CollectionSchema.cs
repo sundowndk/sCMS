@@ -164,7 +164,12 @@ namespace sCMS
 		{
 			this._fields.RemoveAll (delegate (Field f) { return f.Id == Id; });
 		}
-
+		
+		public Field GetField (string Name)
+		{
+			return this._fields.Find (delegate (Field field) { return field.Name == Name; });
+		}
+		
 		public Field GetField (Guid Id)
 		{
 			return this._fields.Find (delegate (Field field) { return field.Id == Id; });

@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Render.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Collection.cs">
     <Files>
       <File FileName="sCMS/sCMS.Addin/PageResponder.cs" Line="90" Column="49" />
       <File FileName="sCMS/sCMS/Page.cs" Line="568" Column="31" />
@@ -10,7 +10,9 @@
       <File FileName="sCMS/sCMS/Field.cs" Line="194" Column="4" />
       <File FileName="sCMS/sCMS/Global.cs" Line="180" Column="38" />
       <File FileName="web/javascript/modal/edit/field.js" Line="60" Column="21" />
-      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="224" Column="38" />
+      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="177" Column="8" />
+      <File FileName="sCMS/sCMS/Collection.cs" Line="374" Column="33" />
+      <File FileName="sCMS/sCMS/CollectionSchema.cs" Line="102" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
