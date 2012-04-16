@@ -84,9 +84,9 @@ var template =
 						{
 							var item = get ();														
 							sCMS.template.save (item);								
-							UI.elements.content.templates.setItem (sCMS.template.load (item.id));
-																
-							modal.dispose ();		
+							UI.elements.content.templates.setItem (sCMS.template.load (item.id));		
+							attributes.current = sCMS.template.load (item.id);
+							onChange ();																		
 						};
 										
 		// SET	

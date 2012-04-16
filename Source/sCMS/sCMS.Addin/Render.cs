@@ -158,78 +158,100 @@ return ((sCMS.Content)Variable).Data;
 break;
 #endregion
 
-// #region sCMS.CollectionSchema
-// case "scms.collectionschema":
-//
-// switch (Method)
-// {
-// case "":
-// return ((sCMS.CollectionSchema)Variable);
-//
-// case "name":
-// return ((sCMS.CollectionSchema)Variable).Name;
-//
-// case "collections":
-// return ((sCMS.CollectionSchema)Variable).Collections;
-//
-// case "load":
-// switch (Parameters.Type (0).Name.ToLower())
-// {
-// case "guid":
-// return sCMS.CollectionSchema.Load (Parameters.Get<Guid>(0));
-//
-// case "string":
-// return sCMS.CollectionSchema.Load (new Guid (Parameters.Get<string>(0)));
-// }
-// break;
-// }
-// break;
-// #endregion
+					#region sCMS.CollectionSchema
+				case "scms.collectionschema":
+				{
+					switch (Method)
+					{
+						case "":
+						{
+							return ((sCMS.CollectionSchema)Variable);
+						}
+							
+//						case "name":
+//						{
+//							return ((sCMS.CollectionSchema)Variable).Name;
+//						}
+
+						case "collections":
+						{
+							return ((sCMS.CollectionSchema)Variable).Collections;
+						}
+
+						case "load":
+						{
+							switch (Parameters.Type (0).Name.ToLower())
+							{
+								case "guid":							
+									return sCMS.CollectionSchema.Load (Parameters.Get<Guid>(0));
+									
+								case "string":
+									return sCMS.CollectionSchema.Load (new Guid (Parameters.Get<string>(0)));
+							}
+							break;
+						}
+					}
+					break;
+				}
+#endregion
 
 #region sCMS.Collection
-case "scms.collection":
+				case "scms.collection":
+				{
+					switch (Method)
+					{
+						case "":
+						{
+							return ((sCMS.Collection)Variable);
+						}
 
-switch (Method)
-{
-case "":
-return ((sCMS.Collection)Variable);
+						case "id":
+						{
+							return ((sCMS.Collection)Variable).Id;
+						}
 
-case "id":
-return ((sCMS.Collection)Variable).Id;
+						case "name":
+						
+							// return ((sCMS.Collection)Variable).Name;
+							
+							// #region Name
+							// case "content":
+							// return ((sCMS.Collection)Variable).Contents;
+							// #endregion
 
-case "name":
-// return ((sCMS.Collection)Variable).Name;
+						case "content":
+						{
+							Console.WriteLine ("content");
+							 switch (Parameters.Type (0).Name.ToLower())
+							 {
+								case "guid":
+								{
+									return ((sCMS.Collection)Variable).GetContent (Parameters.Get<Guid>(0));
+								}
+							
+//								case "string":
+//								{
+//									return ((sCMS.Collection)Variable).GetContent (Parameters.Get<string>(0));
+//								}
+							 }
+							break;
+						}
 
-// #region Name
-// case "content":
-// return ((sCMS.Collection)Variable).Contents;
-// #endregion
-
-case "content":
-// switch (Parameters.Type (0).Name.ToLower())
-// {
-// case "guid":
-// return ((sCMS.Collection)Variable).GetContent (Parameters.Get<Guid>(0));
-//
-// case "string":
-// return ((sCMS.Collection)Variable).GetContent (Parameters.Get<string>(0));
-// }
-break;
-
-case "load":
-switch (Parameters.Type (0).Name.ToLower())
-{
-case "guid":
-return sCMS.Collection.Load (Parameters.Get<Guid>(0));
-
-case "string":
-return sCMS.Collection.Load (new Guid (Parameters.Get<string>(0)));
-}
-break;
-}
-break;
+//						case "load":
+//							switch (Parameters.Type (0).Name.ToLower())
+//							{
+//								case "guid":
+//									return sCMS.Collection.Load (Parameters.Get<Guid>(0));
+//									
+//								case "string":
+//									return sCMS.Collection.Load (new Guid (Parameters.Get<string>(0)));
+//							}
+//							break;
+					}
+					break;
+				}
 #endregion
-}
+			}
 
 
 

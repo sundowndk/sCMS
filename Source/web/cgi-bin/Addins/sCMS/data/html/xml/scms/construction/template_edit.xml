@@ -94,7 +94,7 @@
 					<layoutbox type="vertical">
 						<panel size="*">							
 						</panel>
-						<panel size="210px">
+						<panel size="210px">							
 							<button tag="save" label="Save" width="100px" disabled="true"/>
 							<button tag="close" label="Close" width="100px" />
 						</panel>						

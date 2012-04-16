@@ -137,12 +137,12 @@ var page =
 							item.aliases = modal.getUIElement ("aliases").getItems ();
 							
 							item.contents = new Array ();
-							for (i=0; i <collectionschema.fields.length; i++)
+							for (i=0; i <collectionschema.allfields.length; i++)
 							{
 								var content = {};
-								content.id = collectionschema.fields[i].id;
-								content.type = collectionschema.fields[i].type;
-								content.data = collectionschema.fields[i].data = fields[collectionschema.fields[i].id].getAttribute ("value");
+								content.id = collectionschema.allfields[i].id;
+								content.type = collectionschema.allfields[i].type;
+								content.data = collectionschema.allfields[i].data = fields[collectionschema.allfields[i].id].getAttribute ("value");
 								
 								item.contents[i] = content;
 							}
@@ -195,11 +195,11 @@ var page =
 		var collectionschema = sCMS.template.load (attributes.current.templateid);
 		var fields = new Array ();
 		
-		for (i=0; i <collectionschema.fields.length; i++)			
+		for (i=0; i <collectionschema.allfields.length; i++)			
 		{
 			var height = "200px";
 		
-			switch (collectionschema.fields[i].type.toLowerCase ())
+			switch (collectionschema.allfields[i].type.toLowerCase ())
 			{
 				case "string":
 				{
@@ -221,15 +221,15 @@ var page =
 			layoutbox2.addPanel ({tag: "text", size: "100px"});
 			layoutbox2.addPanel ({tag: "field", size: "*"});
 			
-			layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.fields[i].name}));
+			layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.allfields[i].name}));
 			
 			//layoutbox1.getPanel ("field").addUIElement (layoutbox2);
 			
 			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
 			
-			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), width: "100%", height: "100%"});	
-			fields[collectionschema.fields[i].id].setAttribute ("onChange", onChange);
-			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.fields[i].id]);
+			fields[collectionschema.allfields[i].id] = new SNDK.SUI.field ({type: collectionschema.allfields[i].type.toLowerCase (), width: "100%", height: "100%"});	
+			fields[collectionschema.allfields[i].id].setAttribute ("onChange", onChange);
+			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.allfields[i].id]);
 		}		
 		
 		SNDK.SUI.redraw ();

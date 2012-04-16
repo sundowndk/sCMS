@@ -53,12 +53,17 @@ namespace sCMS.Addin
 			// TODO: Responder needs to be fixed.
 			try
 			{
-
+				
+				
+//				page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value.TrimStart ("/".ToCharArray ()));
+										
 //				if (SorentoLib.Services.Config.Get<bool> ("core","enabled"))
 //				{
 //					page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value.TrimStart ("/".ToCharArray ()));
-
-//					page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value);
+				
+				Console.WriteLine ("SCMS: "+ Session.Request.QueryJar.Get ("cmd.page").Value);
+				
+					page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value);
 
 //			}
 //				else
@@ -71,13 +76,21 @@ namespace sCMS.Addin
 				return false;
 			}
 			
-			return false;
+//			return false;
 
-//			SorentoLib.Render.Template template = new SorentoLib.Render.Template (Session, page.Template.Build ());
+			SorentoLib.Render.Template template = new SorentoLib.Render.Template (Session, page.Template.Build ());
+			
 //			Session.Page.Variables.Add ("!PAGE", page);
-//
-//			foreach (sCMS.Field field in page.Template.Fields)
-//			{
+
+			foreach (sCMS.Field field in page.Template.AllFields)
+			{
+//				Content content = page.GetContent (field.Id);
+				
+				Console.WriteLine (field.Name);
+				Console.WriteLine (page.GetContent (field.Id));
+				
+				Session.Page.Variables.Add (field.Name, page.GetContent (field.Id));
+				
 //				Content content = page.Contents.Find (delegate (Content c) { return c.FieldId == field.Id; });
 //				if (content != null)
 //				{
@@ -87,7 +100,7 @@ namespace sCMS.Addin
 //				{
 //					Session.Page.Variables.Add ("!"+ field.Name, field.DefaultValue);
 //				}
-//			}
+			}
 
 			foreach (Global global in Global.List ())
 			{
@@ -95,8 +108,8 @@ namespace sCMS.Addin
 				Session.Page.Variables.Add ("@"+ global.Name, global.Content.Data);
 			}
 
-//			template.Render ();
-//			template = null;
+			template.Render ();
+			template = null;
 			
 			Session.Responder.Request.SendOutputText (Session.Page.Write (Session));
 

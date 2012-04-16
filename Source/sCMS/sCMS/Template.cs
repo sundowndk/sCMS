@@ -168,6 +168,14 @@ namespace sCMS
 			}
 		}
 		
+		public List<Field> AllFields
+		{
+			get
+			{
+				return this.CompileFields ();
+			}
+		}
+		
 		public List<Stylesheet> Stylesheets
 		{
 			get
@@ -388,7 +396,7 @@ namespace sCMS
 				{
 					foreach (string id in this.CompileStylesheet ())
 					{
-						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheethtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_javascripturl) + id));
+						result.Add (string.Format (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheethtmltag), SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.scms_stylesheeturl) + id));
 					}
 					continue;
 				}
@@ -459,6 +467,7 @@ namespace sCMS
 			result.Add ("title", this._title);
 			result.Add ("content", this._content);
 			result.Add ("fields", this._fields);
+			result.Add ("allfields", this.CompileFields ());
 			result.Add ("stylesheets", this.Stylesheets);
 			result.Add ("javascripts", this.Javascripts);
 			

@@ -328,7 +328,7 @@ namespace sCMS
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("templateid", this._templateid);
 			result.Add ("rootid", this._rootid);
-			result.Add ("parentid", this._parentid);
+			result.Add ("parentid", this._parentid);			
 			result.Add ("path", this.Path);
 			result.Add ("title", this._title);
 			result.Add ("aliases", this._aliases);
@@ -398,6 +398,7 @@ namespace sCMS
 				
 				if (item.ContainsKey ("contents"))
 				{
+					result._contents.Clear ();
 					foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
 					{
 						result._contents.Add (Content.FromXmlDocument (content));
@@ -564,6 +565,7 @@ namespace sCMS
 				
 			if (item.ContainsKey ("contents"))
 			{
+				result._contents.Clear ();
 				foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
 				{
 					result._contents.Add (Content.FromXmlDocument (content));

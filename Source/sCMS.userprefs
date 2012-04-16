@@ -1,13 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Content.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Render.cs">
     <Files>
-      <File FileName="web/javascript/modal/edit/field.js" Line="60" Column="21" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/html/xml/scms/modal/edit/field.xml" Line="24" Column="41" />
-      <File FileName="sCMS/sCMS/Global.cs" Line="180" Column="38" />
-      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="346" Column="35" />
+      <File FileName="sCMS/sCMS.Addin/PageResponder.cs" Line="90" Column="49" />
+      <File FileName="sCMS/sCMS/Page.cs" Line="568" Column="31" />
+      <File FileName="Test/Main.cs" Line="18" Column="4" />
+      <File FileName="sCMS/sCMS/Template.cs" Line="175" Column="34" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_page.stpl" Line="140" Column="41" />
       <File FileName="sCMS/sCMS/Field.cs" Line="194" Column="4" />
-      <File FileName="sCMS/sCMS/Content.cs" Line="217" Column="12" />
+      <File FileName="sCMS/sCMS/Global.cs" Line="180" Column="38" />
+      <File FileName="web/javascript/modal/edit/field.js" Line="60" Column="21" />
+      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="224" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
