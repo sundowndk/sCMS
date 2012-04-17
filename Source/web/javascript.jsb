@@ -33,7 +33,8 @@
 					<js file="javascript/modal/link.js" />
 				</class>
 				<class name="edit">
-					<js file="javascript/modal/edit/field.js" />					
+					<js file="javascript/modal/edit/field.js" />
+					<js file="javascript/modal/edit/fieldstring.js" />
 				</class>
 				<class name="chooser">				
 					<js file="javascript/modal/chooser/stylesheet.js" />

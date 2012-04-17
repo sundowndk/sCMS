@@ -101,6 +101,14 @@ namespace sCMS
 					}
 					#endregion
 						
+					#region LINK
+					case sCMS.Enums.FieldType.Link:
+					{
+						result = this._data;
+						break;
+					}
+					#endregion
+						
 					#region IMAGE
 					case sCMS.Enums.FieldType.Image:
 					{
@@ -207,6 +215,14 @@ namespace sCMS
 					#region TEXT
 					case sCMS.Enums.FieldType.Text:
 					{					
+						this._data = value;
+						break;
+					}
+					#endregion
+						
+					#region LINK
+					case sCMS.Enums.FieldType.Link:
+					{
 						this._data = value;
 						break;
 					}

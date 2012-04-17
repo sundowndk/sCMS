@@ -44,55 +44,60 @@ base.NameSpaces.Add ("scms");
 #region Public Methods
 override public object Process (SorentoLib.Session Session, string Fullname, string Method, object Variable, SorentoLib.Render.Resolver.Parameters Parameters)
 {
-switch (Fullname)
-{
-// #region sCMS.Page
-// case "scms.page":
-//
-// switch (Method)
-// {
-// case "":
-// return ((sCMS.Page)Variable);
-//
-// case "id":
-// return ((sCMS.Page)Variable).Id;
-//
-// case "createtimestamp":
-// return ((sCMS.Page)Variable).CreateTimestamp;
-//
-// case "updatetimestamp":
-// return ((sCMS.Page)Variable).UpdateTimestamp;
-//
-// case "name":
-// return ((sCMS.Page)Variable).Name;
-//
-// case "path":
-// return ((sCMS.Page)Variable).Path;
-//
-// case "template":
-// return ((sCMS.Page)Variable).Template;
-//
-// case "content":
-// switch (Parameters.Type (0).Name.ToLower())
-// {
-// case "guid":
-// return ((sCMS.Page)Variable).GetContent (Parameters.Get<Guid>(0));
-// break;
-//
-// case "string":
-// return ((sCMS.Page)Variable).GetContent (Parameters.Get<string>(0));
-// break;
-// }
-// break;
-//
-// case "load":
-// return sCMS.Page.Load (Parameters.Get<Guid>(0));
-//
-// case "list":
-// return sCMS.Page.List ();
-// }
-// break;
-// #endregion
+			switch (Fullname)
+			{
+				#region sCMS.Page
+				case "scms.page":
+
+					switch (Method)
+					{
+						case "":
+							return ((sCMS.Page)Variable);
+							
+						case "id":
+							return ((sCMS.Page)Variable).Id;
+							
+						case "createtimestamp":
+							return ((sCMS.Page)Variable).CreateTimestamp;
+
+						case "updatetimestamp":
+							return ((sCMS.Page)Variable).UpdateTimestamp;
+							
+						case "title":
+							return ((sCMS.Page)Variable).Title;
+
+						case "path":
+							return ((sCMS.Page)Variable).Path;
+
+						case "template":
+							return ((sCMS.Page)Variable).Template;
+							
+						case "childpages":
+						{
+							return ((sCMS.Page)Variable).ChildPages;
+						}
+
+						case "getcontent":
+							switch (Parameters.Type (0).Name.ToLower())
+							{
+								case "guid":
+									return ((sCMS.Page)Variable).GetContent (Parameters.Get<Guid>(0));
+									break;
+									
+								case "string":
+									return ((sCMS.Page)Variable).GetContent (Parameters.Get<string>(0));
+									break;
+							}
+							break;
+
+						case "load":
+							return sCMS.Page.Load (Parameters.Get<Guid>(0));
+							
+						case "list":
+							return sCMS.Page.List ();
+					}
+					break;
+#endregion
 
 // #region sCMS.Template
 // case "scms.template":
@@ -221,7 +226,7 @@ break;
 							// return ((sCMS.Collection)Variable).Contents;
 							// #endregion
 
-						case "content":
+						case "getcontent":
 						{							
 							 switch (Parameters.Type (0).Name.ToLower())
 							 {

@@ -103,5 +103,7 @@
     <None Include="javascript\modal\link.js" />
     <None Include="cgi-bin\Addins\sCMS\data\content\scms\content\index_script_page_alias.stpl" />
     <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\content\page_edit_alias_edit.xml" />
+    <None Include="javascript\modal\edit\fieldstring.js" />
+    <None Include="cgi-bin\Addins\sCMS\data\html\xml\scms\modal\edit\fieldstring.xml" />
   </ItemGroup>
 </Project>

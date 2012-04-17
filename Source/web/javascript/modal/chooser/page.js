@@ -72,15 +72,16 @@ page : function (attributes)
 	suixml += '						<column tag="title" label="Title" width="200px" visible="true" />';	
 	suixml += '						<column tag="type" />'
 	suixml += '						<column tag="parentid" />'
-	suixml += '					</listview>';
-	suixml += '			</layoutbox>';
+	suixml += '					</listview>';	
 	suixml += '				</panel>';
+	suixml += '			</layoutbox>';	
 	suixml += '		</panel>';
 	suixml += '	</layoutbox>';
 	suixml += '</sui>';
+	
 
 	var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose page", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
-						
+	
 	sCMS.root.list ({async: true, onDone: onRootDone});
 	sCMS.page.list ({async: true, onDone: onPageDone});												
 													

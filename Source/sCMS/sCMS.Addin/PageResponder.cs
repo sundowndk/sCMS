@@ -80,7 +80,7 @@ namespace sCMS.Addin
 
 			SorentoLib.Render.Template template = new SorentoLib.Render.Template (Session, page.Template.Build ());
 			
-//			Session.Page.Variables.Add ("!PAGE", page);
+			Session.Page.Variables.Add ("!PAGE", page);
 
 			foreach (sCMS.Field field in page.Template.AllFields)
 			{

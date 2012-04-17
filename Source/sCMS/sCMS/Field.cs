@@ -203,6 +203,12 @@ namespace sCMS
 				{
 					return string.Empty;
 				}
+					
+				case sCMS.Enums.FieldType.ListString:
+				{
+					string[] result = {};
+					return result;
+				}
 
 				case sCMS.Enums.FieldType.Image:
 				{
@@ -217,6 +223,11 @@ namespace sCMS
 				case sCMS.Enums.FieldType.ListPage:
 				{
 					return new List<Page> ();
+				}
+					
+				case sCMS.Enums.FieldType.Link:
+				{
+					return string.Empty;
 				}
 						
 				default:

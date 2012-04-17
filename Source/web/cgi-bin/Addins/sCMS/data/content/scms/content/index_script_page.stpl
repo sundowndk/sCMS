@@ -143,7 +143,7 @@ var page =
 								content.id = collectionschema.allfields[i].id;
 								content.type = collectionschema.allfields[i].type;
 								content.data = collectionschema.allfields[i].data = fields[collectionschema.allfields[i].id].getAttribute ("value");
-								
+																
 								item.contents[i] = content;
 							}
 							

@@ -136,6 +136,14 @@ namespace sCMS
 				return result;
 			}
 		}
+		
+		public List<Page> ChildPages
+		{
+			get
+			{
+				return Page.List (this._id);
+			}
+		}
 
 		public string Title
 		{
@@ -255,9 +263,15 @@ namespace sCMS
  
 				// EXCEPTION: Exception.PageSave
 				throw new Exception (string.Format (Strings.Exception.PageSave, this._id.ToString ()));
-			}			
-		
+			}					
 		}
+		
+		public object GetContent (string Name)
+		{
+			Template template = Template.Load (this._templateid);			
+			return GetContent (template.GetField (Name).Id);
+		}
+		
 		public object GetContent (Field Field)
 		{
 			return GetContent (Field.Id);
