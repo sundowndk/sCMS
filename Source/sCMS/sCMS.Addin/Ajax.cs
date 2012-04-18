@@ -140,7 +140,7 @@ namespace sCMS.Addin
 					{
 						case "new":
 						{
-							result.Add (new Page (Root.Load (request.getValue<Guid> ("rootid")), Template.Load (request.getValue<Guid> ("templateid")), request.getValue<string> ("title")));
+							result.Add (new Page (request.getValue<Guid> ("rootid"), request.getValue<Guid> ("templateid"), request.getValue<Guid> ("parentid"), request.getValue<string> ("title")));
 							break;
 						}
 

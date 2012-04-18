@@ -46,58 +46,125 @@ override public object Process (SorentoLib.Session Session, string Fullname, str
 {
 			switch (Fullname)
 			{
-				#region sCMS.Page
-				case "scms.page":
-
+				#region sCMS.Root
+				case "scms.root":
+				{
 					switch (Method)
 					{
 						case "":
-							return ((sCMS.Page)Variable);
+						{
+							return ((sCMS.Root)Variable);
+						}
 							
 						case "id":
+						{
+							return ((sCMS.Root)Variable).Id;
+						}
+					}
+					break;
+				}
+				#endregion				
+				
+				#region sCMS.Page
+				case "scms.page":
+				{
+					switch (Method)
+					{
+						case "":
+						{
+							return ((sCMS.Page)Variable);
+						}
+							
+						case "id":
+						{
 							return ((sCMS.Page)Variable).Id;
+						}
 							
 						case "createtimestamp":
+						{
 							return ((sCMS.Page)Variable).CreateTimestamp;
+						}
 
 						case "updatetimestamp":
+						{
 							return ((sCMS.Page)Variable).UpdateTimestamp;
+						}
 							
 						case "title":
+						{
 							return ((sCMS.Page)Variable).Title;
+						}
 
 						case "path":
+						{
 							return ((sCMS.Page)Variable).Path;
+						}
 
 						case "template":
+						{
 							return ((sCMS.Page)Variable).Template;
+						}
+							
+						case "root":
+						{
+							return ((sCMS.Page)Variable).Root;
+						}
 							
 						case "childpages":
 						{
 							return ((sCMS.Page)Variable).ChildPages;
 						}
+							
+						case "isparent":
+						{
+							return ((sCMS.Page)Variable).IsParent (Parameters.Get<Guid>(0));
+						}
 
 						case "getcontent":
+						{
 							switch (Parameters.Type (0).Name.ToLower())
 							{
 								case "guid":
+								{
 									return ((sCMS.Page)Variable).GetContent (Parameters.Get<Guid>(0));
-									break;
+								}
 									
 								case "string":
+								{
 									return ((sCMS.Page)Variable).GetContent (Parameters.Get<string>(0));
-									break;
+								}
 							}
 							break;
+						}
 
 						case "load":
+						{
 							return sCMS.Page.Load (Parameters.Get<Guid>(0));
+						}
 							
 						case "list":
-							return sCMS.Page.List ();
+						{
+							switch (Parameters.Type (0).Name.ToLower())
+							{
+								case "guid":
+								{
+									return sCMS.Page.List (Parameters.Get<Guid>(0));
+								}
+									
+								default:
+								{
+									return sCMS.Page.List ();
+								}
+							}
+							
+							
+							
+						}
 					}
 					break;
-#endregion
+				}
+				#endregion
+
 
 // #region sCMS.Template
 // case "scms.template":

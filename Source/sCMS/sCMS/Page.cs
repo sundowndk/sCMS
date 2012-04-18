@@ -50,6 +50,7 @@ namespace sCMS
 		private string _title;
 		private List<string> _aliases;
 		private List<Content> _contents;
+		private int _sort;
 		#endregion
 		
 		#region Public Fields
@@ -104,11 +105,32 @@ namespace sCMS
 			}
 		}
 		
+		public int Sort
+		{
+			get
+			{
+				return this._sort;
+			}
+			
+			set
+			{
+				this._sort = value;
+			}
+		}
+		
 		public Guid RootId
 		{
 			get
 			{
 				return this._rootid;
+			}
+		}
+		
+		public Root Root
+		{
+			get
+			{
+				return Root.Load (this._rootid);
 			}
 		}
 		
@@ -136,7 +158,7 @@ namespace sCMS
 				return result;
 			}
 		}
-		
+					
 		public List<Page> ChildPages
 		{
 			get
@@ -160,7 +182,11 @@ namespace sCMS
 				{
 					int count = 2;
 					string dummy = newname;
-					while (List ().Exists (delegate (Page o) { return o.Title == newname; }))
+					
+					Console.WriteLine (System.IO.Path.GetDirectoryName (this.Path) +"/"+ newname);
+					
+//					while (List ().Exists (delegate (Page o) { return o._title == newname; }))
+					while (List ().Exists (delegate (Page o) { return o.Path == System.IO.Path.GetPathRoot (this.Path) +"/"+ newname; }))
 					{
 						newname = dummy +"_"+ count++;
 					}
@@ -188,14 +214,16 @@ namespace sCMS
 		#endregion
 
 		#region Constructors
-		public Page (Root Root, Template Template, string Title)
+		public Page (Guid RootId, Guid TemplateId, Guid ParentId, string Title)
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._templateid = Template.Id;
-			this._rootid = Root.Id;
-			this._parentid = Guid.Empty;
+			this._rootid = RootId;
+			this._templateid = TemplateId;			
+			this._sort = 0;
+			
+			this._parentid = ParentId;
 			
 			if (Title != string.Empty)
 			{
@@ -221,6 +249,7 @@ namespace sCMS
 			this._title = string.Empty;
 			this._aliases = new List<string> ();
 			this._contents = new List<Content> ();
+			this._sort = 0;
 		}
 		#endregion
 
@@ -242,19 +271,44 @@ namespace sCMS
 				item.Add ("title", this._title);
 				item.Add ("aliases", this._aliases);
 				item.Add ("contents", this._contents);
+				item.Add ("sort", this._sort);
 				
 				SorentoLib.Services.Datastore.Meta meta = new SorentoLib.Services.Datastore.Meta ();
-				meta.Add ("parentid", this._parentid);
+				
+				if (this._parentid == Guid.Empty)
+				{
+					meta.Add ("parentid", this._rootid);
+				}
+				else
+				{
+					meta.Add ("parentid", this._parentid);
+				}
+				
 				meta.Add ("path", this.Path);
 				
 				foreach (string alias in this._aliases)
 				{
-					string path = System.IO.Path.GetDirectoryName (this.Path) +"/"+ alias;
+					string path = string.Empty;
+					
+					if (alias.Substring (0, 1) == "/")
+					{
+						path = alias;
+					}
+					else
+					{
+						path = System.IO.Path.GetDirectoryName (this.Path) +"/"+ alias;	
+					}
+					
 					path = path.Replace ("//", "/");
 					meta.Add ("path", path);
 				}
 					
 				SorentoLib.Services.Datastore.Set (DatastoreAisle, this._id.ToString (), SNDK.Convert.ToXmlDocument (item, this.GetType ().FullName.ToLower ()), meta);
+				
+				foreach (Page page in this.ChildPages)
+				{
+					page.Save ();
+				}
 			}
 			catch (Exception exception)
 			{
@@ -264,6 +318,29 @@ namespace sCMS
 				// EXCEPTION: Exception.PageSave
 				throw new Exception (string.Format (Strings.Exception.PageSave, this._id.ToString ()));
 			}					
+		}
+		
+		
+		
+		public bool IsParent (Page Page)
+		{
+			return IsParent (Page._id);
+		}
+		
+		public bool IsParent (Guid Id)
+		{
+			bool result = false;
+			
+			if (this._id == Id)
+			{
+				result = true;
+			}
+			else if (this._parentid != Guid.Empty)
+			{
+				result = this.Parent.IsParent (Id);
+			}
+
+			return result;
 		}
 		
 		public object GetContent (string Name)
@@ -289,7 +366,7 @@ namespace sCMS
 				}
 				else
 				{						
-					return Field.DefaultValue (CollectionSchema.Load (this._templateid).GetField (Id).Type);
+					return Field.DefaultValue (Template.Load (this._templateid).GetField (Id).Type);
 				}
 			}
 			catch (Exception exception)
@@ -347,6 +424,7 @@ namespace sCMS
 			result.Add ("title", this._title);
 			result.Add ("aliases", this._aliases);
 			result.Add ("contents", this._contents);
+			result.Add ("sort", this._sort);
 
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}
@@ -368,6 +446,8 @@ namespace sCMS
 				throw new Exception (string.Format (Strings.Exception.PageLoadPath, Path));
 			}	
 		}
+		
+	
 		
 		public static Page Load (Guid Id)
 		{
@@ -408,6 +488,11 @@ namespace sCMS
 				if (item.ContainsKey ("title"))
 				{
 					result._title = (string)item["title"];
+				}
+				
+				if (item.ContainsKey ("sort"))
+				{
+					result._sort = int.Parse ((string)item["sort"]);
 				}
 				
 				if (item.ContainsKey ("contents"))
@@ -488,10 +573,12 @@ namespace sCMS
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.PageList, id));
 				}
 			}
+			
+			result.Sort (delegate (Page page1, Page page2) {return page1.Sort.CompareTo (page2.Sort);});
 
 			return result;
 		}
-		
+				
 		public static List<Page> List (Guid ParentId)
 		{
 			List<Page> result = new List<Page> ();
@@ -511,6 +598,8 @@ namespace sCMS
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.PageList, id));
 				}
 			}
+			
+			result.Sort (delegate (Page page1, Page page2) {return page1.Sort.CompareTo (page2.Sort);});			
 
 			return result;
 		}
@@ -575,6 +664,11 @@ namespace sCMS
 			if (item.ContainsKey ("title"))
 			{
 				result._title = (string)item["title"];
+			}
+			
+			if (item.ContainsKey ("sort"))
+			{
+				result._sort = int.Parse ((string)item["sort"]);
 			}
 				
 			if (item.ContainsKey ("contents"))

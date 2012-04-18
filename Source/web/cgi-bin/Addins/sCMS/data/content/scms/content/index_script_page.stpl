@@ -18,14 +18,14 @@ var page =
 							
 							if (UI.elements.content.pages.getItem ().type == "root")
 							{
-								item = sCMS.page.new (UI.elements.content.pages.getItem ().id, item.templateid, item.title);								
+								item = sCMS.page.new (UI.elements.content.pages.getItem ().id, item.templateid, "00000000-0000-0000-0000-000000000000", item.title);								
 							}
 							else if (UI.elements.content.pages.getItem ().type == "page")
 							{
 								var old = sCMS.page.load (UI.elements.content.pages.getItem ().id)
 							
-								item = sCMS.page.new (old.rootid, item.templateid, item.title);
-								item.parentid = UI.elements.content.pages.getItem ().id;
+								item = sCMS.page.new (old.rootid, item.templateid, UI.elements.content.pages.getItem ().id, item.title);
+								//item.parentid = UI.elements.content.pages.getItem ().id;
 							}
 							
 							sCMS.page.save (item);
@@ -256,7 +256,17 @@ var page =
 						};
 	
 		sConsole.modal.question ({title: "Delete page", text: "Do you really want to delete this page ?", buttonLabel: "Yes|No", onDone: action});
-	}	
+	},
+	
+	up : function ()
+	{
+		UI.elements.content.pages.moveItemUp ();
+	},
+	
+	down : function ()
+	{
+		UI.elements.content.pages.moveItemDown ();
+	}
 }
 
 

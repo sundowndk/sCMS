@@ -1,11 +1,12 @@
 // Delay before executing asyncronis request.
 _asyncdelay : 10,
 
-new : function (rootid, templateid, title)
+new : function (rootid, templateid, parentid, title)
 {	
 	var content = new Array ();
 	content["rootid"] = rootid;
 	content["templateid"] = templateid;
+	content["parentid"] = parentid;
 	content["title"] = title;
 
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=sCMS.Page.New", "data", "POST", false);		

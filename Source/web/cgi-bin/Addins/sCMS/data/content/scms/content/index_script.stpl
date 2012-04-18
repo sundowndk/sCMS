@@ -13,6 +13,9 @@
 						UI.elements.content.pagecreate.setAttribute ("onClick", page.create);
 						UI.elements.content.pageedit.setAttribute ("onClick", page.edit);
 						UI.elements.content.pagedelete.setAttribute ("onClick", page.delete);
+						
+						UI.elements.content.pageup.setAttribute ("onClick", page.up);
+						UI.elements.content.pagedown.setAttribute ("onClick", page.down);
 					
 						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
@@ -91,13 +94,19 @@
 		 					{
 		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
 		 						UI.elements.content.pageedit.setAttribute ("disabled", true);
-		 						UI.elements.content.pagedelete.setAttribute ("disabled", true);
+		 						UI.elements.content.pagedelete.setAttribute ("disabled", true);		 								 						
+		 						
+		 						UI.elements.content.pageup.setAttribute ("disabled", true);
+		 						UI.elements.content.pagedown.setAttribute ("disabled", true);
 		 					}		 							 					
 		 					else if (UI.elements.content.pages.getItem ().type == "page")
 		 					{
 		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
 		 						UI.elements.content.pageedit.setAttribute ("disabled", false);
 		 						UI.elements.content.pagedelete.setAttribute ("disabled", false);
+		 						
+		 						UI.elements.content.pageup.setAttribute ("disabled", false);
+		 						UI.elements.content.pagedown.setAttribute ("disabled", false);
 		 					}		 					
 		 				}
 		 				else
@@ -105,6 +114,9 @@
 		 					UI.elements.content.pagecreate.setAttribute ("disabled", true);
 		 					UI.elements.content.pageedit.setAttribute ("disabled", true);
 		 					UI.elements.content.pagedelete.setAttribute ("disabled", true);
+		 					
+		 					UI.elements.content.pageup.setAttribute ("disabled", true);
+		 					UI.elements.content.pagedown.setAttribute ("disabled", true);
 		 				}																			
 		 				
 						if (UI.elements.content.collections.getItem ())
