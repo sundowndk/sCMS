@@ -240,7 +240,39 @@ var collection =
 						};
 	
 		sConsole.modal.question ({title: "Delete collection", text: "Do you really want to delete this collection ?", buttonLabel: "Yes|No", onDone: action});
-	}	
+	},
+	
+	// UP
+	up : function ()
+	{
+		var move = UI.elements.content.collections.moveItemUp ();
+		
+		var id1 = UI.elements.content.collections.getItem (move[0]).id;
+		var item1 = sCMS.collection.load (id1);
+		item1.sort = move[0];
+		sCMS.collection.save (item1);
+		
+		var id2 = UI.elements.content.collections.getItem (move[1]).id;
+		var item2 = sCMS.collection.load (id2);
+		item2.sort = move[1];
+		sCMS.collection.save (item2);									
+	},
+	
+	// DOWN
+	down : function ()
+	{
+		var move = UI.elements.content.collections.moveItemDown ();
+		
+		var id1 = UI.elements.content.collections.getItem (move[0]).id;
+		var item1 = sCMS.collection.load (id1);
+		item1.sort = move[0];
+		sCMS.collection.save (item1);
+		
+		var id2 = UI.elements.content.collections.getItem (move[1]).id;
+		var item2 = sCMS.collection.load (id2);
+		item2.sort = move[1];
+		sCMS.collection.save (item2);
+	}
 }
 
 

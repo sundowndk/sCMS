@@ -367,13 +367,10 @@ namespace sCMS
 			}
 			
 //			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Sort.CompareTo (collection2.Sort);});
-			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Title.CompareTo (collection2.Title);});
+//			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Title.CompareTo (collection2.Title);});
+						
 			
-			foreach (Collection c in result)
-			{
-				Console.WriteLine (c.Title);
-			}
-			
+			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Sort.CompareTo (collection2.Sort);});
 			return result;
 		}
 		
@@ -393,6 +390,8 @@ namespace sCMS
 					SorentoLib.Services.Logging.LogDebug (string.Format (Strings.LogDebug.CollectionList, id));
 				}
 			}
+			
+			result.Sort (delegate (Collection collection1, Collection collection2) {return collection1.Sort.CompareTo (collection2.Sort);});
 
 			return result;
 		}

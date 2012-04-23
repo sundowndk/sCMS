@@ -24,6 +24,9 @@
 						UI.elements.content.collectioncreate.setAttribute ("onClick", collection.create);
 						UI.elements.content.collectionedit.setAttribute ("onClick", collection.edit);
 						UI.elements.content.collectiondelete.setAttribute ("onClick", collection.delete);
+						
+						UI.elements.content.collectionup.setAttribute ("onClick", collection.up);
+						UI.elements.content.collectiondown.setAttribute ("onClick", collection.down);
 
 						UI.set ();
 						SNDK.SUI.init ();																																																
@@ -126,12 +129,18 @@
 		 						UI.elements.content.collectioncreate.setAttribute ("disabled", false);
 		 						UI.elements.content.collectionedit.setAttribute ("disabled", true);
 		 						UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 						
+		 						UI.elements.content.collectionup.setAttribute ("disabled", true);
+		 						UI.elements.content.collectiondown.setAttribute ("disabled", true);
 		 					}		 							 					
 		 					else if (UI.elements.content.collections.getItem ().type == "collection")
 		 					{
 		 						UI.elements.content.collectioncreate.setAttribute ("disabled", true);
 		 						UI.elements.content.collectionedit.setAttribute ("disabled", false);
 		 						UI.elements.content.collectiondelete.setAttribute ("disabled", false);
+		 						
+		 						UI.elements.content.collectionup.setAttribute ("disabled", false);
+		 						UI.elements.content.collectiondown.setAttribute ("disabled", false);
 		 					}		 					
 		 				}
 		 				else
@@ -139,6 +148,9 @@
 		 					UI.elements.content.collectioncreate.setAttribute ("disabled", true);
 		 					UI.elements.content.collectionedit.setAttribute ("disabled", true);
 		 					UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 					
+		 					UI.elements.content.collectionup.setAttribute ("disabled", true);
+		 					UI.elements.content.collectiondown.setAttribute ("disabled", true);
 		 				}
 		 				
 		 				if (UI.elements.content.globals.getItem ())

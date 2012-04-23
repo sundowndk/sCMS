@@ -46,7 +46,7 @@
 										<button tag="collectiondelete" width="100%" label="Delete" disabled="true"/>
 									</panel>
 									<panel size="80px">
-										<button tag="colletionup" width="100%" label="Up" disabled="true"/>
+										<button tag="collectionup" width="100%" label="Up" disabled="true"/>
 										<button tag="collectiondown" width="100%" label="Down" disabled="true"/>
 									</panel>
 								</layoutbox>				

@@ -258,14 +258,36 @@ var page =
 		sConsole.modal.question ({title: "Delete page", text: "Do you really want to delete this page ?", buttonLabel: "Yes|No", onDone: action});
 	},
 	
+	// UP
 	up : function ()
 	{
-		UI.elements.content.pages.moveItemUp ();
+		var move = UI.elements.content.pages.moveItemUp ();
+		
+		var id1 = UI.elements.content.pages.getItem (move[0]).id;
+		var item1 = sCMS.page.load (id1);
+		item1.sort = move[0];
+		sCMS.page.save (item1);
+		
+		var id2 = UI.elements.content.pages.getItem (move[1]).id;
+		var item2 = sCMS.page.load (id2);
+		item2.sort = move[1];
+		sCMS.page.save (item2);									
 	},
 	
+	// DOWN
 	down : function ()
 	{
-		UI.elements.content.pages.moveItemDown ();
+		var move = UI.elements.content.pages.moveItemDown ();
+		
+		var id1 = UI.elements.content.pages.getItem (move[0]).id;
+		var item1 = sCMS.page.load (id1);
+		item1.sort = move[0];
+		sCMS.page.save (item1);
+		
+		var id2 = UI.elements.content.pages.getItem (move[1]).id;
+		var item2 = sCMS.page.load (id2);
+		item2.sort = move[1];
+		sCMS.page.save (item2);
 	}
 }
 
