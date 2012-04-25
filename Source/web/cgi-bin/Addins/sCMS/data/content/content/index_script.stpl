@@ -1,0 +1,168 @@
+<script language="JavaScript">
+
+	<%Include ("index_script_page.stpl")%>	
+	<%Include ("index_script_global.stpl")%>	
+	<%Include ("index_script_collection.stpl")%>	
+
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################		
+	UI.init = 		function ()
+					{								 						
+						UI.elements.content.pages.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.pagecreate.setAttribute ("onClick", page.create);
+						UI.elements.content.pageedit.setAttribute ("onClick", page.edit);
+						UI.elements.content.pagedelete.setAttribute ("onClick", page.delete);
+						
+						UI.elements.content.pageup.setAttribute ("onClick", page.up);
+						UI.elements.content.pagedown.setAttribute ("onClick", page.down);
+					
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
+						
+						UI.elements.content.collections.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.collectioncreate.setAttribute ("onClick", collection.create);
+						UI.elements.content.collectionedit.setAttribute ("onClick", collection.edit);
+						UI.elements.content.collectiondelete.setAttribute ("onClick", collection.delete);
+						
+						UI.elements.content.collectionup.setAttribute ("onClick", collection.up);
+						UI.elements.content.collectiondown.setAttribute ("onClick", collection.down);
+
+						UI.set ();
+						SNDK.SUI.init ();																																																
+					};
+	
+	UI.set =		function ()
+					{					
+						var onRootDone =				function (result)
+														{
+															for (index in result)
+															{
+																result[index].type = "root";
+															}	
+															UI.elements.content.pages.addItems (result);
+														};
+																			
+						var onPageDone =				function (result)
+														{
+															for (index in result)
+															{
+																result[index].type = "page";
+																if (result[index].parentid == "00000000-0000-0000-0000-000000000000")
+																{
+																	result[index].parentid = result[index].rootid;
+																}
+															}	
+															UI.elements.content.pages.addItems (result);
+														};
+					
+						var onCollectionSchemaDone =	function (result)
+														{
+															
+															for (index in result)
+															{
+																result[index].type = "schema";
+															}
+															UI.elements.content.collections.addItems (result);
+														};
+																		
+						var onCollectionDone =			function (result)
+														{															
+															for (index in result)
+															{
+																result[index].type = "collection";
+															}	
+															UI.elements.content.collections.addItems (result);
+														};
+														
+						var onGlobalDone = 				function (result)
+														{
+															UI.elements.content.globals.setItems (result);
+														};														
+						
+						sCMS.root.list ({async: true, onDone: onRootDone});
+						sCMS.page.list ({async: true, onDone: onPageDone});
+						sCMS.collectionSchema.list ({async: true, onDone: onCollectionSchemaDone});
+						sCMS.collection.list ({async: true, onDone: onCollectionDone});
+						sCMS.global.list ({async: true, onDone: onGlobalDone});
+												
+						UI.onChange ();
+					};
+				
+	UI.onChange = 	function ()
+					{		
+						if (UI.elements.content.pages.getItem ())
+		 				{
+		 					if (UI.elements.content.pages.getItem ().type == "root")
+		 					{
+		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
+		 						UI.elements.content.pageedit.setAttribute ("disabled", true);
+		 						UI.elements.content.pagedelete.setAttribute ("disabled", true);		 								 						
+		 						
+		 						UI.elements.content.pageup.setAttribute ("disabled", true);
+		 						UI.elements.content.pagedown.setAttribute ("disabled", true);
+		 					}		 							 					
+		 					else if (UI.elements.content.pages.getItem ().type == "page")
+		 					{
+		 						UI.elements.content.pagecreate.setAttribute ("disabled", false);
+		 						UI.elements.content.pageedit.setAttribute ("disabled", false);
+		 						UI.elements.content.pagedelete.setAttribute ("disabled", false);
+		 						
+		 						UI.elements.content.pageup.setAttribute ("disabled", false);
+		 						UI.elements.content.pagedown.setAttribute ("disabled", false);
+		 					}		 					
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.pagecreate.setAttribute ("disabled", true);
+		 					UI.elements.content.pageedit.setAttribute ("disabled", true);
+		 					UI.elements.content.pagedelete.setAttribute ("disabled", true);
+		 					
+		 					UI.elements.content.pageup.setAttribute ("disabled", true);
+		 					UI.elements.content.pagedown.setAttribute ("disabled", true);
+		 				}																			
+		 				
+						if (UI.elements.content.collections.getItem ())
+		 				{
+		 					if (UI.elements.content.collections.getItem ().type == "schema")
+		 					{
+		 						UI.elements.content.collectioncreate.setAttribute ("disabled", false);
+		 						UI.elements.content.collectionedit.setAttribute ("disabled", true);
+		 						UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 						
+		 						UI.elements.content.collectionup.setAttribute ("disabled", true);
+		 						UI.elements.content.collectiondown.setAttribute ("disabled", true);
+		 					}		 							 					
+		 					else if (UI.elements.content.collections.getItem ().type == "collection")
+		 					{
+		 						UI.elements.content.collectioncreate.setAttribute ("disabled", true);
+		 						UI.elements.content.collectionedit.setAttribute ("disabled", false);
+		 						UI.elements.content.collectiondelete.setAttribute ("disabled", false);
+		 						
+		 						UI.elements.content.collectionup.setAttribute ("disabled", false);
+		 						UI.elements.content.collectiondown.setAttribute ("disabled", false);
+		 					}		 					
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.collectioncreate.setAttribute ("disabled", true);
+		 					UI.elements.content.collectionedit.setAttribute ("disabled", true);
+		 					UI.elements.content.collectiondelete.setAttribute ("disabled", true);
+		 					
+		 					UI.elements.content.collectionup.setAttribute ("disabled", true);
+		 					UI.elements.content.collectiondown.setAttribute ("disabled", true);
+		 				}
+		 				
+		 				if (UI.elements.content.globals.getItem ())
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", false);		 					
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.globaledit.setAttribute ("disabled", true);		 					
+		 				}		
+					};
+	
+	UI.init ();		
+</script>
+

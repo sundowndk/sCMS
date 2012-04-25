@@ -51,27 +51,18 @@ namespace sCMS
 				sConsole.Menu.AddItem ("scms", "content", "Content", "/scms/content/", 1);
 				sConsole.Menu.AddItem ("scms", "styling", "Construction", "/scms/construction/", 2);
 				sConsole.Menu.AddItem ("scms", "settings", "Settings", "/scms/settings/", 3);
-		
-				// Create symlinks if they dont exist.
-				if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms"))
-				{
-					UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/content/scms");			
-					dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms");
-				}
-			
-				if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/xml/scms"))
-				{
-					UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/html/xml/scms");
-					dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/xml/scms");
-				}
-			
-				if (!File.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/js/scms.js"))
-				{
-					UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/html/js/scms.js");
-					dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/html/js/scms.js");
-				}
-										
-				Include.Add (sConsole.Enums.IncludeType.Javascript, "/js/scms.js", "SCMS", 101);
+									
+				// Remove current symlinks
+				SNDK.IO.RemoveSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms");				
+				SNDK.IO.RemoveSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/includes/scms");
+				SNDK.IO.RemoveSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/xml/scms");
+							
+				// Create symlinks
+				SNDK.IO.CreateSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/content", SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/content/scms");					
+				SNDK.IO.CreateSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/htdocs", SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/includes/scms");
+				SNDK.IO.CreateSymlink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sCMS/data/xml", SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "sConsole/data/xml/scms");
+								
+				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/scms/js/scms.js", "SCMS", 101);
 				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/css/css.js", "SCMS", 101);
 				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/javascript/javascript.js", "SCMS", 101);
 				Include.Add (sConsole.Enums.IncludeType.Javascript, "/includes/sndk/includes/codemirror/mode/htmlmixed/htmlmixed.js", "SCMS", 101);								

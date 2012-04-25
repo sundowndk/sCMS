@@ -1,0 +1,20 @@
+// ##################################################################################################################################
+// # TEMPLATE
+// ##################################################################################################################################
+var template =
+{
+	// ADD
+	add : function ()
+	{
+		var onDone =	function (result)
+						{							
+							if (result != null)
+							{								
+								modal.getUIElement ("template").setAttribute ("value", result.title);
+								templateid = result.id;
+							}
+						};
+	
+		sCMS.modal.chooser.template ({onDone: onDone});		
+	}
+};

@@ -1,0 +1,102 @@
+<script language="JavaScript">					
+	
+	var current;
+	
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################		
+	UI.init = 		function ()
+					{			
+						UI.elements.content.scmstemplateplaceholdertag.setAttribute ("onChange", UI.onChange);
+						
+						UI.elements.content.scmsstylesheetpath.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheeturl.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheetfileextension.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheethtmltag.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheetencoding.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsstylesheetplaceholdertag.setAttribute ("onChange", UI.onChange);
+						
+						UI.elements.content.scmsjavascriptpath.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsjavascripturl.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsjavascriptfileextension.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsjavascripthtmltag.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsjavascriptencoding.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.scmsjavascriptplaceholdertag.setAttribute ("onChange", UI.onChange);
+																		
+						UI.elements.content.button1.setAttribute ("onClick", UI.onButton1);
+						
+						UI.set ();
+						SNDK.SUI.init ();
+					};
+	
+	UI.set =		function ()
+					{		
+						current = sorentoLib.services.config.get ({keys: [	"scms_templateplaceholdertag", 
+																			"scms_stylesheetpath", "scms_stylesheeturl", "scms_stylesheetencoding", "scms_stylesheetplaceholdertag", "scms_stylesheetfileextension", "scms_stylesheethtmltag",
+																			"scms_javascriptpath", "scms_javascripturl", "scms_javascriptencoding", "scms_javascriptplaceholdertag", "scms_javascriptfileextension", "scms_javascripthtmltag"]});
+					
+						UI.elements.content.scmstemplateplaceholdertag.setAttribute ("value", current.scms_templateplaceholdertag);
+												
+						UI.elements.content.scmsstylesheetpath.setAttribute ("value", current.scms_stylesheetpath);
+						UI.elements.content.scmsstylesheeturl.setAttribute ("value", current.scms_stylesheeturl);
+						UI.elements.content.scmsstylesheetfileextension.setAttribute ("value", current.scms_stylesheetfileextension);
+						UI.elements.content.scmsstylesheethtmltag.setAttribute ("value", current.scms_stylesheethtmltag);
+						UI.elements.content.scmsstylesheetencoding.setAttribute ("selectedItemByValue", current.scms_stylesheetencoding);
+						UI.elements.content.scmsstylesheetplaceholdertag.setAttribute ("value", current.scms_stylesheetplaceholdertag);
+
+						UI.elements.content.scmsjavascriptpath.setAttribute ("value", current.scms_javascriptpath);
+						UI.elements.content.scmsjavascripturl.setAttribute ("value", current.scms_javascripturl);
+						UI.elements.content.scmsjavascriptfileextension.setAttribute ("value", current.scms_javascriptfileextension);
+						UI.elements.content.scmsjavascripthtmltag.setAttribute ("value", current.scms_javascripthtmltag);
+						UI.elements.content.scmsjavascriptencoding.setAttribute ("selectedItemByValue", current.scms_javascriptencoding);
+						UI.elements.content.scmsjavascriptplaceholdertag.setAttribute ("value", current.scms_javascriptplaceholdertag);
+
+						UI.onChange ();					
+					};
+					
+	UI.get = 		function ()
+					{
+						var item = {};
+						
+						item["scms_templateplaceholdertag"] = UI.elements.content.scmstemplateplaceholdertag.getAttribute ("value");
+																		
+						item["scms_stylesheetpath"] = UI.elements.content.scmsstylesheetpath.getAttribute ("value");
+						item["scms_stylesheeturl"] = UI.elements.content.scmsstylesheeturl.getAttribute ("value");
+						item["scms_stylesheetfileextension"] = UI.elements.content.scmsstylesheetfileextension.getAttribute ("value");
+						item["scms_stylesheethtmltag"] = UI.elements.content.scmsstylesheethtmltag.getAttribute ("value");
+						item["scms_stylesheetencoding"] = UI.elements.content.scmsstylesheetencoding.getAttribute ("selectedItem").value;																	
+						item["scms_stylesheetplaceholdertag"] = UI.elements.content.scmsstylesheetplaceholdertag.getAttribute ("value");
+						
+						item["scms_javascriptpath"] = UI.elements.content.scmsjavascriptpath.getAttribute ("value");
+						item["scms_javascripturl"] = UI.elements.content.scmsjavascripturl.getAttribute ("value");
+						item["scms_javascriptfileextension"] = UI.elements.content.scmsjavascriptfileextension.getAttribute ("value");
+						item["scms_javascripthtmltag"] = UI.elements.content.scmsjavascripthtmltag.getAttribute ("value");
+						item["scms_javascriptencoding"] = UI.elements.content.scmsjavascriptencoding.getAttribute ("selectedItem").value;																	
+						item["scms_javascriptplaceholdertag"] = UI.elements.content.scmsjavascriptplaceholdertag.getAttribute ("value");
+												
+						return item;
+					}
+									
+	UI.onChange = 	function ()
+					{		
+						if (sConsole.helpers.compareItems ({array1: current, array2: UI.get ()}))
+						{
+							UI.elements.content.button1.setAttribute ("disabled", false);
+						}
+						else
+						{
+							UI.elements.content.button1.setAttribute ("disabled", true);									
+						}		 											
+					};
+					
+	UI.onButton1 =	function ()
+					{	
+						if (sorentoLib.services.config.set ({keys: UI.get ()}))
+						{
+							current = UI.get ();
+							UI.onChange ();
+						}
+					};
+	
+	UI.init ();		
+</script>

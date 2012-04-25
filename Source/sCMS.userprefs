@@ -1,16 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Collection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
     <Files>
       <File FileName="Test/Main.cs" Line="25" Column="17" />
       <File FileName="sCMS/sCMS.Addin/Render.cs" Line="121" Column="8" />
       <File FileName="sCMS/sCMS/Template.cs" Line="456" Column="79" />
       <File FileName="sCMS/sCMS/Page.cs" Line="577" Column="96" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_page.stpl" Line="261" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script.stpl" Line="29" Column="37" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index.stpl" Line="1" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/scms/content/index_script_collection.stpl" Line="274" Column="18" />
       <File FileName="sCMS/sCMS/Collection.cs" Line="370" Column="6" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="65" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
