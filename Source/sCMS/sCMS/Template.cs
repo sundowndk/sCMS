@@ -666,7 +666,7 @@ namespace sCMS
 				result._javascriptids.Clear ();
 				foreach (XmlDocument javascript in (List<XmlDocument>)item["javascripts"])
 				{
-					result._javascriptids.Add (Stylesheet.FromXmlDocument (javascript).Id);
+					result._javascriptids.Add (Javascript.FromXmlDocument (javascript).Id);
 				}
 			}	
 

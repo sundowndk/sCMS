@@ -1,13 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/javascript/modal/chooser/javascript.js">
     <Files>
-      <File FileName="Test/Main.cs" Line="25" Column="17" />
-      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="121" Column="8" />
-      <File FileName="sCMS/sCMS/Template.cs" Line="456" Column="79" />
-      <File FileName="sCMS/sCMS/Page.cs" Line="577" Column="96" />
-      <File FileName="sCMS/sCMS/Collection.cs" Line="370" Column="6" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="62" Column="188" />
+      <File FileName="sCMS/sCMS/Javascript.cs" Line="124" Column="1" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="102" Column="92" />
+      <File FileName="sCMS/sCMS/Template.cs" Line="669" Column="43" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/construction/index_script_template_javascript.stpl" Line="13" Column="31" />
+      <File FileName="web/javascript/modal/chooser/javascript.js" Line="42" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -284,15 +284,11 @@ break;
 							return ((sCMS.Collection)Variable).Id;
 						}
 
-						case "name":
+						case "title":
+						{
+							return ((sCMS.Collection)Variable).Title;
+						}
 						
-							// return ((sCMS.Collection)Variable).Name;
-							
-							// #region Name
-							// case "content":
-							// return ((sCMS.Collection)Variable).Contents;
-							// #endregion
-
 						case "getcontent":
 						{							
 							 switch (Parameters.Type (0).Name.ToLower())
