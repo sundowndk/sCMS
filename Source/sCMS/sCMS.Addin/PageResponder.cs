@@ -61,7 +61,7 @@ namespace sCMS.Addin
 //				{
 //					page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value.TrimStart ("/".ToCharArray ()));
 				
-				Console.WriteLine ("SCMS: "+ Session.Request.QueryJar.Get ("cmd.page").Value);
+//				Console.WriteLine ("SCMS: "+ Session.Request.QueryJar.Get ("cmd.page").Value);
 				
 					page = Page.Load (Session.Request.QueryJar.Get ("cmd.page").Value);
 
@@ -86,8 +86,8 @@ namespace sCMS.Addin
 			{
 //				Content content = page.GetContent (field.Id);
 				
-				Console.WriteLine (field.Name);
-				Console.WriteLine (page.GetContent (field.Id));
+//				Console.WriteLine (field.Name);
+//				Console.WriteLine (page.GetContent (field.Id));
 				
 				Session.Page.Variables.Add (field.Name, page.GetContent (field.Id));
 				

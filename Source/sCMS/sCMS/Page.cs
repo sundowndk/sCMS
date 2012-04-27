@@ -183,7 +183,7 @@ namespace sCMS
 					int count = 2;
 					string dummy = newname;
 					
-					Console.WriteLine (System.IO.Path.GetDirectoryName (this.Path) +"/"+ newname);
+//					Console.WriteLine (System.IO.Path.GetDirectoryName (this.Path) +"/"+ newname);
 					
 //					while (List ().Exists (delegate (Page o) { return o._title == newname; }))
 					while (List ().Exists (delegate (Page o) { return o.Path == System.IO.Path.GetPathRoot (this.Path) +"/"+ newname; }))

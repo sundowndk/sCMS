@@ -159,7 +159,7 @@ namespace sCMS
 			}
 			catch (Exception exception)
 			{
-				Console.WriteLine (exception);
+//				Console.WriteLine (exception);
 				// LOG: LogDebug.ExceptionUnknown
 				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.ROOT", exception.Message));
 
