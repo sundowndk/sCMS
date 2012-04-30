@@ -59,14 +59,22 @@ namespace Test
 			SorentoLib.Services.Database.Connection.Connect ();
 
 			
-			sCMS.Page p1 = sCMS.Page.Load ("/produkter/hostedexchange");
+			
+			
+			Global g1 = new Global (sCMS.Enums.FieldType.Image, "Test");			
+			
+//			Console.WriteLine (g1.ToXmlDocument ().InnerXml);
+			
+			Global g2 = Global.FromXmlDocument (g1.ToXmlDocument ());
+			
+//			sCMS.Page p1 = sCMS.Page.Load ("/produkter/hostedexchange");
 			
 			
 			
-			Console.WriteLine (p1.Title);
+//			Console.WriteLine (p1.Title);
 			
-			Console.WriteLine (p1.IsParent (new Guid ("fde78197-ac5c-439e-8a3a-eaddf5ad2976")));
-			Console.WriteLine (p1.IsParent (new Guid ("df800f14-17d7-4e60-8484-9fed8b6b704a")));
+//			Console.WriteLine (p1.IsParent (new Guid ("fde78197-ac5c-439e-8a3a-eaddf5ad2976")));
+//			Console.WriteLine (p1.IsParent (new Guid ("df800f14-17d7-4e60-8484-9fed8b6b704a")));
 			
 			
 		}

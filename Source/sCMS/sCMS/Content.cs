@@ -488,7 +488,7 @@ namespace sCMS
 			}
 			
 			if (item.ContainsKey ("data"))
-			{
+			{				
 				result._data = (string)item["data"];
 			}
 			

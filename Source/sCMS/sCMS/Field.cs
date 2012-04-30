@@ -211,8 +211,8 @@ namespace sCMS
 				}
 
 				case sCMS.Enums.FieldType.Image:
-				{
-					return string.Empty;
+				{									
+					return Media.Default ();
 				}						
 
 				case sCMS.Enums.FieldType.ListImage:

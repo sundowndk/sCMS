@@ -22,6 +22,7 @@
 // 
 using System;
 using System.IO;
+using System.Xml;
 using Mono.Unix;
 
 using sConsole;
@@ -38,6 +39,8 @@ namespace sCMS
 		public static Usergroup UsergroupAuthor;
 		public static Usergroup UsergroupEditor;
 		public static Usergroup UsergroupAdministrator;		
+		
+//		public static Media DefaultMedia;
 		#endregion
 		
 		public static void Initialize ()
@@ -78,13 +81,32 @@ namespace sCMS
 				UsergroupEditor =	Usergroup.AddBuildInUsergroup (new Guid ("a0a2cf36-fa74-43a7-8f5f-34aa837cccef"), "sCMS Editor");
 				UsergroupAuthor =	Usergroup.AddBuildInUsergroup (new Guid ("20e8185e-18a2-4178-a99a-157c2a360426"), "sCMS Author");
 				UsergroupAdministrator = Usergroup.AddBuildInUsergroup (new Guid ("3b9ca3c0-67e9-4750-aacf-51b8faa4527f"), "sCMS Administrator");
+				
+				// Create default media
+				
+//				string xml = "<sorentolib.media>" +
+//					"<id type=\"string\">" +
+//						"<![CDATA[2d5ac75f-8438-4bca-b45a-5e2c4ade613e]]>" +
+//					"</id>" +
+//					"<type type=\"string\">" +
+//						"<![CDATA[Public]]>" +
+//					"</type>" +
+//					"<mimetype type=\"string\">" +
+//						"<![CDATA[image/svg+xml]]>" +
+//					"</mimetype>" +
+//					"<path type=\"string\">" +
+//						"<![CDATA[console/includes/scms/css/images/icons/process-stop.svg]]>" +
+//					"</path>	" +
+//					"</sorentolib.media>";
+//					
+//				DefaultMedia = Media.FromXmlDocument (SNDK.Convert.StringToXmlDocument (xml));
+				
 			}
 			catch (Exception exception)
 			{
 				// LOG: LogDebug.ExceptionUnknown
 				SorentoLib.Services.Logging.LogDebug (string.Format (SorentoLib.Strings.LogDebug.ExceptionUnknown, "SCMS.INITIALIZE", exception.Message));
-			}
-				
+			}				
 		}
 		
 		private static void SetDefaults ()

@@ -31,6 +31,7 @@
     <Folder Include="cgi-bin\Addins\sCMS\data\js\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\htdocs\" />
     <Folder Include="cgi-bin\Addins\sCMS\data\xml\" />
+    <Folder Include="cgi-bin\Addins\sCMS\data\css\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript.jsb" />

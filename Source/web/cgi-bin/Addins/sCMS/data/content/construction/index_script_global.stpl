@@ -11,6 +11,9 @@ var global =
 		var onDone = 	function (field)
 						{
 							current = sCMS.global.new (field.type, field.name);
+							
+							console.log (current)
+							
 							sCMS.global.save (current);
 																				
 							UI.elements.content.globals.addItem (sCMS.global.load (current.id));	
