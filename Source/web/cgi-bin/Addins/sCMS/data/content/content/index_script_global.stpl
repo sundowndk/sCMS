@@ -23,11 +23,21 @@ var global =
 		var save = 		function ()
 						{
 							var item = get ();			
-							item.content.data = field.getAttribute ("value");											
+							//item.content.data = field.getAttribute ("value");
+							
 							sCMS.global.save (item);	
-//							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
-										
-						//	field.dispose ();			
+							
+							switch (item.type.toUpperCase ())
+							{
+								case "IMAGE":
+								{
+									var media = sorentoLib.media.load (item.content.data);
+									media.type = "Public";
+									//sorentoLib.media.save (media);
+								}
+							}
+							
+							
 							modal.dispose ();		
 						};
 										
@@ -41,7 +51,7 @@ var global =
 		var get = 		function ()
 						{
 							var item = SNDK.tools.derefItem (attributes.current);							
-							item.content.data = field.getAttribute ("value");
+							item.content.data = field.getAttribute ("value");													
 							
 							return item;								
 						};

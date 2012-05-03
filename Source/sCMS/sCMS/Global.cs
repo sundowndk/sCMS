@@ -321,5 +321,41 @@ namespace sCMS
 			return result;
 		}				
 		#endregion
+		
+		#region Internal Static Methods
+		internal static void ServiceGarbageCollector ()
+		{
+//			foreach (Global global in List ())
+//			{
+//				if (global.Type == sCMS.Enums.FieldType.Image)
+//				{
+//					
+//				}
+//			}
+			
+//			foreach (Media media in List ())
+//			{
+//				if ((Date.DateTimeToTimestamp (DateTime.Now) - media.UpdateTimestamp) >  Services.Config.Get<int> (Enums.ConfigKey.core_mediamaxtempage))
+//				{
+//					if ((media.Type == SorentoLib.Enums.MediaType.Temporary) || (media.Type == SorentoLib.Enums.MediaType.TemporaryPublic))
+//					{
+//						try
+//						{
+//							Media.Delete (media.Id);
+//						}
+//						catch (Exception exception)
+//						{
+//							// LOG: LogDebug.ExceptionUnknown
+//							Services.Logging.LogDebug (string.Format (Strings.LogDebug.ExceptionUnknown, "SORENTOLIB.MEDIA", exception.Message));
+//						}
+//					}
+//				}
+//			}
+
+			// LOG: LogDebug.MediaGarbageCollector
+//			SorentoLib.Services.Logging.LogDebug (Strings.LogDebug.MediaGarbageCollector);
+		}
+		#endregion
+
 	}
 }

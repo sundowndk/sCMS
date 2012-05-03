@@ -101,6 +101,9 @@ namespace sCMS
 //					
 //				DefaultMedia = Media.FromXmlDocument (SNDK.Convert.StringToXmlDocument (xml));
 				
+				// GARBAGE COLLECTOR
+				SorentoLib.Services.Events.ServiceGarbageCollector += EventhandlerServiceGarbageCollector;
+				
 			}
 			catch (Exception exception)
 			{
@@ -127,6 +130,11 @@ namespace sCMS
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptencoding, "ISO-8859-15");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.scms_javascriptplaceholdertag, "[PLACEHOLDER_JAVASCRIPTS]");
 		}
+
+		static void EventhandlerServiceGarbageCollector (object Sender, EventArgs E)
+		{
+			Global.ServiceGarbageCollector ();
+		}			
 	}
 }
 

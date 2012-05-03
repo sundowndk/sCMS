@@ -29,13 +29,15 @@ using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 
+using SorentoLib;
+
 namespace sCMS
 {
 	public class Content
 	{
 		#region Private Fields
 		private Guid _id;
-		private object _data;
+		private object _data;		
 		private sCMS.Enums.FieldType _type;
 		#endregion
 
@@ -112,7 +114,14 @@ namespace sCMS
 					#region IMAGE
 					case sCMS.Enums.FieldType.Image:
 					{
-						result = this._data;
+						if (new Guid ((string)this._data) == Guid.Empty)
+						{
+							result = Media.Default ();
+						}
+						else
+						{
+							result = Media.Load (new Guid ((string)this._data));
+						}						
 						break;
 					}
 					#endregion
@@ -231,7 +240,22 @@ namespace sCMS
 					#region IMAGE
 					case sCMS.Enums.FieldType.Image:
 					{					
-						this._data = value;
+						switch (value.GetType ().FullName.ToLower ())
+						{
+							#region STRING
+							case "system.string":
+							{
+								this._data = new Guid ((string)value).ToString ();
+								break;
+							}
+							#endregion
+
+							#region MEDIA
+							default:
+								this._data = ((Media)value).Id.ToString ();
+								break;
+							#endregion
+						}						
 						break;
 					}
 					#endregion						

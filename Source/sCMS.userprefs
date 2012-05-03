@@ -1,14 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Test" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Content.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/cgi-bin/Addins/sCMS/data/content/content/index_script_global.stpl">
     <Files>
-      <File FileName="sCMS/sCMS/Content.cs" Line="189" Column="43" />
-      <File FileName="sCMS/sCMS/Field.cs" Line="215" Column="32" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="74" Column="104" />
-      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="1" Column="1" />
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/construction/index_script_global.stpl" Line="15" Column="28" />
-      <File FileName="Test/Main.cs" Line="66" Column="13" />
-      <File FileName="sCMS/sCMS/Global.cs" Line="277" Column="5" />
+      <File FileName="web/cgi-bin/Addins/sCMS/data/content/content/index_script_global.stpl" Line="36" Column="12" />
+      <File FileName="sCMS/sCMS/Content.cs" Line="40" Column="24" />
+      <File FileName="sCMS/sCMS/Field.cs" Line="215" Column="30" />
+      <File FileName="sCMS/sCMS/Global.cs" Line="356" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
