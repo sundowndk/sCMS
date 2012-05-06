@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Test" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/build.sh">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
     <Files>
-      <File FileName="web/cgi-bin/Addins/sCMS/data/content/content/index_script_global.stpl" Line="36" Column="26" />
       <File FileName="sCMS/sCMS/Content.cs" Line="40" Column="24" />
       <File FileName="sCMS/sCMS/Field.cs" Line="215" Column="30" />
       <File FileName="sCMS/sCMS/Global.cs" Line="356" Column="6" />
       <File FileName="sCMS/build.sh" Line="30" Column="1" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="61" Column="129" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
