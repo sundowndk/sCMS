@@ -1,0 +1,100 @@
+ 	// ###  <script language="JavaScript">
+	
+// #######################################################################################################################################
+// # GLOBAL
+// #######################################################################################################################################		
+var global =
+{
+	// EDIT
+	edit : function (attributes)
+	{				
+		if (!attributes) attributes = new Array ();
+	
+		if (!attributes.id)
+		{
+			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+		}
+		else
+		{
+			attributes.current = sCMS.global.load (attributes.id);
+		}
+					
+		// SAVE
+		var save = 		function ()
+						{
+							var item = get ();			
+							//item.content.data = field.getAttribute ("value");
+							
+							sCMS.global.save (item);	
+							
+							switch (item.type.toUpperCase ())
+							{
+								case "IMAGE":
+								{
+									var media = sorentoLib.media.load (item.content.data);
+									media.type = "Public";
+									//sorentoLib.media.save (media);
+								}
+							}
+							
+							
+							modal.dispose ();		
+						};
+										
+		// SET	
+		var set =		function ()
+						{
+							field.setAttribute ("value", attributes.current.content.data);
+						};
+				
+		// GET		
+		var get = 		function ()
+						{
+							var item = SNDK.tools.derefItem (attributes.current);							
+							item.content.data = field.getAttribute ("value");													
+							
+							return item;								
+						};
+						
+		var dispose =	function ()
+						{
+							//field.dispose (); 
+							modal.dispose ();
+						};
+						
+		// ONCHANGE	
+		var onChange =	function ()
+						{							
+							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+							{
+								modal.getUIElement ("save").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("save").setAttribute ("disabled", true);									
+							}									
+						};							
+	
+		// INIT
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
+		modal.getUIElement ("save").setAttribute ("onClick", save);
+		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+								
+		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});	
+		field.setAttribute ("onChange", onChange);
+
+		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
+		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
+		
+		SNDK.SUI.redraw ();
+								
+		// SET
+		set ();		
+		
+		// SHOW
+		modal.show ();		
+	}
+}
+
+
+

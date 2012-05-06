@@ -1,0 +1,11 @@
+<%Include (SorentoLib.Services.Config.GetString ("sconsole", "url") + "includes/init.stpl")%>
+
+<%$title = "console | scms | content"%>
+<%$contentxml = SorentoLib.Services.Config.GetString ("sconsole", "url") + "xml/scms/content/index.xml"%>
+
+<html>			
+	<%Include ($header)%>	
+	<%Include ("index_script.stpl")%>	
+	<%Include ($body)%>	
+</html>
+

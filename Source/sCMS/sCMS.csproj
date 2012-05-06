@@ -11,29 +11,38 @@
     <ReleaseVersion>1.5</ReleaseVersion>
     <AssemblyName>sCMS</AssemblyName>
     <SynchReleaseVersion>false</SynchReleaseVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\cgi-bin\Addins\sCMS</OutputPath>
+    <OutputPath>bin\Debug\cgi-bin\Addins\sCMS\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="build.sh ${TargetDir}" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Binary\Release\Addins\sCMS</OutputPath>
+    <OutputPath>bin\Release\sCMS\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="build.sh ${TargetDir}" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Test\cgi-bin\Addins\sCMS</OutputPath>
+    <OutputPath>bin\Test\sCMS\</OutputPath>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
@@ -41,25 +50,21 @@
     <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <Package>mono-addins</Package>
     </Reference>
-    <Reference Include="Mono.FastCgi, Version=1.0.4295.19585, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Xml" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.FastCgi">
       <HintPath>..\Lib\Mono.FastCgi.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="Mono.Posix" />
-    <Reference Include="sConsole, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="sConsole">
       <HintPath>..\Lib\sConsole.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4416.25851, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SNDK">
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4436.19629, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SorentoLib">
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -110,4 +115,97 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <None Include="resources\content\construction\index.stpl" />
+    <None Include="resources\content\construction\index_script.stpl" />
+    <None Include="resources\content\construction\index_script_collectionschema.stpl" />
+    <None Include="resources\content\construction\index_script_collectionschema_field.stpl" />
+    <None Include="resources\content\construction\index_script_global.stpl" />
+    <None Include="resources\content\construction\index_script_javascript.stpl" />
+    <None Include="resources\content\construction\index_script_root.stpl" />
+    <None Include="resources\content\construction\index_script_root_rootfilter.stpl" />
+    <None Include="resources\content\construction\index_script_stylesheet.stpl" />
+    <None Include="resources\content\construction\index_script_template.stpl" />
+    <None Include="resources\content\construction\index_script_template_field.stpl" />
+    <None Include="resources\content\construction\index_script_template_javascript.stpl" />
+    <None Include="resources\content\construction\index_script_template_stylesheet.stpl" />
+    <None Include="resources\content\content\index.stpl" />
+    <None Include="resources\content\content\index_script.stpl" />
+    <None Include="resources\content\content\index_script_collection.stpl" />
+    <None Include="resources\content\content\index_script_global.stpl" />
+    <None Include="resources\content\content\index_script_page.stpl" />
+    <None Include="resources\content\content\index_script_page_alias.stpl" />
+    <None Include="resources\content\content\index_script_page_template.stpl" />
+    <None Include="resources\content\settings\index.stpl" />
+    <None Include="resources\content\settings\index_script.stpl" />
+    <None Include="resources\css\.keep" />
+    <None Include="resources\htdocs\css\.keep" />
+    <None Include="resources\htdocs\js\.keep" />
+    <None Include="resources\htdocs\xml\construction\collectionschema_create.xml" />
+    <None Include="resources\htdocs\xml\construction\collectionschema_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\global_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\index.xml" />
+    <None Include="resources\htdocs\xml\construction\javascript_create.xml" />
+    <None Include="resources\htdocs\xml\construction\javascript_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\root_create.xml" />
+    <None Include="resources\htdocs\xml\construction\root_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\root_rootfilter_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\stylesheet_create.xml" />
+    <None Include="resources\htdocs\xml\construction\stylesheet_edit.xml" />
+    <None Include="resources\htdocs\xml\construction\template_create.xml" />
+    <None Include="resources\htdocs\xml\construction\template_edit.xml" />
+    <None Include="resources\htdocs\xml\content\collection_create.xml" />
+    <None Include="resources\htdocs\xml\content\collection_edit.xml" />
+    <None Include="resources\htdocs\xml\content\global_edit.xml" />
+    <None Include="resources\htdocs\xml\content\index.xml" />
+    <None Include="resources\htdocs\xml\content\page_create.xml" />
+    <None Include="resources\htdocs\xml\content\page_edit.xml" />
+    <None Include="resources\htdocs\xml\content\page_edit_alias_edit.xml" />
+    <None Include="resources\htdocs\xml\modal\edit\field.xml" />
+    <None Include="resources\htdocs\xml\modal\edit\fieldstring.xml" />
+    <None Include="resources\htdocs\xml\settings\index.xml" />
+    <None Include="resources\js\.keep" />
+    <None Include="resources\xml\construction\collectionschema_create.xml" />
+    <None Include="resources\xml\construction\collectionschema_edit.xml" />
+    <None Include="resources\xml\construction\global_edit.xml" />
+    <None Include="resources\xml\construction\index.xml" />
+    <None Include="resources\xml\construction\javascript_create.xml" />
+    <None Include="resources\xml\construction\javascript_edit.xml" />
+    <None Include="resources\xml\construction\root_create.xml" />
+    <None Include="resources\xml\construction\root_edit.xml" />
+    <None Include="resources\xml\construction\root_rootfilter_edit.xml" />
+    <None Include="resources\xml\construction\stylesheet_create.xml" />
+    <None Include="resources\xml\construction\stylesheet_edit.xml" />
+    <None Include="resources\xml\construction\template_create.xml" />
+    <None Include="resources\xml\construction\template_edit.xml" />
+    <None Include="resources\xml\content\collection_create.xml" />
+    <None Include="resources\xml\content\collection_edit.xml" />
+    <None Include="resources\xml\content\global_edit.xml" />
+    <None Include="resources\xml\content\index.xml" />
+    <None Include="resources\xml\content\page_create.xml" />
+    <None Include="resources\xml\content\page_edit.xml" />
+    <None Include="resources\xml\content\page_edit_alias_edit.xml" />
+    <None Include="resources\xml\modal\edit\field.xml" />
+    <None Include="resources\xml\modal\edit\fieldstring.xml" />
+    <None Include="resources\xml\settings\index.xml" />
+    <None Include="javascript\collection.js" />
+    <None Include="javascript\collectionschema.js" />
+    <None Include="javascript\global.js" />
+    <None Include="javascript\javascript.js" />
+    <None Include="javascript\other.js" />
+    <None Include="javascript\page.js" />
+    <None Include="javascript\root.js" />
+    <None Include="javascript\stylesheet.js" />
+    <None Include="javascript\template.js" />
+    <None Include="javascript\modal\link.js" />
+    <None Include="javascript\modal\chooser\javascript.js" />
+    <None Include="javascript\modal\chooser\page.js" />
+    <None Include="javascript\modal\chooser\stylesheet.js" />
+    <None Include="javascript\modal\chooser\template.js" />
+    <None Include="javascript\modal\edit\field.js" />
+    <None Include="javascript\modal\edit\fieldstring.js" />
+    <None Include="javascript\sui\field.js" />
+    <None Include="build.sh" />
+    <None Include="javascript.jsb" />
+  </ItemGroup>
 </Project>

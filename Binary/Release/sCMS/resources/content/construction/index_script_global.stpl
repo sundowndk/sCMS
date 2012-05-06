@@ -1,0 +1,56 @@
+#!<script language = "JavaScript">							
+// ##################################################################################################################################
+// # GLOBAL
+// ##################################################################################################################################
+var global =
+{
+	create : function ()
+	{
+		var current = {};
+	
+		var onDone = 	function (field)
+						{
+							current = sCMS.global.new (field.type, field.name);
+							
+							console.log (current)
+							
+							sCMS.global.save (current);
+																				
+							UI.elements.content.globals.addItem (sCMS.global.load (current.id));	
+						};
+						
+		sCMS.modal.edit.field ({title: "Create field", button1Label: "Create", button2Label: "Close", onDone: onDone});
+	},
+	
+	edit : function ()
+	{	
+		var current = sCMS.global.load (UI.elements.content.globals.getItem ().id);
+	
+		var onDone = 	function (field)
+						{
+							current.field = field;
+							sCMS.global.save (current);							
+						
+							UI.elements.content.globals.setItem (sCMS.global.load (current.id));	
+						};
+												
+		sCMS.modal.edit.field ({field: current.field, title: "Edit field", button1Label: "Save", button2Label: "Close", onDone: onDone});												
+	},
+	
+	delete : function ()
+	{
+		var action =	function (result)
+						{
+							if (result == 1)
+							{														
+								if (sCMS.global.delete (UI.elements.content.globals.getItem ().id))
+								{
+									UI.elements.content.globals.removeItem ();
+								}										
+							}
+						};
+	
+		sConsole.modal.question ({title: "Delete global", text: "Do you really want to delete this global ?", buttonLabel: "Yes|No", onDone: action});			
+	}									
+}					
+			

@@ -1,0 +1,27 @@
+// ##################################################################################################################################
+// # JAVASCRIPT
+// ##################################################################################################################################
+var javascript =
+{
+	// ADD
+	add : function ()
+	{
+		var onDone =	function (javascript)
+						{
+							if (javascript != null)
+							{
+							console.log (javascript)
+								modal.getUIElement ("javascripts").addItem (javascript);	
+							}
+						};
+	
+		sCMS.modal.chooser.javascript ({onDone: onDone});		
+	},
+						
+	// REMOVE
+	remove : function ()
+	{
+		modal.getUIElement ("javascripts").removeItem ();
+	}				
+};
+
