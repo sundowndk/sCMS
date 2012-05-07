@@ -101,6 +101,9 @@
     <Folder Include="sCMS.Addin\" />
     <Folder Include="sCMS.Enums\" />
     <Folder Include="sCMS.Strings\" />
+    <Folder Include="resources\htdocs\" />
+    <Folder Include="resources\js\" />
+    <Folder Include="resources\css\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="sCMS.addin.xml" />
@@ -138,33 +141,6 @@
     <None Include="resources\content\content\index_script_page_template.stpl" />
     <None Include="resources\content\settings\index.stpl" />
     <None Include="resources\content\settings\index_script.stpl" />
-    <None Include="resources\css\.keep" />
-    <None Include="resources\htdocs\css\.keep" />
-    <None Include="resources\htdocs\js\.keep" />
-    <None Include="resources\htdocs\xml\construction\collectionschema_create.xml" />
-    <None Include="resources\htdocs\xml\construction\collectionschema_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\global_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\index.xml" />
-    <None Include="resources\htdocs\xml\construction\javascript_create.xml" />
-    <None Include="resources\htdocs\xml\construction\javascript_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\root_create.xml" />
-    <None Include="resources\htdocs\xml\construction\root_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\root_rootfilter_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\stylesheet_create.xml" />
-    <None Include="resources\htdocs\xml\construction\stylesheet_edit.xml" />
-    <None Include="resources\htdocs\xml\construction\template_create.xml" />
-    <None Include="resources\htdocs\xml\construction\template_edit.xml" />
-    <None Include="resources\htdocs\xml\content\collection_create.xml" />
-    <None Include="resources\htdocs\xml\content\collection_edit.xml" />
-    <None Include="resources\htdocs\xml\content\global_edit.xml" />
-    <None Include="resources\htdocs\xml\content\index.xml" />
-    <None Include="resources\htdocs\xml\content\page_create.xml" />
-    <None Include="resources\htdocs\xml\content\page_edit.xml" />
-    <None Include="resources\htdocs\xml\content\page_edit_alias_edit.xml" />
-    <None Include="resources\htdocs\xml\modal\edit\field.xml" />
-    <None Include="resources\htdocs\xml\modal\edit\fieldstring.xml" />
-    <None Include="resources\htdocs\xml\settings\index.xml" />
-    <None Include="resources\js\.keep" />
     <None Include="resources\xml\construction\collectionschema_create.xml" />
     <None Include="resources\xml\construction\collectionschema_edit.xml" />
     <None Include="resources\xml\construction\global_edit.xml" />

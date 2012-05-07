@@ -197,7 +197,7 @@ var page =
 		
 		for (i=0; i <collectionschema.allfields.length; i++)			
 		{
-			var height = "200px";
+			var height = "220px";
 		
 			switch (collectionschema.allfields[i].type.toLowerCase ())
 			{

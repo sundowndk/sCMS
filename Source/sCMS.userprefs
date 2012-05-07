@@ -1,12 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/xml/modal/edit/field.xml">
     <Files>
-      <File FileName="sCMS/sCMS/Content.cs" Line="40" Column="24" />
-      <File FileName="sCMS/sCMS/Field.cs" Line="215" Column="30" />
-      <File FileName="sCMS/sCMS/Global.cs" Line="356" Column="6" />
-      <File FileName="sCMS/build.sh" Line="30" Column="1" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="61" Column="129" />
+      <File FileName="sCMS/resources/xml/modal/edit/field.xml" Line="51" Column="29" />
+      <File FileName="sCMS/javascript/modal/edit/field.js" Line="51" Column="90" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

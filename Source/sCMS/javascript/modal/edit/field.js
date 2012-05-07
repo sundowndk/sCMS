@@ -45,6 +45,11 @@ field : function (attributes)
 							{
 								modal.getUIElement ("button1").setAttribute ("disabled", true);
 							}	
+							
+							if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "Image")
+							{							
+								modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", false);
+							}
 					};		
 									
 	// SET	

@@ -2,33 +2,63 @@
 	<canvas width="600px" height="330px" canScroll="false">	
 		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Name"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="name" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>				
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Type"/>
-						</panel>					
-						<panel size="*">
-							<dropbox tag="type" width="100%">
-								<item label="String" value="String" selected="true"/>
-								<item label="ListString" value="ListString" />
-								<item label="Text" value="Text" />
-								<item label="Image" value="Image" />
-								<item label="Link" value="Link" />
-							</dropbox>
-						</panel>					
-					</layoutbox>
-				</panel>												
 				<panel size="*">
+					<tabview>
+						<tab label="Details">
+							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Name"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="name" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>				
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Type"/>
+										</panel>					
+										<panel size="*">
+											<dropbox tag="type" width="100%">
+												<item label="String" value="String" selected="true"/>
+												<item label="ListString" value="ListString" />
+												<item label="Text" value="Text" />
+												<item label="Image" value="Image" />
+												<item label="Link" value="Link" />
+											</dropbox>
+										</panel>					
+									</layoutbox>
+								</panel>												
+								<panel size="*">
+								</panel>						
+							</layoutbox>
+						</tab>
+						<tab label="Options">
+							<layoutbox tag="options" type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel tag="image" size="*" hidden="true">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Transformations"/>
+										</panel>					
+										<panel size="*">
+											<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
+												<panel size="*">
+													<listview tag="mediatransformations" width="100%" height="100%" />
+												</panel>
+												<panel size="105px">
+													<button label="Add" />
+													<button label="Remove" />
+												</panel>
+											</layoutbox>
+										</panel>					
+									</layoutbox>
+								</panel>												
+							</layoutbox>
+						</tab>
+					</tabview>																	
 				</panel>
 				<panel size="45px">
 					<layoutbox type="vertical">
@@ -41,6 +71,7 @@
 					</layoutbox>
 				</panel>
 			</layoutbox>
+			
 		</container>
 	</canvas>
 </sui>
