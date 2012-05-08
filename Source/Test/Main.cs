@@ -63,9 +63,29 @@ namespace Test
 			
 			Global g1 = new Global (sCMS.Enums.FieldType.Image, "Test");			
 			
+			g1.Field.Options.Add ("mediatransformationids", "7c667dde-d319-4165-b1de-c36f5aab0910;");
+			
+			g1.Save ();
+			
+			
+//			Global g2 = Global.Load (g1.Id);
+//
+//			
+//			
+//			foreach (string k in g2.Field.Options.Keys)
+//			{
+//				Console.WriteLine (g2.Field.Options[k]);	
+//			}
+//			
+//			
+//			Global.Delete (g1.Id);
+			
+			
+			
+			
 //			Console.WriteLine (g1.ToXmlDocument ().InnerXml);
 			
-			Global g2 = Global.FromXmlDocument (g1.ToXmlDocument ());
+//			Global g2 = Global.FromXmlDocument (g1.ToXmlDocument ());
 			
 //			sCMS.Page p1 = sCMS.Page.Load ("/produkter/hostedexchange");
 			

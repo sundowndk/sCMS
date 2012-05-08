@@ -174,7 +174,7 @@ var collection =
 			
 			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
 			
-			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), width: "100%", height: "100%"});	
+			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), options: collectionschema.fields[i].field.options, width: "100%", height: "100%"});	
 			fields[collectionschema.fields[i].id].setAttribute ("onChange", onChange);
 			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.fields[i].id]);
 		}		

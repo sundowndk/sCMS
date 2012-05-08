@@ -74,6 +74,8 @@ var template =
 		{
 			attributes.current = sCMS.template.load (attributes.id);
 		}
+		
+		attributes.temp.fields = new Array ();
 				
 		<%Include ("index_script_template_field.stpl")%>
 		<%Include ("index_script_template_stylesheet.stpl")%>

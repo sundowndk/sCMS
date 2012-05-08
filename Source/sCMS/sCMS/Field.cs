@@ -182,10 +182,17 @@ namespace sCMS
 				result._sort = int.Parse ((string)item["sort"]);
 			}
 			
-//			if (item.ContainsKey ("options"))
-//			{
-//				result._options = (Hashtable)item["options"];
-//			}
+			if (item.ContainsKey ("options"))
+			{
+				try
+				{
+					result._options = (Hashtable)item["options"];
+				}
+				catch
+				{
+					
+				}
+			}
 
 			return result;
 		}				

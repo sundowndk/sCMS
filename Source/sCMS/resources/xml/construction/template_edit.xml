@@ -39,6 +39,7 @@
 												<column tag="id" />
 												<column tag="name" label="Name" width="200px" visible="true" />
 												<column tag="type" label="Type" width="200px" visible="true" />	
+												<column tag="options" />												
 											</listview>
 										</panel>					
 										<panel size="80px">

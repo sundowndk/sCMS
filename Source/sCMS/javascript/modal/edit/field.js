@@ -1,5 +1,5 @@
 field : function (attributes)
-{	
+{		
 	if (!attributes)
 	{
 		attributes = new Array ();
@@ -18,6 +18,8 @@ field : function (attributes)
 		attributes.mode = "edit";
 		attributes.current = attributes.field;		
 	}
+	
+	var checksum = sConsole.helpers.arrayChecksum (attributes.current);
 										
 	var onCancel =	function ()
 					{
@@ -33,23 +35,35 @@ field : function (attributes)
 							setTimeout (function () {attributes.onDone (get ())}, 1);
 						}						
 					};
-					
+											
 	// ONCHANGE
 	var onChange =	function ()
-					{		
-							if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
-							{
-								modal.getUIElement ("button1").setAttribute ("disabled", false);
-							}
-							else
-							{
-								modal.getUIElement ("button1").setAttribute ("disabled", true);
-							}	
-							
-							if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "Image")
-							{							
-								modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", false);
-							}
+					{			
+						get ();				    	
+													
+						//if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
+						if ((sConsole.helpers.arrayChecksum (attributes.current) != checksum) && (modal.getUIElement ("name").getAttribute ("value") != ""))
+						{
+							modal.getUIElement ("button1").setAttribute ("disabled", false);
+						}
+						else
+						{
+							modal.getUIElement ("button1").setAttribute ("disabled", true);
+						}	
+						
+						if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "Image")
+						{							
+							modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", false);
+						}
+						
+						if (modal.getUIElement ("mediatransformations").getItem () != null)
+						{
+							modal.getUIElement ("mediatransformationremove").setAttribute ("disabled", false);
+						}
+						else
+						{
+							modal.getUIElement ("mediatransformationremove").setAttribute ("disabled", true);
+						}
 					};		
 									
 	// SET	
@@ -63,6 +77,8 @@ field : function (attributes)
 							case "edit":
 							{
 								modal.getUIElement ("type").setAttribute ("disabled", true);
+																							
+								options.mediatransformation.set ();
 								break;
 							}
 						}
@@ -71,13 +87,69 @@ field : function (attributes)
 	// GET
 	var get = 		function ()
 					{
-						var item = {};
-						item.id = attributes.current.id;																									
-						item.name = modal.getUIElement ("name").getAttribute ("value");
-						item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
+						attributes.current.name = modal.getUIElement ("name").getAttribute ("value");
+						attributes.current.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
+//						var item = {};
+//						item.id = attributes.current.id;																									
+//						item.name = 
+//						item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
 						
-						return item;
+//						item.options = new Array ();
+//						item.options["mediatransformationids"] = options.mediatransformation.get ();											
+						
+//						return item;
+					}			
+					
+	var options =	
+	{
+		mediatransformation : 
+		{
+			add : function ()
+			{
+				var onDone =	function (id)
+								{
+									if (id != null)
+									{
+										modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (id));	
+									}
+								};
+	
+				sConsole.modal.chooser.mediaTransformation ({onDone: onDone});			
+			},
+		
+			remove : function ()
+			{
+				modal.getUIElement ("mediatransformations").removeItem ();
+			},		
+
+			get : function ()
+			{
+				var result = "";
+				
+				var mediatransformations = modal.getUIElement ("mediatransformations").getItems ();
+				
+				for (index in mediatransformations)
+				{
+					result += mediatransformations[index].id +";";
+				
+				}
+								
+				return result;
+			},
+									
+			set : function ()
+			{
+				if (attributes.current.options.mediatransformationids)
+				{
+					var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformationids, ";").split (";")
+					for (index in ids)
+					{
+						modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (ids[index]));			
 					}						
+				}
+			}
+		}
+	};		
 												
 	// INIT				
 	var modal = new sConsole.modal.window ({SUIXML: "/console/xml/scms/modal/edit/field.xml"});
@@ -86,6 +158,10 @@ field : function (attributes)
 		
 	modal.getUIElement ("button1").setAttribute ("onClick", onDone);
 	modal.getUIElement ("button2").setAttribute ("onClick", onCancel);	
+	
+	modal.getUIElement ("mediatransformations").setAttribute ("onChange", onChange);
+	modal.getUIElement ("mediatransformationadd").setAttribute ("onClick", options.mediatransformation.add);
+	modal.getUIElement ("mediatransformationremove").setAttribute ("onClick", options.mediatransformation.remove);
 		
 	modal.getUIElement ("container").setAttribute ("title", attributes.title);
 	modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);

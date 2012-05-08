@@ -80,7 +80,7 @@ var global =
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 								
-		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});	
+		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), options:  attributes.current.field.options, width: "100%", height: "100%"});	
 		field.setAttribute ("onChange", onChange);
 
 		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
