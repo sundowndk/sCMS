@@ -75,7 +75,7 @@ var template =
 			attributes.current = sCMS.template.load (attributes.id);
 		}
 		
-		attributes.temp.fields = new Array ();
+		var checksum;
 				
 		<%Include ("index_script_template_field.stpl")%>
 		<%Include ("index_script_template_stylesheet.stpl")%>
@@ -83,12 +83,15 @@ var template =
 	
 		// SAVE
 		var save = 		function ()
-						{
-							var item = get ();														
-							sCMS.template.save (item);								
-							UI.elements.content.templates.setItem (sCMS.template.load (item.id));		
-							attributes.current = sCMS.template.load (item.id);
-							onChange ();																		
+						{																									
+							get ();
+							sCMS.template.save (attributes.current);	
+							UI.elements.content.templates.setItem (attributes.current);
+														
+							checksum = sConsole.helpers.arrayChecksum (attributes.current);
+//							console.log (checksum)
+							
+							onChange ();																										
 						};
 										
 		// SET	
@@ -99,26 +102,29 @@ var template =
 							modal.getUIElement ("fields").setItems (attributes.current.fields);							
 							modal.getUIElement ("stylesheets").setItems (attributes.current.stylesheets);
 							modal.getUIElement ("javascripts").setItems (attributes.current.javascripts);
+							
+							get ();
+							
+							checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = {};
-							item.id = attributes.current.id;
-							item.title = modal.getUIElement ("title").getAttribute ("value");
-							item.content = modal.getUIElement ("content").getAttribute ("value");
-							item.fields = modal.getUIElement ("fields").getItems ();	
-							item.stylesheets = modal.getUIElement ("stylesheets").getItems ();
-							item.javascripts = modal.getUIElement ("javascripts").getItems ();
-							
-							return item;								
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
+							attributes.current.content = modal.getUIElement ("content").getAttribute ("value");
+							attributes.current.fields = modal.getUIElement ("fields").getItems ();
+							attributes.current.stylesheets = modal.getUIElement ("stylesheets").getItems ();
+							attributes.current.javascripts = modal.getUIElement ("javascripts").getItems ();						
 						};
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{	
+							get ();
+							
+							//if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))				
+							if (sConsole.helpers.arrayChecksum (attributes.current) != checksum)
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}

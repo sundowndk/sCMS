@@ -1,5 +1,4 @@
- 	// ###  <script language="JavaScript">
-	
+// #  <script>
 // #######################################################################################################################################
 // # PAGE
 // #######################################################################################################################################		
@@ -98,20 +97,25 @@ var page =
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();										
-							sCMS.page.save (item);	
+						
+							get ();
+//							var item = get ();										
+							sCMS.page.save (attributes.current);	
 							
-							if (item.parentid == "00000000-0000-0000-0000-000000000000")
-							{
-								item.parentid = item.rootid;
-							}
+//							if (item.parentid == "00000000-0000-0000-0000-000000000000")
+//							{
+//								item.parentid = item.rootid;
+//							}
 							
-							item.type = "page";
+//							item.type = "page";
 							//UI.elements.content.pages.setItem (sCMS.page.load (item.id));
-							UI.elements.content.pages.setItem (item);
-										
+//							UI.elements.content.pages.setItem (item);
+								
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							onChange ();
+														
 						//	field.dispose ();			
-							modal.dispose ();		
+							//modal.dispose ();		
 						};
 										
 		// SET	
@@ -124,42 +128,44 @@ var page =
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
 								var content = attributes.current.contents[i];												
-								fields[content.id].setAttribute ("value", content.data);
+								attributes.fields[content.id].setAttribute ("value", content.data);
 							}
+							
+							get ();
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = SNDK.tools.derefItem (attributes.current);
-							
-							item.title = modal.getUIElement ("title").getAttribute ("value");
-							item.aliases = modal.getUIElement ("aliases").getItems ();
-							
-							item.contents = new Array ();
-							for (i=0; i <collectionschema.allfields.length; i++)
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
+							attributes.current.aliases = modal.getUIElement ("aliases").getItems ();
+																				
+							attributes.current.contents = new Array ();
+							for (i=0; i < attributes.template.allfields.length; i++)
 							{
 								var content = {};
-								content.id = collectionschema.allfields[i].id;
-								content.type = collectionschema.allfields[i].type;
-								content.data = collectionschema.allfields[i].data = fields[collectionschema.allfields[i].id].getAttribute ("value");
+								content.id = attributes.template.allfields[i].id;
+								content.type = attributes.template.allfields[i].type;
+								content.data = attributes.template.allfields[i].data = attributes.fields[attributes.template.allfields[i].id].getAttribute ("value");
 																
-								item.contents[i] = content;
-							}
-							
-							return item;								
+								attributes.current.contents[i] = content;
+							}													
 						};
 						
+		// DISPOSE
 		var dispose =	function ()
-						{
-							//field.dispose (); 
+						{							
 							modal.dispose ();
 						};
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{		
+							get ();
+							
+							if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)							
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}
@@ -192,14 +198,14 @@ var page =
 		modal.getUIElement ("aliasedit").setAttribute ("onClick", alias.edit);
 		modal.getUIElement ("aliasremove").setAttribute ("onClick", alias.remove);
 						
-		var collectionschema = sCMS.template.load (attributes.current.templateid);
-		var fields = new Array ();
+		attributes.template = sCMS.template.load (attributes.current.templateid);
+		attributes.fields = new Array ();
 		
-		for (i=0; i <collectionschema.allfields.length; i++)			
+		for (i = 0; i < attributes.template.allfields.length; i++)			
 		{
 			var height = "220px";
 		
-			switch (collectionschema.allfields[i].type.toLowerCase ())
+			switch (attributes.template.allfields[i].type.toLowerCase ())
 			{
 				case "string":
 				{
@@ -212,24 +218,18 @@ var page =
 					break;				
 				}
 			}
-																
-			//var layoutbox1 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-			//layoutbox1.addPanel ({tag: "field", size: "*"});			
-			//modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox1);
+																			
+			var layoutbox = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+			layoutbox.addPanel ({tag: "text", size: "100px"});
+			layoutbox.addPanel ({tag: "field", size: "*"});			
+			layoutbox.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: attributes.template.allfields[i].name}));
+																				
+			attributes.fields[attributes.template.allfields[i].id] = new SNDK.SUI.field ({type: attributes.template.allfields[i].type.toLowerCase (), options: attributes.template.allfields[i].options, width: "100%", height: "100%", onChange: onChange});	
+			//attributes.[attributes.template.allfields[i].id].setAttribute ("onChange", onChange);
 			
-			var layoutbox2 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-			layoutbox2.addPanel ({tag: "text", size: "100px"});
-			layoutbox2.addPanel ({tag: "field", size: "*"});
+			layoutbox.getPanel ("field").addUIElement (attributes.fields[attributes.template.allfields[i].id]);
 			
-			layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.allfields[i].name}));
-			
-			//layoutbox1.getPanel ("field").addUIElement (layoutbox2);
-			
-			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
-									
-			fields[collectionschema.allfields[i].id] = new SNDK.SUI.field ({type: collectionschema.allfields[i].type.toLowerCase (), options: collectionschema.allfields[i].field.options, width: "100%", height: "100%"});	
-			fields[collectionschema.allfields[i].id].setAttribute ("onChange", onChange);
-			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.allfields[i].id]);
+			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox);
 		}		
 		
 		SNDK.SUI.redraw ();
@@ -262,14 +262,12 @@ var page =
 	up : function ()
 	{
 		var move = UI.elements.content.pages.moveItemUp ();
-		
-		var id1 = UI.elements.content.pages.getItem (move[0]).id;
-		var item1 = sCMS.page.load (id1);
+				
+		var item1 = sCMS.page.load (UI.elements.content.pages.getItem (move[0]).id);
 		item1.sort = move[0];
 		sCMS.page.save (item1);
-		
-		var id2 = UI.elements.content.pages.getItem (move[1]).id;
-		var item2 = sCMS.page.load (id2);
+				
+		var item2 = sCMS.page.load (UI.elements.content.pages.getItem (move[1]).id);
 		item2.sort = move[1];
 		sCMS.page.save (item2);									
 	},
@@ -278,14 +276,12 @@ var page =
 	down : function ()
 	{
 		var move = UI.elements.content.pages.moveItemDown ();
-		
-		var id1 = UI.elements.content.pages.getItem (move[0]).id;
-		var item1 = sCMS.page.load (id1);
+				
+		var item1 = sCMS.page.load (UI.elements.content.pages.getItem (move[0]).id);
 		item1.sort = move[0];
 		sCMS.page.save (item1);
-		
-		var id2 = UI.elements.content.pages.getItem (move[1]).id;
-		var item2 = sCMS.page.load (id2);
+				
+		var item2 = sCMS.page.load (UI.elements.content.pages.getItem (move[1]).id);
 		item2.sort = move[1];
 		sCMS.page.save (item2);
 	}

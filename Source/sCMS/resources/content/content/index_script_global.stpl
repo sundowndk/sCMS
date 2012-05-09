@@ -1,5 +1,4 @@
- 	// ###  <script language="JavaScript">
-	
+// #  <script>
 // #######################################################################################################################################
 // # GLOBAL
 // #######################################################################################################################################		
@@ -18,54 +17,44 @@ var global =
 		{
 			attributes.current = sCMS.global.load (attributes.id);
 		}
-					
+								
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();			
-							//item.content.data = field.getAttribute ("value");
-							
-							sCMS.global.save (item);	
-							
-							switch (item.type.toUpperCase ())
-							{
-								case "IMAGE":
-								{
-									var media = sorentoLib.media.load (item.content.data);
-									media.type = "Public";
-									//sorentoLib.media.save (media);
-								}
-							}
-							
-							
-							modal.dispose ();		
+							get ();						
+							sCMS.global.save (attributes.current);														
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							onChange ();						
 						};
 										
 		// SET	
 		var set =		function ()
 						{
 							field.setAttribute ("value", attributes.current.content.data);
+							
+							get ();
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = SNDK.tools.derefItem (attributes.current);							
-							item.content.data = field.getAttribute ("value");													
-							
-							return item;								
+							attributes.current.content.data = field.getAttribute ("value")
 						};
 						
+		// DISPOSE
 		var dispose =	function ()
 						{
-							//field.dispose (); 
 							modal.dispose ();
 						};
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{		
+							get ();
+									
+							if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)							
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}

@@ -19,7 +19,7 @@ field : function (attributes)
 		attributes.current = attributes.field;		
 	}
 	
-	var checksum = sConsole.helpers.arrayChecksum (attributes.current);
+	var checksum;
 										
 	var onCancel =	function ()
 					{
@@ -32,13 +32,14 @@ field : function (attributes)
 												
 						if (attributes.onDone != null)
 						{	
-							setTimeout (function () {attributes.onDone (get ())}, 1);
+							get ();
+							setTimeout (function () {attributes.onDone (attributes.current)}, 1);
 						}						
 					};
 											
 	// ONCHANGE
 	var onChange =	function ()
-					{			
+					{														
 						get ();				    	
 													
 						//if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
@@ -82,6 +83,10 @@ field : function (attributes)
 								break;
 							}
 						}
+						
+						get ();
+						
+						checksum = sConsole.helpers.arrayChecksum (attributes.current);
 					};
 						
 	// GET
@@ -89,16 +94,27 @@ field : function (attributes)
 					{
 						attributes.current.name = modal.getUIElement ("name").getAttribute ("value");
 						attributes.current.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
-//						var item = {};
-//						item.id = attributes.current.id;																									
-//						item.name = 
-//						item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
 						
-//						item.options = new Array ();
-//						item.options["mediatransformationids"] = options.mediatransformation.get ();											
-						
-//						return item;
+						attributes.current.options = new Array ();
+						attributes.current.options["mediatransformationids"] = options.mediatransformation.get ();						
 					}			
+					
+	var test = function (array, key, value)
+	{		
+		var count = 0;
+		for (index in array)
+		{
+			for (index2 in array[index])
+			{
+				if (index2 == key)
+				{
+					return count
+				}
+			}		
+			count++;
+		}			
+		return -1
+	}
 					
 	var options =	
 	{

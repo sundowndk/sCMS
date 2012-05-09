@@ -1,12 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/javascript/modal/edit/field.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script_page.stpl">
     <Files>
-      <File FileName="sCMS/sCMS/Field.cs" Line="193" Column="6" />
-      <File FileName="sCMS/resources/content/construction/index_script_template.stpl" Line="78" Column="41" />
-      <File FileName="sCMS/resources/content/construction/index_script_template_field.stpl" Line="21" Column="18" />
+      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="131" Column="20" />
+      <File FileName="sCMS/resources/xml/content/index.xml" Line="56" Column="26" />
       <File FileName="sCMS/resources/content/construction/index_script_global.stpl" Line="1" Column="1" />
-      <File FileName="sCMS/javascript/modal/edit/field.js" Line="72" Column="52" />
+      <File FileName="sCMS/resources/content/content/index_script_global.stpl" Line="49" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
