@@ -91,31 +91,32 @@ var page =
 		}
 		else
 		{
-			attributes.current = sCMS.page.load (attributes.id);
+		//	attributes.current = sCMS.page.load (attributes.id);
 		}		
-					
+																		
 		// SAVE
 		var save = 		function ()
-						{
-						
+						{			
+							modal.getUIElement ("save").setAttribute ("disabled", true);
+												
 							get ();
-//							var item = get ();										
+
 							sCMS.page.save (attributes.current);	
+							UI.elements.content.pages.setItem (attributes.current);
 							
-//							if (item.parentid == "00000000-0000-0000-0000-000000000000")
-//							{
-//								item.parentid = item.rootid;
-//							}
 							
-//							item.type = "page";
-							//UI.elements.content.pages.setItem (sCMS.page.load (item.id));
-//							UI.elements.content.pages.setItem (item);
+							var item = sCMS.page.load (attributes.current.id);
+							if (item.parentid == "00000000-0000-0000-0000-000000000000")
+							{
+								item.parentid = item.rootid;
+							}
+							
+							item.type = "page";
+							
+							UI.elements.content.pages.setItem (item);
 								
 							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 							onChange ();
-														
-						//	field.dispose ();			
-							//modal.dispose ();		
 						};
 										
 		// SET	
@@ -156,8 +157,11 @@ var page =
 						
 		// DISPOSE
 		var dispose =	function ()
-						{							
+						{					
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
 							modal.dispose ();
+							
+							modal = null;
 						};
 						
 		// ONCHANGE	
@@ -184,10 +188,13 @@ var page =
 								modal.getUIElement ("aliasedit").setAttribute ("disabled", true);
 								modal.getUIElement ("aliasremove").setAttribute ("disabled", true);
 							}							
-						};							
-	
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml"});
+						};			
+								
+		// INIT								
+		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml"});		
+		
+		return;
+		
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 						
@@ -235,10 +242,12 @@ var page =
 		SNDK.SUI.redraw ();
 				
 		// SET
-		set ();		
+	//	set ();		
 		
 		// SHOW
-		modal.show ();		
+		//modal.show ();		
+		
+		modal.dispose ();
 	},
 	
 	// DELETE

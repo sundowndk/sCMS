@@ -72,18 +72,18 @@ var collection =
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();										
-							sCMS.collection.save (item);	
-							UI.elements.content.collections.setItem (sCMS.collection.load (item.id));
+							get ();
+													
+							sCMS.collection.save (attributes.current);	
+							UI.elements.content.collections.setItem (attributes.current);
 										
-						//	field.dispose ();			
-							modal.dispose ();		
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							onChange ();													
 						};
 										
 		// SET	
 		var set =		function ()
-						{
-							
+						{																										
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
 							
 							for (i=0; i <attributes.current.contents.length; i++)
@@ -91,15 +91,18 @@ var collection =
 								var content = attributes.current.contents[i];												
 								fields[content.id].setAttribute ("value", content.data);
 							}
+							
+							get ();
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = SNDK.tools.derefItem (attributes.current);
-							//item.title = modal.getUIElement ("title").getAttribute ("value");
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 							
-							item.contents = new Array ();
+							attributes.current.contents = new Array ();
 							for (i=0; i <collectionschema.fields.length; i++)
 							{
 								var content = {};
@@ -107,10 +110,8 @@ var collection =
 								content.type = collectionschema.fields[i].type;
 								content.data = collectionschema.fields[i].data = fields[collectionschema.fields[i].id].getAttribute ("value");
 								
-								item.contents[i] = content;
-							}
-							
-							return item;								
+								attributes.current.contents[i] = content;
+							}						
 						};
 						
 		var dispose =	function ()
@@ -121,8 +122,10 @@ var collection =
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{			
+							get ();
+														
+							if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}
@@ -174,7 +177,7 @@ var collection =
 			
 			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
 			
-			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), options: collectionschema.fields[i].field.options, width: "100%", height: "100%"});	
+			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), options: collectionschema.fields[i].options, width: "100%", height: "100%"});	
 			fields[collectionschema.fields[i].id].setAttribute ("onChange", onChange);
 			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.fields[i].id]);
 		}		
