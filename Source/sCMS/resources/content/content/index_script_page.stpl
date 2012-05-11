@@ -91,7 +91,7 @@ var page =
 		}
 		else
 		{
-		//	attributes.current = sCMS.page.load (attributes.id);
+			attributes.current = sCMS.page.load (attributes.id);
 		}		
 																		
 		// SAVE
@@ -192,9 +192,7 @@ var page =
 								
 		// INIT								
 		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml"});		
-		
-		return;
-		
+				
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 						
@@ -242,12 +240,10 @@ var page =
 		SNDK.SUI.redraw ();
 				
 		// SET
-	//	set ();		
+		set ();		
 		
 		// SHOW
-		//modal.show ();		
-		
-		modal.dispose ();
+		modal.show ();				
 	},
 	
 	// DELETE
