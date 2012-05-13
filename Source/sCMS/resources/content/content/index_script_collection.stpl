@@ -136,7 +136,7 @@ var collection =
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml"});
+		var modal = new sConsole.modal.window ({dimensions: "auto", SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml"});
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 						

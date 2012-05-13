@@ -83,20 +83,15 @@ var page =
 	{				
 		<%Include ("index_script_page_alias.stpl")%>
 	
-		if (!attributes) attributes = new Array ();
-				
-		if (!attributes.id)
-		{
-			attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
-		}
-		else
-		{
-			attributes.current = sCMS.page.load (attributes.id);
-		}		
+	
 																		
 		// SAVE
 		var save = 		function ()
 						{			
+				//var test = new sConsole.modal.busy ({});
+				//test.show ();						
+							modal.showBusy ();
+							setTimeout ( function () {
 							modal.getUIElement ("save").setAttribute ("disabled", true);
 												
 							get ();
@@ -117,6 +112,10 @@ var page =
 								
 							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 							onChange ();
+							
+							modal.hideBusy ();
+							//test.dispose ();
+							}, 150);
 						};
 										
 		// SET	
@@ -191,7 +190,28 @@ var page =
 						};			
 								
 		// INIT								
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml"});		
+
+//				var test = new sConsole.modal.busy ({});
+//		test.show ();
+
+//		var modal;
+						
+		
+		var modal;
+		
+
+		var onInit = function ()
+		{	
+		if (!attributes) attributes = new Array ();
+				
+		if (!attributes.id)
+		{
+			attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
+		}
+		else
+		{
+			attributes.current = sCMS.page.load (attributes.id);
+		}		
 				
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
@@ -244,6 +264,15 @@ var page =
 		
 		// SHOW
 		modal.show ();				
+			
+		
+			};
+			
+			modal = new sConsole.modal.window ({dimensions: "auto",  busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml", onInit: onInit});			
+					
+					
+					
+
 	},
 	
 	// DELETE

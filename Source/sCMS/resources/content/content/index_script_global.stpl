@@ -6,18 +6,7 @@ var global =
 {
 	// EDIT
 	edit : function (attributes)
-	{				
-		if (!attributes) attributes = new Array ();
-	
-		if (!attributes.id)
-		{
-			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
-		}
-		else
-		{
-			attributes.current = sCMS.global.load (attributes.id);
-		}
-								
+	{												
 		// SAVE
 		var save = 		function ()
 						{
@@ -66,6 +55,19 @@ var global =
 	
 		// INIT
 		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
+		
+		if (!attributes) attributes = new Array ();
+	
+		if (!attributes.id)
+		{
+			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+		}
+		else
+		{
+			attributes.current = sCMS.global.load (attributes.id);
+		}
+		
+		
 		modal.getUIElement ("save").setAttribute ("onClick", save);
 		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 								

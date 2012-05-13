@@ -1,5 +1,5 @@
 <sui elementheight="50px">
-	<canvas width="800px" height="450px" canScroll="false">	
+	<canvas canScroll="false">	
 		<container title="Edit template" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 				<panel size="*">
