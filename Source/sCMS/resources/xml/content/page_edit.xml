@@ -1,6 +1,4 @@
 <sui elementheight="50px">
-	<canvas canScroll="false">	
-		<container tag="container" title="Edit page" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 				<panel size="*">
 					<tabview>
@@ -54,8 +52,6 @@
 					</layoutbox>
 				</panel>
 			</layoutbox>				
-		</container>
-	</canvas>
 </sui>
 
 
