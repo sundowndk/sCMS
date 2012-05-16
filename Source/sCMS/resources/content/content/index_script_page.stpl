@@ -202,6 +202,11 @@ var page =
 
 		var onInit = function ()
 		{	
+		
+//			modal.getUIElement ("container").addTitleBarUIElement ("button");
+//			modal.getUIElement ("container").addTitleBarUIElement ("button");
+		
+		
 		if (!attributes) attributes = new Array ();
 				
 		if (!attributes.id)
@@ -268,7 +273,7 @@ var page =
 		
 			};
 			
-			modal = new sConsole.modal.window ({dimensions: "auto",  busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml", onInit: onInit});			
+			modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml", onInit: onInit});			
 					
 					
 					

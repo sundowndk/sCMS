@@ -1,7 +1,7 @@
 <sui elementheight="50px">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel size="*">
+			
 					<tabview>
+				
 						<tab label="Details" selected="true">
 							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 								<panel size="%elementheight%">
@@ -40,18 +40,9 @@
 							</layoutbox>		
 						</tab>					
 					</tabview>																	
-				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">							
-						</panel>
-						<panel size="210px">
-							<button tag="save" label="Save" width="100px" disabled="true"/>
-							<button tag="close" label="Close" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
-			</layoutbox>				
+				
+				
+						
 </sui>
 
 
