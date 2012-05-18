@@ -1,6 +1,4 @@
 <sui elementheight="50px">
-	<canvas width="600px" height="220px" canScroll="false">	
-		<container title="Create new page" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 				<panel size="%elementheight%">
 					<layoutbox type="vertical">
@@ -19,23 +17,11 @@
 						</panel>					
 						<panel size="*">
 							<textbox tag="template" width="80%" disabled="true" />
-							<button tag="choosetemplate" label="choose" width="20%" />
+							<button tag="choosetemplate" label="Select" width="20%" />
 						</panel>											
 					</layoutbox>
 				</panel>
 				<panel size="*">
 				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">
-						</panel>
-						<panel size="210px">
-							<button tag="create" label="Create" width="100px" disabled="true"/>
-							<button tag="close" label="Close" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
 			</layoutbox>
-		</container>
-	</canvas>
 </sui>

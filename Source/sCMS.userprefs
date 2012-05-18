@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/xml/content/page_edit.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script_page.stpl">
     <Files>
-      <File FileName="sCMS/resources/xml/content/page_edit.xml" Line="45" Column="4" />
-      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="276" Column="174" />
+      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="37" Column="8" />
+      <File FileName="sCMS/resources/xml/content/page_edit.xml" Line="11" Column="53" />
+      <File FileName="sCMS/resources/xml/content/page_create.xml" Line="10" Column="14" />
+      <File FileName="sCMS/resources/content/content/index_script_page_template.stpl" Line="17" Column="2" />
+      <File FileName="sCMS/javascript/modal/chooser/template.js" Line="52" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
