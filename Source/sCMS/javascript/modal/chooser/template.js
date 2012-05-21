@@ -70,7 +70,7 @@ template : function (attributes)
 //	suixml += '	</layoutbox>';
 	suixml += '</sui>';
 
-	var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose template", buttonLabel1: "Select", buttonLabel2: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});
+	var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose template", button1Label: "Select", button2Label: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});
 }
 
 

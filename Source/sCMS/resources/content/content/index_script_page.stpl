@@ -44,7 +44,7 @@ var page =
 													
 											if (UI.elements.content.pages.getItem ().type == "root")
 											{
-												attributes.curent = sCMS.page.new (UI.elements.content.pages.getItem ().id, item.templateid, "00000000-0000-0000-0000-000000000000", item.title);								
+												attributes.curent = sCMS.page.new (UI.elements.content.pages.getItem ().id, attributes.current.templateid, "00000000-0000-0000-0000-000000000000", attributes.current.title);	
 											}
 											else if (UI.elements.content.pages.getItem ().type == "page")
 											{
@@ -280,7 +280,7 @@ var page =
 							{
 								modal.getUIElement ("aliasedit").setAttribute ("disabled", true);
 								modal.getUIElement ("aliasremove").setAttribute ("disabled", true);
-							}							
+							}														
 						};			
 		
 		// INIT								
@@ -290,10 +290,10 @@ var page =
 	// DELETE
 	delete : function ()
 	{
-		var action =	function (result)
+		var onDone =	function (result)
 						{
-							if (result == 1)
-							{														
+ 							if (result == 1)
+							{					
 								if (sCMS.page.delete (UI.elements.content.pages.getItem ().id))
 								{
 									UI.elements.content.pages.removeItem ();
@@ -301,7 +301,7 @@ var page =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete page", text: "Do you really want to delete this page ?", buttonLabel: "Yes|No", onDone: action});
+		sConsole.modal.question ({title: "Delete page", text: "Do you really want to delete this page ?", button1Label: "Yes", button2Label: "No", onDone: onDone});
 	},
 	
 	// UP
