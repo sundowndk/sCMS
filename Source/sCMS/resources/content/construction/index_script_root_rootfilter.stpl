@@ -6,65 +6,44 @@ var rootfilter =
 {
 	add : function ()
 	{
-		var filter = new Array ();
-		filter.type = "Hostname";
-		filter.data = "";
+		var current = new Array ();
+		current.type = "Hostname";
+		current.data = "";
 		
-		rootfilter.edit ({current: filter});
+		rootfilter.edit ({current: current});
 	},
 	
 	edit : function (attributes)
-	{						
-		if (!attributes) attributes = new Array ();
-								
-		console.log (attributes.dd)
-								
-		if (attributes.current != null)
-		{				
-			attributes.mode = "add";
-		}
-		else
-		{	
-			attributes.current = modal.getUIElement ("filters").getItem ();			
-			attributes.mode = "edit";
-		}	
-										
+	{			
 		// BUTTON1
 		var button1 = 	function ()
 						{
-							var item = get ();
+							modal2.busy ();							
+							modal2.getUIElement ("button1").setAttribute ("disabled", true);							
 							
-							switch (attributes.mode)
-							{
-								case "add":
-								{
-									modal.getUIElement ("filters").addItem (item);							
-									break;
-								}	
+							setTimeout (function () 
+										{																							
+											get ();
+
+											switch (attributes.mode)
+											{
+												case "add":
+												{
+													modal.getUIElement ("filters").addItem (attributes.current);							
+													break;
+												}	
 								
-								case "edit":
-								{
-									modal.getUIElement ("filters").setItem (item);
-									break;
-								}					
-							}							
-																
-							modal2.dispose ();		
+												case "edit":
+												{
+													modal.getUIElement ("filters").setItem (attributes.current);
+													break;
+												}					
+											}							
+											modal.busy ()
+											//dispose ();
+										}, 150);																								
 						};			
-			
-		// ONCHANGE
-		var onChange =	function ()
-						{													
-							if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal2.getUIElement ("data").getAttribute ("value") != ""))
-							{
-								modal2.getUIElement ("button1").setAttribute ("disabled", false);
-							}
-							else
-							{
-								modal2.getUIElement ("button1").setAttribute ("disabled", true);
-							}										
-						};							
-															
+																				
 		// SET	
 		var set =		function ()
 						{
@@ -87,31 +66,79 @@ var rootfilter =
 									break;
 								}
 							}
+							
+							get ();
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							
+							onChange ();
 						};
 						
 		// GET
 		var get =		function ()
 						{
-							var item = new Array ();
-							item.type = modal2.getUIElement ("type").getAttribute ("selectedItem").value;
-							item.data = modal2.getUIElement ("data").getAttribute ("value");
-							return item;
-						};						
+							attributes.current.type = modal2.getUIElement ("type").getAttribute ("selectedItem").value;
+							attributes.current.data = modal2.getUIElement ("data").getAttribute ("value");							
+						};			
+						
+		// DIPOSE
+		var dispose =	function ()
+						{
+							modal2.getUIElement ("button1").setAttribute ("disabled", true);		
+							modal2.getUIElement ("close").setAttribute ("disabled", true);		
+							modal2.dispose ();							
+							modal2 = null;
+						};
+			
+		// ONINIT			
+		var onInit =	function ()
+						{
+							if (!attributes) 
+								attributes = new Array ();									
+								
+							if (attributes.current != null)
+							{				
+								attributes.mode = "add";
+							}
+							else
+							{		
+								attributes.current = modal.getUIElement ("filters").getItem ();			
+								attributes.mode = "edit";
+							}		
+							
+												
+							modal2.getUIElement ("type").setAttribute ("onChange", onChange);
+							modal2.getUIElement ("data").setAttribute ("onChange", onChange);
+																																									
+							modal2.getUIElement ("button1").setAttribute ("onClick", button1);
+							modal2.getUIElement ("close").setAttribute ("onClick", dispose);		
+		
+							// SET
+							set ();
+		
+							// SHOW
+							modal2.show ();							
+						};			
+			
+		// ONCHANGE
+		var onChange =	function ()
+						{												
+							get ();
+							
+							if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (attributes.current.data.title != ""))	
+							{
+								modal2.getUIElement ("button1").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal2.getUIElement ("button1").setAttribute ("disabled", true);
+							}										
+						};												
 																																						
 		// INIT
 		var modal2 = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml"});
-						
-		modal2.getUIElement ("type").setAttribute ("onChange", onChange);
-		modal2.getUIElement ("data").setAttribute ("onChange", onChange);
-																																									
-		modal2.getUIElement ("button1").setAttribute ("onClick", button1);
-		modal2.getUIElement ("close").setAttribute ("onClick", modal2.dispose);		
+		var modal2 = new sConsole.modal.window ({width: "600px", height: "200px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml", onInit: onInit});
 		
-		// SET
-		set ();
-		
-		// SHOW
-		modal2.show ();		
 	},
 	
 	remove : function ()

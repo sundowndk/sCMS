@@ -8,28 +8,7 @@ var page =
 	create : function (attributes)
 	{
 		<%Include ("index_script_page_template.stpl")%>
-		
-		// ONINIT
-		var onInit =	function ()
-		{					
-			if (!attributes)
-				attributes = new Array ();
-		
-			modal.getUIElement ("title").setAttribute ("onChange", onChange);		
-			modal.getUIElement ("template").setAttribute ("onChange", onChange);
-		
-			modal.getUIElement ("choosetemplate").setAttribute ("onClick", template.add);
-		
-			modal.getUIElement ("create").setAttribute ("onClick", create);
-			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
 			
-			// SET
-			set ();
-		
-			// SHOW
-			modal.show ();		
-		};
-	
 		// CREATE			
 		var create =	function ()
 						{
@@ -41,16 +20,16 @@ var page =
 											modal.getUIElement ("create").setAttribute ("disabled", true);
 											
 											get ();
-													
+																																					
 											if (UI.elements.content.pages.getItem ().type == "root")
 											{
-												attributes.curent = sCMS.page.new (UI.elements.content.pages.getItem ().id, attributes.current.templateid, "00000000-0000-0000-0000-000000000000", attributes.current.title);	
+												attributes.current = sCMS.page.new (UI.elements.content.pages.getItem ().id, attributes.current.templateid, "00000000-0000-0000-0000-000000000000", attributes.current.title);	
 											}
 											else if (UI.elements.content.pages.getItem ().type == "page")
 											{
 												var parent = sCMS.page.load (UI.elements.content.pages.getItem ().id)							
 												attributes.current = sCMS.page.new (parent.rootid, attributes.current.templateid, UI.elements.content.pages.getItem ().id, attributes.current.title);
-											}
+											}							
 							
 											sCMS.page.save (attributes.current);
 														
@@ -65,13 +44,7 @@ var page =
 											dispose ();
 										}, 150);											
 						};			
-								
-		// GET
-		var get =		function ()
-						{							
-							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");							
-						};
-		
+
 		// SET
 		var set =		function ()
 						{
@@ -83,6 +56,12 @@ var page =
 						
 							onChange ();
 						};	
+																							
+		// GET
+		var get =		function ()
+						{							
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");							
+						};		
 						
 		// DISPOSE 
 		var dispose =	function ()
@@ -91,6 +70,27 @@ var page =
 							modal.dispose ();							
 							modal = null;
 						};
+						
+		// ONINIT
+		var onInit =	function ()
+						{					
+							if (!attributes)
+								attributes = new Array ();
+		
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+							modal.getUIElement ("template").setAttribute ("onChange", onChange);
+		
+							modal.getUIElement ("choosetemplate").setAttribute ("onClick", template.add);
+		
+							modal.getUIElement ("create").setAttribute ("onClick", create);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+			
+							// SET
+							set ();
+		
+							// SHOW
+							modal.show ();		
+						};						
 						
 		// ONCHANGE
 		var onChange =	function ()
