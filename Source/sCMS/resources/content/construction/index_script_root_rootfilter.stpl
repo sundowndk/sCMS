@@ -39,8 +39,8 @@ var rootfilter =
 													break;
 												}					
 											}							
-											modal.busy ()
-											//dispose ();
+											
+											dispose ();
 										}, 150);																								
 						};			
 																				
@@ -135,8 +135,7 @@ var rootfilter =
 							}										
 						};												
 																																						
-		// INIT
-		var modal2 = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml"});
+		// INIT		
 		var modal2 = new sConsole.modal.window ({width: "600px", height: "200px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml", onInit: onInit});
 		
 	},

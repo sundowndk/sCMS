@@ -646,48 +646,48 @@ namespace sCMS
 				result._updatetimestamp = int.Parse ((string)item["updatetimestamp"]);
 			}				
 			
-//			if (item.ContainsKey ("templateid"))
-//			{					
-//				result._templateid = new Guid ((string)item["templateid"]);
-//			}
-//			
-//			if (item.ContainsKey ("rootid"))
-//			{
-//				result._rootid = new Guid ((string)item["rootid"]);
-//			}
-//			
-//			if (item.ContainsKey ("parentid"))
-//			{
-//				result._parentid = new Guid ((string)item["parentid"]);
-//			}
-//				
-//			if (item.ContainsKey ("title"))
-//			{
-//				result._title = (string)item["title"];
-//			}
-//			
-//			if (item.ContainsKey ("sort"))
-//			{
-//				result._sort = int.Parse ((string)item["sort"]);
-//			}
-//				
-//			if (item.ContainsKey ("contents"))
-//			{
-//				result._contents.Clear ();
-//				foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
-//				{
-//					result._contents.Add (Content.FromXmlDocument (content));
-//				}
-//			}		
+			if (item.ContainsKey ("templateid"))
+			{					
+				result._templateid = new Guid ((string)item["templateid"]);
+			}
 			
-//			if (item.ContainsKey ("aliases"))
-//			{
-//				result._aliases = new List<string> ();						
-//				foreach (XmlDocument alias in (List<XmlDocument>)item["aliases"])
-//				{					
-//					result._aliases.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alias))["value"]);
-//				}
-//			}											
+			if (item.ContainsKey ("rootid"))
+			{
+				result._rootid = new Guid ((string)item["rootid"]);
+			}
+			
+			if (item.ContainsKey ("parentid"))
+			{
+				result._parentid = new Guid ((string)item["parentid"]);
+			}
+				
+			if (item.ContainsKey ("title"))
+			{
+				result._title = (string)item["title"];
+			}
+			
+			if (item.ContainsKey ("sort"))
+			{
+				result._sort = int.Parse ((string)item["sort"]);
+			}
+				
+			if (item.ContainsKey ("contents"))
+			{
+				result._contents.Clear ();
+				foreach (XmlDocument content in (List<XmlDocument>)item["contents"])
+				{
+					result._contents.Add (Content.FromXmlDocument (content));
+				}
+			}		
+			
+			if (item.ContainsKey ("aliases"))
+			{
+				result._aliases = new List<string> ();						
+				foreach (XmlDocument alias in (List<XmlDocument>)item["aliases"])
+				{					
+					result._aliases.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alias))["value"]);
+				}
+			}											
 
 			return result;
 		}			

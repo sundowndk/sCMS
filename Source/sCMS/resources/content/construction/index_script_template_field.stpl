@@ -8,20 +8,26 @@ var field =
 	{
 		var onDone = 	function (field)
 						{
-							modal.getUIElement ("fields").addItem (field)
+							if (field != null)
+							{
+								modal.getUIElement ("fields").addItem (field)
+							}
 						};
 						
-		sCMS.modal.edit.field ({title: "Add field", button1Label: "Add", button2Label: "Close", onDone: onDone});
+		sCMS.modal.edit.field ({onDone: onDone});
 	},
 	
 	edit : function ()
 	{						
 		var onDone = 	function (field)
 						{
-							modal.getUIElement ("fields").setItem (field)
+							if (field != null)
+							{						
+								modal.getUIElement ("fields").setItem (field)
+							}
 						};
 						
-		sCMS.modal.edit.field ({field: modal.getUIElement ("fields").getItem (), title: "Edit field", button1Label: "Apply", button2Label: "Close", onDone: onDone});	
+		sCMS.modal.edit.field ({field: modal.getUIElement ("fields").getItem (), onDone: onDone});	
 	},
 	
 	remove : function ()

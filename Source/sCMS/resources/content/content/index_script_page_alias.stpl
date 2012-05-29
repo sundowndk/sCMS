@@ -15,54 +15,50 @@ var alias =
 
 	// EDIT
 	edit : function (attributes)
-	{				
-		if (!attributes) attributes = new Array ();
-	
-		if (attributes.current)
-		{
-			attributes.mode = "new";
-		}
-		else
-		{
-			attributes.mode = "edit"
-			attributes.current = modal.getUIElement ("aliases").getItem ();
-		}
-	
+	{					
 		// APPLY
 		var apply =		function ()
 						{
-							switch (attributes.mode)
-							{
-								case "new":
-								{
-									modal.getUIElement ("aliases").addItem (get ());
-									break;
-								}
-								
-								case "edit":
-								{
-									modal.getUIElement ("aliases").setItem (get ());
-									break;
-								}
-								
-							}
+							// SHOW BUSY
+							modal2.busy ();
 							
-							modal2.dispose ();		
+							setTimeout (function () 
+										{												
+											get ();
+											
+											switch (attributes.mode)
+											{
+												case "new":
+												{
+													modal.getUIElement ("aliases").addItem (attributes.current);
+													break;
+												}
+									
+												case "edit":
+												{
+													modal.getUIElement ("aliases").setItem (attributes.current);
+													break;
+												}																		
+											}
+											
+											dispose ();
+										}, 150);															
 						};
 										
 		// SET	
 		var set =		function ()
 						{
 							modal2.getUIElement ("alias").setAttribute ("value", attributes.current.value);
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+						
+							onChange ();
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = {};
-							item.value = modal2.getUIElement ("alias").getAttribute ("value");
-														
-							return item;								
+							attributes.current.value = modal2.getUIElement ("alias").getAttribute ("value");
 						};
 						
 		// DISPOSE
@@ -70,11 +66,58 @@ var alias =
 						{
 							modal2.dispose ();
 						};
+					
+		// ONINIT
+		var onInit =	function ()
+						{
+							if (!attributes) 
+								attributes = new Array ();
+	
+							if (attributes.current)
+							{
+								attributes.mode = "new";
+							}
+							else
+							{	
+								attributes.mode = "edit"
+								attributes.current = modal.getUIElement ("aliases").getItem ();
+							}
+							
+							modal2.getUIElement ("button1").setAttribute ("onClick", apply);
+							modal2.getUIElement ("close").setAttribute ("onClick", dispose);		
 						
+							modal2.getUIElement ("alias").setAttribute ("onChange", onChange);
+		
+							switch (attributes.mode)
+							{
+								case "new":
+								{
+									modal2.getUIElement ("container").setAttribute ("title", "Add alias");
+									modal2.getUIElement ("button1").setAttribute ("label", "Add");
+									break;
+								}
+			
+								case "edit":
+								{
+									modal2.getUIElement ("container").setAttribute ("title", "Edit alias");
+									modal2.getUIElement ("button1").setAttribute ("label", "Apply");
+									break;
+								}
+							}
+						
+							// SET
+							set ();		
+				
+							// SHOW
+							modal2.show ();									
+						};
+														
 		// ONCHANGE	
 		var onChange =	function ()
-						{			
-							if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal2.getUIElement ("alias").getAttribute ("value") != ""))
+						{		
+							get ();
+								
+							if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (modal2.getUIElement ("alias").getAttribute ("value") != ""))	
 							{							
 								modal2.getUIElement ("button1").setAttribute ("disabled", false);
 							}
@@ -84,35 +127,9 @@ var alias =
 							}									
 						};							
 	
-		// INIT
-		var modal2 = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit_alias_edit.xml"});
-		modal2.getUIElement ("button1").setAttribute ("onClick", apply);
-		modal2.getUIElement ("close").setAttribute ("onClick", dispose);		
-						
-		modal2.getUIElement ("alias").setAttribute ("onChange", onChange);
-		
-		switch (attributes.mode)
-		{
-			case "new":
-			{
-				modal2.getUIElement ("container").setAttribute ("title", "Add alias");
-				modal2.getUIElement ("button1").setAttribute ("label", "Add");
-				break;
-			}
-			
-			case "edit":
-			{
-				modal2.getUIElement ("container").setAttribute ("title", "Edit alias");
-				modal2.getUIElement ("button1").setAttribute ("label", "Apply");
-				break;
-			}
-		}
-						
-		// SET
-		set ();		
-		
-		// SHOW
-		modal2.show ();		
+		// INIT		
+		var modal2 = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit_alias_edit.xml", onInit: onInit});			
+	
 	},
 	
 	// REMOVE
