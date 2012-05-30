@@ -41,16 +41,20 @@ var javascript =
 							item.title = modal.getUIElement ("title").getAttribute ("value");
 							return item;
 						};
+						
+		var onInit =	function ()
+						{
+
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+		
+							modal.getUIElement ("create").setAttribute ("onClick", create);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+		
+							modal.show ();																										
+						};
 
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/javascript_create.xml"});
-						
-		modal.getUIElement ("title").setAttribute ("onChange", onChange);		
-		
-		modal.getUIElement ("create").setAttribute ("onClick", create);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-		
-		modal.show ();		
+		var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/javascript_create.xml", onInit: onInit});							
 	},
 	
 	// EDIT
@@ -106,20 +110,23 @@ var javascript =
 								modal.getUIElement ("save").setAttribute ("disabled", true);									
 							}								
 						};							
+						
+		var onInit =	function ()
+						{
+							modal.getUIElement ("content").setAttribute ("onChange", onChange);
+		
+							modal.getUIElement ("save").setAttribute ("onClick", save);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+		
+							// SET
+							set ();
+		
+							// SHOW
+							modal.show ();								
+						};
 	
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/javascript_edit.xml"});
-											
-		modal.getUIElement ("content").setAttribute ("onChange", onChange);
-		
-		modal.getUIElement ("save").setAttribute ("onClick", save);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-		
-		// SET
-		set ();
-		
-		// SHOW
-		modal.show ();		
+		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/javascript_edit.xml", onInit: onInit});					
 	},
 	
 	// DELETE
@@ -136,6 +143,6 @@ var javascript =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete javascript", text: "Do you really want to delete this javascript ?", buttonLabel: "Yes|No", onDone: action});				
+		sConsole.modal.question ({title: "Delete javascript", text: "Do you really want to delete this javascript ?", button1Label: "Yes", button2Label: "No", onDone: action});				
 	}				
 }

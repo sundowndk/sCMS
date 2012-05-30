@@ -41,32 +41,25 @@ var stylesheet =
 							item.title = modal.getUIElement ("title").getAttribute ("value");
 							return item;
 						};
-
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/stylesheet_create.xml"});
 						
-		modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+		// ONINIT
+		var onInit =	function ()
+						{
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
 		
-		modal.getUIElement ("create").setAttribute ("onClick", create);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+							modal.getUIElement ("create").setAttribute ("onClick", create);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
 		
-		modal.show ();		
+							modal.show ();								
+						};
+
+		// INIT	
+		var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/stylesheet_create.xml", onInit: onInit});	
 	},
 	
 	// EDIT
 	edit : function (attributes)
-	{			
-		if (!attributes) attributes = new Array ();
-	
-		if (!attributes.id)
-		{
-			attributes.current = sCMS.stylesheet.load (UI.elements.content.stylesheets.getItem ().id);		
-		}
-		else
-		{
-			attributes.current = sCMS.stylesheet.load (attributes.id);
-		}
-	
+	{				
 		// SAVE
 		var save = 		function ()
 						{
@@ -105,21 +98,35 @@ var stylesheet =
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", true);									
 							}								
-						};							
+						};			
+						
+		var onInit =	function ()
+						{
+								if (!attributes) attributes = new Array ();
+	
+								if (!attributes.id)
+								{
+									attributes.current = sCMS.stylesheet.load (UI.elements.content.stylesheets.getItem ().id);		
+								}
+								else
+								{
+									attributes.current = sCMS.stylesheet.load (attributes.id);
+								}
+								
+								modal.getUIElement ("content").setAttribute ("onChange", onChange);
+		
+								modal.getUIElement ("save").setAttribute ("onClick", save);
+								modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+		
+								// SET
+								set ();
+		
+								// SHOW
+								modal.show ();													
+						};
 	
 		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/stylesheet_edit.xml"});
-											
-		modal.getUIElement ("content").setAttribute ("onChange", onChange);
-		
-		modal.getUIElement ("save").setAttribute ("onClick", save);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-		
-		// SET
-		set ();
-		
-		// SHOW
-		modal.show ();		
+		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/stylesheet_edit.xml", onInit: onInit});					
 	},
 	
 	// DELETE
@@ -128,8 +135,7 @@ var stylesheet =
 		var action =	function (result)
 						{
 							if (result == 1)
-							{							
-							console.log (UI.elements.content.stylesheets.getItem ().id)
+							{														
 								if (sCMS.stylesheet.delete (UI.elements.content.stylesheets.getItem ().id))
 								{
 									UI.elements.content.stylesheets.removeItem ();
@@ -137,6 +143,6 @@ var stylesheet =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete stylesheet", text: "Do you really want to delete this stylesheet ?", buttonLabel: "Yes|No", onDone: action});				
+		sConsole.modal.question ({title: "Delete stylesheet", text: "Do you really want to delete this stylesheet ?", button1Label: "Yes", button2Label: "No", onDone: action});				
 	}				
 }

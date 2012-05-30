@@ -1,7 +1,6 @@
 <sui elementheight="50px">	
 	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 		<panel size="*">
-
 			<layoutbox type="horizontal">			
 				<panel size="%elementheight%">
 					<layoutbox type="vertical">

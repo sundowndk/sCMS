@@ -40,6 +40,8 @@ var page =
 																																			
 											attributes.current.type = "page";
 											UI.elements.content.pages.addItem (attributes.current);
+											
+											page.edit ({current: attributes.current});
 																																							
 											dispose ();
 										}, 150);											
@@ -121,14 +123,14 @@ var page =
 		{						
 			if (!attributes) attributes = new Array ();
 				
-			if (!attributes.id)
+			if (!attributes.current)
 			{
 				attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
 			}
-			else
-			{
-				attributes.current = sCMS.page.load (attributes.id);
-			}		
+//			else
+//			{
+//				attributes.current = sCMS.page.load (attributes.id);
+//			}		
 				
 			modal.getUIElement ("save").setAttribute ("onClick", save);
 			modal.getUIElement ("close").setAttribute ("onClick", dispose);		
@@ -145,18 +147,31 @@ var page =
 		
 			for (i = 0; i < attributes.template.allfields.length; i++)			
 			{
-				var height = "220px";
+				var height;
 			
 				switch (attributes.template.allfields[i].type.toLowerCase ())
 				{
 					case "string":
 					{
-						height = "65px";
+						height = "50px";
+						break;
+					}
+					
+					case "link":
+					{
+						height = "50px";
+						break;
+					}
+					
+					case "text":
+					{
+						height = "300px";
 						break;
 					}
 					
 					default:
 					{
+						height = "220px";
 						break;				
 					}
 				}

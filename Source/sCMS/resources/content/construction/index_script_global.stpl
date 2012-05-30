@@ -11,9 +11,7 @@ var global =
 		var onDone = 	function (field)
 						{
 							current = sCMS.global.new (field.type, field.name);
-							
-							console.log (current)
-							
+														
 							sCMS.global.save (current);
 																				
 							UI.elements.content.globals.addItem (sCMS.global.load (current.id));	
@@ -50,7 +48,7 @@ var global =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete global", text: "Do you really want to delete this global ?", buttonLabel: "Yes|No", onDone: action});			
+		sConsole.modal.question ({title: "Delete global", text: "Do you really want to delete this global ?", button1Label: "Yes", button2Label: "No", onDone: action});			
 	}									
 }					
 			
