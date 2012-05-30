@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/javascript/modal/chooser/page.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/xml/construction/collectionschema_edit.xml">
     <Files>
-      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="227" />
-      <File FileName="sCMS/resources/content/construction/index_script_template.stpl" Line="95" Column="1" />
-      <File FileName="sCMS/javascript/modal/edit/field.js" Line="6" Column="27" />
-      <File FileName="sCMS/resources/content/construction/index_script_template_field.stpl" Line="15" Column="9" />
-      <File FileName="sCMS/javascript/modal/chooser/page.js" Line="6" Column="7" />
-      <File FileName="sCMS/javascript/modal/chooser/stylesheet.js" Line="75" Column="1" />
+      <File FileName="sCMS/resources/content/construction/index_script_stylesheet.stpl" Line="57" Column="3" />
+      <File FileName="sCMS/resources/content/construction/index_script_javascript.stpl" Line="129" Column="354" />
+      <File FileName="sCMS/resources/content/construction/index_script_collectionschema.stpl" Line="164" Column="163" />
+      <File FileName="sCMS/resources/xml/construction/collectionschema_edit.xml" Line="2" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
