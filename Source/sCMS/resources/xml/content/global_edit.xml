@@ -1,29 +1,15 @@
 <sui>
-	<canvas width="800px" height="330px" canScroll="false">	
-		<container tag="container" title="Edit global" icon="Icon32Edit" stylesheet="SUIContainerModal">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel size="*">
-					<layoutbox tag="fieldlayoutbox" type="vertical">
-						<panel size="100px">
-							<label tag="fieldtext" text="Type"/>
-						</panel>					
-						<panel tag="fieldpanel" size="*">							
-						</panel>					
-					</layoutbox>					
-				</panel>												
-				<panel size="45px">
-					<layoutbox type="vertical">			
-						<panel size="*">
-						</panel>			
-						<panel size="210px">
-							<button tag="save" label="Save" width="100px" disabled="true"/>
-							<button tag="close" label="Close" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
-			</layoutbox>
-		</container>
-	</canvas>
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+		<panel size="*">
+			<layoutbox tag="fieldlayoutbox" type="vertical">
+				<panel size="100px">
+					<label tag="fieldtext" text="Type"/>
+				</panel>					
+				<panel tag="fieldpanel" size="*">							
+				</panel>					
+			</layoutbox>					
+		</panel>												
+	</layoutbox>
 </sui>
 
 

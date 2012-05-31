@@ -111,14 +111,14 @@ var template =
 							setTimeout (function () 
 										{																					
 											get ();
+																																	
 											sCMS.template.save (attributes.current);	
 											UI.elements.content.templates.setItem (attributes.current);
 														
 											checksum = sConsole.helpers.arrayChecksum (attributes.current);
 							
 											onChange ();																										
-
-																						
+																					
 											modal.busy ();
 										}, 150);
 						};
@@ -173,6 +173,8 @@ var template =
 							modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
 							modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
 							modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
+							modal.getUIElement ("fieldup").setAttribute ("onClick", fieldUp);
+							modal.getUIElement ("fielddown").setAttribute ("onClick", fieldDown);
 					
 							modal.getUIElement ("stylesheetadd").setAttribute ("onClick", stylesheet.add);		
 							modal.getUIElement ("stylesheetremove").setAttribute ("onClick", stylesheet.remove);
@@ -189,7 +191,19 @@ var template =
 							// SHOW
 							modal.show ();		
 						};
-												
+		
+		// FIELDUP
+		var fieldUp = function ()
+		{
+			var move = modal.getUIElement ("fields").moveItemUp ();
+		};		
+		
+		// FIELDDOWN
+		var fieldDown = function ()
+		{
+			var move = modal.getUIElement ("fields").moveItemDown ();
+		};
+																										
 		// ONCHANGE	
 		var onChange =	function ()
 						{	
@@ -209,11 +223,32 @@ var template =
 							{
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", false);
+								
+//								if (modal.getUIElement ("fields").canItemMove ().up)
+//		 						{
+//		 							modal.getUIElement ("fieldup").setAttribute ("disabled", false);
+//		 						}
+//		 						else
+//		 						{
+//		 							modal.getUIElement ("fieldup").setAttribute ("disabled", true);
+//		 						}
+		 					
+//		 						if (modal.getUIElement ("fields").canItemMove ().down)
+//		 						{
+//		 							modal.getUIElement ("fielddown").setAttribute ("disabled", false);
+//		 						}		 						
+//		 						else
+//		 						{
+//		 							modal.getUIElement ("fielddown").setAttribute ("disabled", true);
+//		 						}								
 							}
 							else
 							{
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
+								
+//								modal.getUIElement ("fieldup").setAttribute ("disabled", false);
+//								modal.getUIElement ("fielddown").setAttribute ("disabled", false);
 							}
 							
 							if (modal.getUIElement ("stylesheets").getItem ())

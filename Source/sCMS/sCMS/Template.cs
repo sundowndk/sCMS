@@ -164,6 +164,9 @@ namespace sCMS
 		{
 			get
 			{
+//				List<Field> result = this.CompileFields ();				
+//				result.Sort (delegate (Field field1, Field field2) {return field1.Sort.CompareTo (field2.Sort);});
+//				return result;
 				return CompileFields ();
 			}
 		}
@@ -172,7 +175,10 @@ namespace sCMS
 		{
 			get
 			{
-				return this.CompileFields ();
+//				List<Field> result = this.CompileFields ();				
+//				result.Sort (delegate (Field field1, Field field2) {return field1.Sort.CompareTo (field2.Sort);});
+//				return result;
+				return CompileFields ();				
 			}
 		}
 		
@@ -251,7 +257,7 @@ namespace sCMS
 			
 			try 
 			{
-			    this._fields.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
+//			    this._fields.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
 				result.AddRange (this._fields);
 			
 				if (this._parentid != Guid.Empty)
@@ -262,7 +268,7 @@ namespace sCMS
 					{
 						result.Add (field);
 					}
-				}
+				}							
 			}
 			catch (Exception exception)
 			{
@@ -272,6 +278,8 @@ namespace sCMS
 				// EXCEPTION: Exception.TemplateCompileField
 				throw new Exception (Strings.Exception.TemplateCompileField);
 			}
+			
+			result.Sort (delegate (Field f1, Field f2) { return f1.Sort.CompareTo (f2.Sort); });
 			
 			return result;
 		}
@@ -645,10 +653,14 @@ namespace sCMS
 			
 			if (item.ContainsKey ("fields"))
 			{
+				int sort = 0;
 				result._fields.Clear ();
 				foreach (XmlDocument field in (List<XmlDocument>)item["fields"])
 				{
-					result._fields.Add (Field.FromXmlDocument (field));
+					Field field2 = Field.FromXmlDocument (field);
+					field2.Sort = sort;
+					result._fields.Add (field2);
+					sort++;
 				}
 			}
 			

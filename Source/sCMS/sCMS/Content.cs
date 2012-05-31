@@ -70,374 +70,162 @@ namespace sCMS
 				this.Data = value;
 			}
 		}
+		
+		public static object EncodeData (Enums.FieldType Type, string Value)
+		{
+			object result = string.Empty;
 
+			switch (Type)
+			{
+				#region STRING
+				case sCMS.Enums.FieldType.String:
+				{
+					result = Value;
+					break;
+				}
+				#endregion
+
+				#region LISTSTRING
+				case sCMS.Enums.FieldType.ListString:
+				{
+					result = ((string)Value).Split ("\n".ToCharArray (), StringSplitOptions.RemoveEmptyEntries);
+					break;
+				} 
+				#endregion
+
+				#region TEXT
+				case sCMS.Enums.FieldType.Text:
+				{
+					result = Value;
+					break;
+				}
+				#endregion
+					
+				#region LINK
+				case sCMS.Enums.FieldType.Link:
+				{
+					result = Value;
+					break;
+				}
+				#endregion
+					
+				#region IMAGE
+				case sCMS.Enums.FieldType.Image:
+				{
+					if (new Guid ((string)Value) == Guid.Empty)
+					{
+						result = Media.Default ();
+					}
+					else
+					{
+						result = Media.Load (new Guid ((string)Value));
+					}						
+					break;
+				}
+				#endregion
+			}
+
+			return result;
+		}
+		
+		public static object DecodeData (Enums.FieldType Type, object Value)
+		{
+			object result = string.Empty;
+			
+			switch (Type)
+			{
+				#region STRING
+				case sCMS.Enums.FieldType.String:						
+				{
+					result = Value;
+					break;
+				}
+				#endregion
+
+				#region LISTSTRING
+				case sCMS.Enums.FieldType.ListString:
+				{
+					switch (Value.GetType ().FullName.ToLower ())
+					{
+						#region STRING
+						case "system.string":
+						{
+							result = Value;
+							break;
+						}
+						#endregion
+
+						#region STRING[]
+						default:
+						{
+							string strings = string.Empty;
+							foreach (string s in (string[])Value)
+							{
+								strings += s +"\n";
+							}								
+
+							result = strings;
+							break;
+						}
+						#endregion
+					}
+					break;
+				}
+				#endregion
+
+				#region TEXT
+				case sCMS.Enums.FieldType.Text:
+				{					
+					result = Value;
+					break;
+				}
+				#endregion
+						
+				#region LINK
+				case sCMS.Enums.FieldType.Link:
+				{
+					result = Value;
+					break;
+				}
+				#endregion
+						
+				#region IMAGE
+				case sCMS.Enums.FieldType.Image:
+				{					
+					switch (Value.GetType ().FullName.ToLower ())
+					{
+						#region STRING
+						case "system.string":
+						{
+							result = new Guid ((string)Value).ToString ();
+							break;
+						}
+						#endregion
+
+						#region MEDIA
+						default:
+							result = ((Media)Value).Id.ToString ();
+							break;
+						#endregion
+					}						
+					break;
+				}
+				#endregion	
+			}
+			
+			return result;
+		}
+			
 		public object Data
 		{
 			get
 			{
-				object result = string.Empty;
-
-				switch (this._type)
-				{
-					#region STRING
-					case sCMS.Enums.FieldType.String:
-					{
-						result = this._data;
-						break;
-					}
-					#endregion
-
-					#region LISTSTRING
-					case sCMS.Enums.FieldType.ListString:
-					{
-						result = ((string)this._data).Split ("\n".ToCharArray (), StringSplitOptions.RemoveEmptyEntries);
-						break;
-					} 
-					#endregion
-
-					#region TEXT
-					case sCMS.Enums.FieldType.Text:
-					{
-						result = this._data;
-						break;
-					}
-					#endregion
-						
-					#region LINK
-					case sCMS.Enums.FieldType.Link:
-					{
-						result = this._data;
-						break;
-					}
-					#endregion
-						
-					#region IMAGE
-					case sCMS.Enums.FieldType.Image:
-					{
-						if (new Guid ((string)this._data) == Guid.Empty)
-						{
-							result = Media.Default ();
-						}
-						else
-						{
-							result = Media.Load (new Guid ((string)this._data));
-						}						
-						break;
-					}
-					#endregion
-
-//					#region IMAGE
-//					case sCMS.Enums.FieldType.Image:
-//						try
-//						{
-//							result = SorentoLib.Media.Load (new Guid ((string)this._data));
-//						}
-//						catch
-//						{}
-//						break;
-//					#endregion
-
-//					#region IMAGELIST
-//					case sCMS.Enums.FieldType.ListImage:
-//						List<SorentoLib.Media> medias = new List<SorentoLib.Media> ();
-//
-//						foreach (string mediaid in ((string)this._data).Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
-//						{
-//							try
-//							{
-//								medias.Add (SorentoLib.Media.Load (new Guid (mediaid)));
-//							}
-//							catch
-//							{}
-//						}
-//
-//						result = medias;
-//						break;
-//					#endregion
-
-//					#region PAGELIST
-//					case sCMS.Enums.FieldType.ListPage:
-//						List<sCMS.Page> pages = new List<sCMS.Page> ();
-//						foreach (string pageid in ((string)this._data).Split (";".ToCharArray ()))
-//						{
-//							try
-//							{
-//								pages.Add (sCMS.Page.Load (new Guid (pageid)));
-//							}
-//							catch
-//							{}
-//						}
-//
-//						result = pages;
-//						break;
-//					#endregion
-
-//					#region LISTHASHTABLE
-//					case sCMS.Enums.FieldType.ListHashtable:
-//
-//						break;
-//					#endregion
-				}
-
-				return result;
+				return EncodeData (this.Type, (string)this._data);
 			}
 
 			set
 			{
-				switch (this._type)
-				{
-					#region STRING
-					case sCMS.Enums.FieldType.String:						
-					{
-						this._data = value;
-						break;
-					}
-					#endregion
-
-					#region LISTSTRING
-					case sCMS.Enums.FieldType.ListString:
-					{
-						switch (value.GetType ().FullName.ToLower ())
-						{
-							#region STRING
-							case "system.string":
-								this._data = value;
-								break;
-							#endregion
-
-							#region STRING[]
-							default:
-								string strings = string.Empty;
-								foreach (string s in (string[])value)
-								{
-									strings += s +"\n";
-								}								
-
-								this._data = strings;
-								break;
-							#endregion
-						}
-						break;
-					}
-					#endregion
-
-					#region TEXT
-					case sCMS.Enums.FieldType.Text:
-					{					
-						this._data = value;
-						break;
-					}
-					#endregion
-						
-					#region LINK
-					case sCMS.Enums.FieldType.Link:
-					{
-						this._data = value;
-						break;
-					}
-					#endregion
-						
-					#region IMAGE
-					case sCMS.Enums.FieldType.Image:
-					{					
-						switch (value.GetType ().FullName.ToLower ())
-						{
-							#region STRING
-							case "system.string":
-							{
-								this._data = new Guid ((string)value).ToString ();
-								break;
-							}
-							#endregion
-
-							#region MEDIA
-							default:
-								this._data = ((Media)value).Id.ToString ();
-								break;
-							#endregion
-						}						
-						break;
-					}
-					#endregion						
-
-//					#region IMAGE
-//					case sCMS.Enums.FieldType.Image:
-//						// If _content allready contains an IMAGE, make Media PublicTemporary.
-////						if ((string)this._data != string.Empty)
-////						{
-////							try
-////							{
-////								SorentoLib.Media media = SorentoLib.Media.Load (new Guid ((string)this._data));
-////								media.Status = SorentoLib.Enums.MediaStatus.PublicTemporary;
-////								media.Save ();
-////								media = null;
-////							}
-////							catch
-////							{
-////							}
-////						}
-//
-//						// Figure out if a String or Media was passed.
-//						switch (value.GetType ().FullName.ToLower ())
-//						{
-//							#region STRING
-//							case "system.string":
-//								// Make Media Public.
-//								if ((string)value != string.Empty)
-//								{
-////									try
-////									{
-////										SorentoLib.Media media = SorentoLib.Media.Load (new Guid ((string)value));
-////										media.Status = SorentoLib.Enums.MediaStatus.Public;
-////										media.Save ();
-////										media = null;
-////									}
-////									catch
-////									{
-////										this._data = string.Empty;
-////										break;
-////									}
-//								}
-//
-//								this._data = value;
-//								break;
-//							#endregion
-//
-//							#region MEDIA
-//							default:
-//								// Make Media Public.
-//								((SorentoLib.Media)value).Status = SorentoLib.Enums.MediaStatus.Public;
-//								((SorentoLib.Media)value).Save ();
-//
-//								this._data = ((SorentoLib.Media)value).Id.ToString ();
-//								break;
-//							#endregion
-//						}
-//						break;
-//					#endregion
-
-//					#region LISTIMAGE
-//					case sCMS.Enums.FieldType.ListImage:
-//						// If _content allready contains LISTIMAGE, make all Media PublicTemporary.
-////						if ((string)this._data != string.Empty)
-////						{
-////							foreach (string mediaid in ((string)this._data).Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
-////							{
-////								try
-////								{
-////									SorentoLib.Media media = SorentoLib.Media.Load (new Guid (mediaid));
-////									media.Status = SorentoLib.Enums.MediaStatus.PublicTemporary;
-////									media.Save ();
-////									media = null;
-////								}
-////								catch
-////								{}
-////							}
-////						}
-//
-//						// Figure out if a String or List<Media> was passed.
-//						switch (value.GetType ().FullName.ToLower ())
-//						{
-//							#region string
-//							case "system.string":
-//								// Make all Media Public.
-////								foreach (string mediaid in ((string)value).Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
-////								{
-////									SorentoLib.Media media = SorentoLib.Media.Load (new Guid (mediaid));
-////									media.Status = SorentoLib.Enums.MediaStatus.Public;
-////									media.Save ();
-////									media = null;
-////								}
-//
-//								this._data = value;
-//								break;
-//							#endregion
-//
-//							#region list
-//							default:
-//								string mediaids = string.Empty;
-//								foreach (SorentoLib.Media media in (List<SorentoLib.Media>)value)
-//								{
-////									media.Status = SorentoLib.Enums.MediaStatus.Public;
-////									media.Save ();
-//									mediaids += media.Id.ToString () +";";
-//								}
-//								mediaids = mediaids.TrimEnd(";".ToCharArray ());
-//
-//								this._data = mediaids;
-//								break;
-//							#endregion
-//						}
-//						break;
-//					#endregion
-
-//					#region LISTPAGE
-//					case sCMS.Enums.FieldType.ListPage:
-//						// Figure out if a String or List<Page> was passed.
-//						switch (value.GetType ().FullName.ToLower ())
-//						{
-//							#region STRING
-//							case "system.string":
-//								this._data = value;
-//								break;
-//							#endregion
-//	
-//							#region LIST
-//							default:
-//								string pageids = string.Empty;
-//								foreach (sCMS.Page page in (List<sCMS.Page>)value)
-//								{
-//									pageids += page.Id.ToString () +";";
-//								}
-//								pageids = pageids.TrimEnd(";".ToCharArray ());
-//	
-//								this._data = pageids;
-//								break;
-//							#endregion
-//						}
-//	
-//						break;
-//					#endregion
-
-//					#region HASHTABLE
-//					case sCMS.Enums.FieldType.ListHashtable:
-//						// Figure out if a String or Hashtable was passed.
-//						switch (value.GetType ().FullName.ToLower ())
-//						{
-//							#region STRING
-//							case "system.string":
-//								this._data = value;
-//								break;
-//							#endregion
-//
-//							#region HASHTABLE
-//							default:
-//								string hashtables = string.Empty;
-//
-//								foreach (Hashtable hashtable in (List<Hashtable>)value)
-//								{
-//									string item = string.Empty;
-//									foreach (string key in hashtable)
-//									{
-//										item += key +"_|_"+ hashtable[key] +"_||_";
-//
-//
-//
-//
-//									}
-//
-//
-//								}
-////								pageids = pageids.TrimEnd(";".ToCharArray ());
-//
-//								this._data = items;
-//								break;
-//							#endregion
-//						}
-//
-//						break;
-//					#endregion
-				}
+				DecodeData (this._type, value);
 			}
 		}
 		#endregion

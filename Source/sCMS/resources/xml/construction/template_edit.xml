@@ -35,13 +35,22 @@
 								<column tag="id" />
 								<column tag="name" label="Name" width="200px" visible="true" />
 								<column tag="type" label="Type" width="200px" visible="true" />	
+								<column tag="sort" label="sort" width="200px" visible="true" />	
 								<column tag="options" />												
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="fieldadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="fieldedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-							<button tag="fieldremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+								<panel size="*">
+									<button tag="fieldadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+									<button tag="fieldedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+									<button tag="fieldremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+								</panel>
+								<panel size="80px">
+									<button tag="fieldup" width="100%" label="Up" disabled="false"/>
+									<button tag="fielddown" width="100%" label="Down" disabled="false"/>
+								</panel>
+							</layoutbox>																									
 						</panel>
 					</layoutbox>														
 				</panel>

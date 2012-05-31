@@ -42,16 +42,19 @@ var collection =
 							item.title = modal.getUIElement ("title").getAttribute ("value");
 							return item;
 						};
-
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_create.xml"});
 						
-		modal.getUIElement ("title").setAttribute ("onChange", onChange);		
-		
-		modal.getUIElement ("create").setAttribute ("onClick", create);
-		modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-		
-		modal.show ();		
+		var onInit =	function ()
+						{
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
+							
+							modal.getUIElement ("create").setAttribute ("onClick", create);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+							
+							modal.show ();									
+						}
+
+		// INIT		
+		var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_create.xml", onInit: onInit});
 	},
 
 	// EDIT
@@ -88,7 +91,7 @@ var collection =
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
 								var content = attributes.current.contents[i];												
-								fields[content.id].setAttribute ("value", content.data);
+								attributes.fields[content.id].setAttribute ("value", content.data);
 							}
 							
 							get ();
@@ -102,12 +105,12 @@ var collection =
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 							
 							attributes.current.contents = new Array ();
-							for (i=0; i <collectionschema.fields.length; i++)
+							for (i=0; i < attributes.collectionschema.fields.length; i++)
 							{
 								var content = {};
-								content.id = collectionschema.fields[i].id;
-								content.type = collectionschema.fields[i].type;
-								content.data = collectionschema.fields[i].data = fields[collectionschema.fields[i].id].getAttribute ("value");
+								content.id = attributes.collectionschema.fields[i].id;
+								content.type = attributes.collectionschema.fields[i].type;
+								content.data = attributes.collectionschema.fields[i].data = attributes.fields[attributes.collectionschema.fields[i].id].getAttribute ("value");
 								
 								attributes.current.contents[i] = content;
 							}						
@@ -134,97 +137,102 @@ var collection =
 							}									
 						};							
 	
+		var onInit =	function ()
+						{
+							modal.getUIElement ("save").setAttribute ("onClick", save);
+							modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+											
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);
+											
+							attributes.collectionschema = sCMS.collectionSchema.load (attributes.current.collectionschemaid);				
+							attributes.fields = new Array ();
+							
+							for (i=0; i < attributes.collectionschema.fields.length; i++)			
+							{
+								var height = "200px";
+							
+								switch (attributes.collectionschema.fields[i].type.toLowerCase ())
+								{
+									case "string":
+									{
+										height = "65px";
+										break;
+									}
+									
+									default:
+									{
+										break;				
+									}
+								}
+																					
+								//var layoutbox1 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+								//layoutbox1.addPanel ({tag: "field", size: "*"});			
+								//modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox1);
+								
+								var layoutbox2 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+								layoutbox2.addPanel ({tag: "text", size: "100px"});
+								layoutbox2.addPanel ({tag: "field", size: "*"});
+								
+								layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: attributes.collectionschema.fields[i].name}));
+								
+								//layoutbox1.getPanel ("field").addUIElement (layoutbox2);
+								
+								modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
+								
+								attributes.fields[attributes.collectionschema.fields[i].id] = new SNDK.SUI.field ({type: attributes.collectionschema.fields[i].type.toLowerCase (), options: attributes.collectionschema.fields[i].options, width: "100%", height: "100%"});	
+								attributes.fields[attributes.collectionschema.fields[i].id].setAttribute ("onChange", onChange);
+								layoutbox2.getPanel ("field").addUIElement (attributes.fields[attributes.collectionschema.fields[i].id]);
+							}		
+							
+					//		for (i=0; i <collectionschema.fields.length; i++)	
+					//		//for (index in collectionschema.fields)
+					//		{
+					//			var height = "200px";
+					//		
+					//			switch (collectionschema.fields[i].type.toLowerCase ())
+					//			{
+					//				case "string":
+					//				{
+					//					height = "65px";
+					//					break;
+					//				}
+					//				
+					//				default:
+					//				{
+					//					break;				
+					//				}
+					//			}
+					//																
+					//			e[i] = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+					//			e[i].addPanel ({tag: "field", size: "*"});
+					//			
+					//			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (e[i]);
+					//			
+					//			a[i] = new SNDK.SUI.layoutbox ({type: "vertical"});
+					//			a[i].addPanel ({tag: "text", size: "100px"});
+					//			a[i].addPanel ({tag: "field", size: "*"});
+					//			
+					//			a[i].getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.fields[i].name}));
+					//			
+					//			e[i].getPanel ("field").addUIElement (a[i]);
+					//			
+					//			
+					//			var field = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), width: "100%", height: "100%"});	
+					//			a[i].getPanel ("field").addUIElement (field);							
+					//		}
+										
+							SNDK.SUI.redraw ();
+									
+							// SET
+							set ();		
+							
+							// SHOW
+							modal.show ();		
+						
+						};
+	
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml"});
-		modal.getUIElement ("save").setAttribute ("onClick", save);
-		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
-						
-		modal.getUIElement ("title").setAttribute ("onChange", onChange);
-						
-		var collectionschema = sCMS.collectionSchema.load (attributes.current.collectionschemaid);				
-		var fields = new Array ();
-		
-		for (i=0; i <collectionschema.fields.length; i++)			
-		{
-			var height = "200px";
-		
-			switch (collectionschema.fields[i].type.toLowerCase ())
-			{
-				case "string":
-				{
-					height = "65px";
-					break;
-				}
-				
-				default:
-				{
-					break;				
-				}
-			}
-																
-			//var layoutbox1 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-			//layoutbox1.addPanel ({tag: "field", size: "*"});			
-			//modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox1);
-			
-			var layoutbox2 = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-			layoutbox2.addPanel ({tag: "text", size: "100px"});
-			layoutbox2.addPanel ({tag: "field", size: "*"});
-			
-			layoutbox2.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.fields[i].name}));
-			
-			//layoutbox1.getPanel ("field").addUIElement (layoutbox2);
-			
-			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox2);
-			
-			fields[collectionschema.fields[i].id] = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), options: collectionschema.fields[i].options, width: "100%", height: "100%"});	
-			fields[collectionschema.fields[i].id].setAttribute ("onChange", onChange);
-			layoutbox2.getPanel ("field").addUIElement (fields[collectionschema.fields[i].id]);
-		}		
-		
-//		for (i=0; i <collectionschema.fields.length; i++)	
-//		//for (index in collectionschema.fields)
-//		{
-//			var height = "200px";
-//		
-//			switch (collectionschema.fields[i].type.toLowerCase ())
-//			{
-//				case "string":
-//				{
-//					height = "65px";
-//					break;
-//				}
-//				
-//				default:
-//				{
-//					break;				
-//				}
-//			}
-//																
-//			e[i] = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-//			e[i].addPanel ({tag: "field", size: "*"});
-//			
-//			modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (e[i]);
-//			
-//			a[i] = new SNDK.SUI.layoutbox ({type: "vertical"});
-//			a[i].addPanel ({tag: "text", size: "100px"});
-//			a[i].addPanel ({tag: "field", size: "*"});
-//			
-//			a[i].getPanel ("text").addUIElement (new SNDK.SUI.label ({text: collectionschema.fields[i].name}));
-//			
-//			e[i].getPanel ("field").addUIElement (a[i]);
-//			
-//			
-//			var field = new SNDK.SUI.field ({type: collectionschema.fields[i].type.toLowerCase (), width: "100%", height: "100%"});	
-//			a[i].getPanel ("field").addUIElement (field);							
-//		}
-					
-		SNDK.SUI.redraw ();
-				
-		// SET
-		set ();		
-		
-		// SHOW
-		modal.show ();		
+		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml", onInit: onInit});							
 	},
 	
 	// DELETE
@@ -241,7 +249,7 @@ var collection =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete collection", text: "Do you really want to delete this collection ?", buttonLabel: "Yes|No", onDone: action});
+		sConsole.modal.question ({title: "Delete collection", text: "Do you really want to delete this collection ?", button1Label: "Yes", button2Label: "No", onDone: action});
 	},
 	
 	// UP

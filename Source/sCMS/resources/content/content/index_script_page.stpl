@@ -147,7 +147,10 @@ var page =
 		
 			for (i = 0; i < attributes.template.allfields.length; i++)			
 			{
-				var height;
+				if (!attributes.template.allfields[i].options.hidden)
+				{
+			
+				var height;			
 			
 				switch (attributes.template.allfields[i].type.toLowerCase ())
 				{
@@ -186,6 +189,7 @@ var page =
 				layoutbox.getPanel ("field").addUIElement (attributes.fields[attributes.template.allfields[i].id]);
 				
 				modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox);
+				}
 			}		
 		
 			SNDK.SUI.redraw ();
@@ -234,11 +238,18 @@ var page =
 						{							
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
 							modal.getUIElement ("aliases").setItems (attributes.current.aliases);
-							
+														
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
-								var content = attributes.current.contents[i];												
-								attributes.fields[content.id].setAttribute ("value", content.data);
+								try
+								{
+									var content = attributes.current.contents[i];												
+									attributes.fields[content.id].setAttribute ("value", content.data);
+								}
+								catch (error)
+								{
+								
+								}
 							}
 							
 							get ();
@@ -255,12 +266,16 @@ var page =
 							attributes.current.contents = new Array ();
 							for (i=0; i < attributes.template.allfields.length; i++)
 							{
+							if (!attributes.template.allfields[i].options.hidden)
+							{
+							
 								var content = {};
 								content.id = attributes.template.allfields[i].id;
 								content.type = attributes.template.allfields[i].type;
 								content.data = attributes.template.allfields[i].data = attributes.fields[attributes.template.allfields[i].id].getAttribute ("value");
 																
 								attributes.current.contents[i] = content;
+								}
 							}													
 						};
 						

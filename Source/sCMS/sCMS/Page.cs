@@ -345,7 +345,7 @@ namespace sCMS
 		
 		public object GetContent (string Name)
 		{
-			Template template = Template.Load (this._templateid);			
+			Template template = Template.Load (this._templateid);						
 			return GetContent (template.GetField (Name).Id);
 		}
 		
@@ -362,11 +362,27 @@ namespace sCMS
 				
 				if (content != null)
 				{
-					return content.Data;
+					if (content.Data == Field.DefaultValue (content.Type))
+					{
+						return Template.Load (this._templateid).GetField (Id).Default;
+					}
+					else
+					{					
+						return content.Data;
+					}
 				}
 				else
-				{						
-					return Field.DefaultValue (Template.Load (this._templateid).GetField (Id).Type);
+				{														
+					return Template.Load (this._templateid).GetField (Id).Default;
+					
+//					if (field.Options["default"] != Field.DefaultValue (field.Type))
+//					{
+//						return field.Options["default"];
+//					}
+//					else
+//					{
+//						return Field.DefaultValue (Template.Load (this._templateid).GetField (Id).Type);
+//					}
 				}
 			}
 			catch (Exception exception)

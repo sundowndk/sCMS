@@ -11,8 +11,18 @@ field : function (attributes)
 							case "edit":
 							{
 								modal.getUIElement ("type").setAttribute ("disabled", true);
-																							
+																	
+								options.set ();						
 								options.mediatransformation.set ();
+								break;
+							}
+						}
+						
+						switch (attributes.current.type)
+						{
+							case "String":
+							{
+								options.string.set ();
 								break;
 							}
 						}
@@ -26,10 +36,22 @@ field : function (attributes)
 	var get = 		function ()
 					{
 						attributes.current.name = modal.getUIElement ("name").getAttribute ("value");
-						attributes.current.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
+						attributes.current.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;							
+												
+						attributes.current.options = options.get ();
 						
-						attributes.current.options = new Array ();
-						attributes.current.options["mediatransformationids"] = options.mediatransformation.get ();						
+						switch (attributes.current.type)
+						{
+							case "String":
+							{
+								options.string.get ();
+								break;
+							}
+						}
+												
+						//attributes.current.options["mediatransformationids"] = options.mediatransformation.get ();	
+						
+										
 					}			
 																
 	// DISPOSE
@@ -51,6 +73,7 @@ field : function (attributes)
 							attributes.current.id = SNDK.tools.newGuid ();
 							attributes.current.type = "String";
 							attributes.current.name = "";
+							attributes.current.options = new Array ();
 							
 							attributes.title = "Add Field";
 							attributes.button1Label = "Add";							
@@ -65,16 +88,20 @@ field : function (attributes)
 						}	
 							
 						modal.getUIElement ("name").setAttribute ("onChange", onChange);			
+						modal.getUIElement ("type").setAttribute ("onChange", onChange);	
 							
 						modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
 						modal.getUIElement ("close").setAttribute ("onClick", dispose);	
 						
-						modal.getUIElement ("mediatransformations").setAttribute ("onChange", onChange);
-						modal.getUIElement ("mediatransformationadd").setAttribute ("onClick", options.mediatransformation.add);
-						modal.getUIElement ("mediatransformationremove").setAttribute ("onClick", options.mediatransformation.remove);
-							
+						modal.getUIElement ("hidden").setAttribute ("onChange", onChange);
+													
 						modal.getUIElement ("container").setAttribute ("title", attributes.title);
-						modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);						
+						modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);			
+						
+						options.string.init ();
+						//options.image.init ();
+							
+						SNDK.SUI.redraw ();												
 									
 						// SET
 						set ();						
@@ -90,7 +117,7 @@ field : function (attributes)
 												
 						if (attributes.onDone != null)
 						{	
-							get ();
+							get ();							
 							setTimeout (function () {attributes.onDone (attributes.current)}, 1);
 						}						
 					};																					
@@ -109,10 +136,23 @@ field : function (attributes)
 						{
 							modal.getUIElement ("button1").setAttribute ("disabled", true);
 						}	
-						
+							
+						if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "String")
+						{													
+							modal.getUIElement ("options").getPanel ("string").setAttribute ("hidden", false);
+						}
+						else
+						{
+							modal.getUIElement ("options").getPanel ("string").setAttribute ("hidden", true);
+						}																		
+																																								
 						if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "Image")
-						{							
+						{													
 							modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", false);
+						}
+						else
+						{
+							modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", true);
 						}
 						
 						if (modal.getUIElement ("mediatransformations").getItem () != null)
@@ -145,6 +185,56 @@ field : function (attributes)
 					
 	var options =	
 	{
+		set : function ()
+		{
+			try
+			{
+				if (attributes.current.options.hidden)
+				{
+					modal.getUIElement ("hidden").setAttribute ("value", true);									
+				}
+			}
+			catch (error)
+			{				
+			}
+		},
+		
+		get : function ()
+		{
+			var result = new Array ();
+			
+			result["hidden"] = modal.getUIElement ("hidden").getAttribute ("value");
+						
+			return result;
+		},
+	
+		string : 
+		{
+			elements : new Array (),
+		
+			init : function ()
+			{
+				options.string.elements["default"] = new SNDK.SUI.field ({type: "string", options: {}, width: "100%", height: "100%"});	
+				options.string.elements["default"].setAttribute ("onChange", onChange);
+					
+				modal.getUIElement ("stringdefaultbox").getPanel ("stringdefaultpanel").addUIElement (options.string.elements["default"]);
+			},
+			
+			get : function ()
+			{
+				attributes.current.options.default = options.string.elements["default"].getAttribute ("value");
+			
+			},
+			
+			set : function ()
+			{
+				if (attributes.current.options.default)
+				{
+					options.string.elements["default"].setAttribute ("value", attributes.current.options.default);
+				}
+			}
+		},
+	
 		mediatransformation : 
 		{
 			add : function ()
@@ -195,6 +285,6 @@ field : function (attributes)
 	};		
 												
 	// INIT				
-	var modal = new sConsole.modal.window ({width: "600px", height: "300px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "/console/xml/scms/modal/edit/field.xml", onInit: onInit});		
+	var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "/console/xml/scms/modal/edit/field.xml", onInit: onInit});		
 }
 

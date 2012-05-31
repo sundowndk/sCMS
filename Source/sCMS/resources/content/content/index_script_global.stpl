@@ -19,7 +19,7 @@ var global =
 		// SET	
 		var set =		function ()
 						{
-							field.setAttribute ("value", attributes.current.content.data);
+							attributes.field.setAttribute ("value", attributes.current.content.data);
 							
 							get ();
 							
@@ -29,7 +29,7 @@ var global =
 		// GET		
 		var get = 		function ()
 						{
-							attributes.current.content.data = field.getAttribute ("value")
+							attributes.current.content.data = attributes.field.getAttribute ("value")
 						};
 						
 		// DISPOSE
@@ -53,37 +53,41 @@ var global =
 							}									
 						};							
 	
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
-		
-		if (!attributes) attributes = new Array ();
+		var onInit = 	function ()
+						{
+							if (!attributes) attributes = new Array ();
+						
+							if (!attributes.id)
+							{
+								attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+							}
+							else
+							{
+								attributes.current = sCMS.global.load (attributes.id);
+							}
+							
+							
+							modal.getUIElement ("save").setAttribute ("onClick", save);
+							modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+													
+							attributes.field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), options:  attributes.current.field.options, width: "100%", height: "100%"});	
+							attributes.field.setAttribute ("onChange", onChange);
+					
+							modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (attributes.field);
+							modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
+							
+							SNDK.SUI.redraw ();
+													
+							// SET
+							set ();		
+							
+							// SHOW
+							modal.show ();						
+						};
 	
-		if (!attributes.id)
-		{
-			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
-		}
-		else
-		{
-			attributes.current = sCMS.global.load (attributes.id);
-		}
+		// INIT		
+		var modal = new sConsole.modal.window ({width: "600px", height: "330px", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml", onInit: onInit});			
 		
-		
-		modal.getUIElement ("save").setAttribute ("onClick", save);
-		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
-								
-		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), options:  attributes.current.field.options, width: "100%", height: "100%"});	
-		field.setAttribute ("onChange", onChange);
-
-		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
-		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
-		
-		SNDK.SUI.redraw ();
-								
-		// SET
-		set ();		
-		
-		// SHOW
-		modal.show ();		
 	}
 }
 

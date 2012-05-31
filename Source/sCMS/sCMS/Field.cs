@@ -86,7 +86,29 @@ namespace sCMS
 			}
 
 		}
-
+		
+		public object Default
+		{
+			get
+			{				
+				if (this._options.ContainsKey ("default"))
+				{
+					if (Content.EncodeData (this._type, (string)this._options["default"]) != Field.DefaultValue (this._type))
+					{				
+						return Content.EncodeData (this._type, (string)this._options["default"]);
+					}
+					else
+					{
+						return Field.DefaultValue (this._type);
+					}
+				}
+				else
+				{
+					return Field.DefaultValue (this._type);
+				}
+			}
+		}
+		
 		public Hashtable Options
 		{
 			get

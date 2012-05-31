@@ -29,34 +29,59 @@
 									</dropbox>
 								</panel>					
 							</layoutbox>
-						</panel>												
-						<panel size="*">
-						</panel>						
+						</panel>																		
 					</layoutbox>
 				</tab>
 				<tab label="Options">
 					<layoutbox tag="options" type="horizontal" stylesheet="LayoutboxNoborder">							
-						<panel tag="image" size="*" hidden="true">
+						<panel size="%elementheight%">
 							<layoutbox type="vertical">
 								<panel size="100px">
-									<label text="Transformations"/>
+									<label text="Hidden"/>
 								</panel>					
 								<panel size="*">
-									<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
-										<panel size="*">
-											<listview tag="mediatransformations" width="100%" height="100%">
-												<column tag="id" />
-												<column tag="title" label="Title" width="150px" visible="true" />
-											</listview>
-										</panel>
-										<panel size="105px">
-											<button tag="mediatransformationadd" label="Add" />
-											<button tag="mediatransformationremove" label="Remove" />
-										</panel>
-									</layoutbox>
+									<checkbox tag="hidden" />
 								</panel>					
 							</layoutbox>
-						</panel>												
+						</panel>										
+						<panel tag="string" size="*" hidden="true">
+							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel size="650px">
+									<layoutbox tag="stringdefaultbox" type="vertical">
+										<panel size="100px">
+											<label text="Default"/>
+										</panel>					
+										<panel tag="stringdefaultpanel" size="*">											
+										</panel>					
+									</layoutbox>
+								</panel>
+							</layoutbox>	
+						</panel>						
+						<panel tag="image" size="*" hidden="true">
+							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel size="*">								
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Transformations"/>
+										</panel>					
+										<panel size="*">
+											<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
+												<panel size="*">
+													<listview tag="mediatransformations" width="100%" height="100%">
+														<column tag="id" />
+														<column tag="title" label="Title" width="150px" visible="true" />
+													</listview>
+												</panel>
+												<panel size="105px">
+													<button tag="mediatransformationadd" label="Add" />
+													<button tag="mediatransformationremove" label="Remove" />
+												</panel>
+											</layoutbox>
+										</panel>											
+									</layoutbox>
+								</panel>												
+							</layoutbox>	
+						</panel>
 					</layoutbox>
 				</tab>
 			</tabview>																	
