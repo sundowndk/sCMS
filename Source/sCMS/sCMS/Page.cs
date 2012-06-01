@@ -147,13 +147,21 @@ namespace sCMS
 						result += this.Parent.Path;
 					}
 				}
-				catch
+				catch (Exception e)
 				{
+					Console.WriteLine (e);
 				}
 
 				result += "/";
 
-				result += this._title;
+				if (this._title == string.Empty)
+				{
+					result += "EMPTY";	
+				}
+				else
+				{
+					result += this._title;
+				}
 
 				return result;
 			}
@@ -180,18 +188,7 @@ namespace sCMS
 
 				if (this._title != newname)
 				{
-					int count = 2;
-					string dummy = newname;
-					
-//					Console.WriteLine (System.IO.Path.GetDirectoryName (this.Path) +"/"+ newname);
-					
-//					while (List ().Exists (delegate (Page o) { return o._title == newname; }))
-					while (List ().Exists (delegate (Page o) { return o.Path == System.IO.Path.GetPathRoot (this.Path) +"/"+ newname; }))
-					{
-						newname = dummy +"_"+ count++;
-					}
-
-					this._title = newname;
+					this._title = FixTitle (newname);
 				}
 			}
 		}
@@ -252,7 +249,34 @@ namespace sCMS
 			this._sort = 0;
 		}
 		#endregion
+		
+		#region Private Methods
+		private string FixTitle (string Title)
+		{
+			string result = Helpers.MakeStringURLSafe (Title);
+			
+			int count = 2;
+			string dummy = result;
+			
+//			Console.WriteLine ("FIX TITLE");
+//			
+//			foreach (Page p in List ())
+//			{
+//				Console.WriteLine (p.Path);
+////				Console.WriteLine (this.Path + result);
+//				Console.WriteLine (System.IO.Path.GetDirectoryName (this.Path) +"/"+ result);
+//				Console.WriteLine ("---");
+//			}
+			
+			while (List ().Exists (delegate (Page page) { return page.Path == System.IO.Path.GetDirectoryName (this.Path) +"/"+ result; }))
+			{
+				result = dummy +"_"+ count++;
+			}
 
+			return result;
+		}
+		#endregion
+		
 		#region Public Methods
 		public void Save ()
 		{
@@ -679,7 +703,7 @@ namespace sCMS
 				
 			if (item.ContainsKey ("title"))
 			{
-				result._title = (string)item["title"];
+				result.Title = (string)item["title"];
 			}
 			
 			if (item.ContainsKey ("sort"))

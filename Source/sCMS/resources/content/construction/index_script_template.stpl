@@ -14,9 +14,7 @@ var template =
 							modal.busy ();
 							
 							setTimeout (function () 
-										{																					
-											attributes.current = new sCMS.template.new ();
-											
+										{																																
 											get ();
 
 											if (UI.elements.content.templates.getItem () != null)
@@ -37,15 +35,12 @@ var template =
 		// SET
 		var set = 		function ()
 						{
-							attributes.current = {};
-							attributes.current.title = "";
-						
-							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
-						
+							attributes.current = new sCMS.template.new ();						
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);						
 							onChange ();
 						};
 
-		// GET
+		// GET½
 		var get =		function ()
 						{
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");						
@@ -173,8 +168,8 @@ var template =
 							modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
 							modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
 							modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
-							modal.getUIElement ("fieldup").setAttribute ("onClick", fieldUp);
-							modal.getUIElement ("fielddown").setAttribute ("onClick", fieldDown);
+							modal.getUIElement ("fieldup").setAttribute ("onClick", field.up);
+							modal.getUIElement ("fielddown").setAttribute ("onClick", field.down);
 					
 							modal.getUIElement ("stylesheetadd").setAttribute ("onClick", stylesheet.add);		
 							modal.getUIElement ("stylesheetremove").setAttribute ("onClick", stylesheet.remove);
@@ -190,19 +185,7 @@ var template =
 						
 							// SHOW
 							modal.show ();		
-						};
-		
-		// FIELDUP
-		var fieldUp = function ()
-		{
-			var move = modal.getUIElement ("fields").moveItemUp ();
-		};		
-		
-		// FIELDDOWN
-		var fieldDown = function ()
-		{
-			var move = modal.getUIElement ("fields").moveItemDown ();
-		};
+						};	
 																										
 		// ONCHANGE	
 		var onChange =	function ()
@@ -224,31 +207,31 @@ var template =
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", false);
 								
-//								if (modal.getUIElement ("fields").canItemMove ().up)
-//		 						{
-//		 							modal.getUIElement ("fieldup").setAttribute ("disabled", false);
-//		 						}
-//		 						else
-//		 						{
-//		 							modal.getUIElement ("fieldup").setAttribute ("disabled", true);
-//		 						}
+								if (modal.getUIElement ("fields").canItemMove ().up)
+		 						{
+		 							modal.getUIElement ("fieldup").setAttribute ("disabled", false);
+		 						}
+		 						else
+		 						{
+		 							modal.getUIElement ("fieldup").setAttribute ("disabled", true);
+		 						}
 		 					
-//		 						if (modal.getUIElement ("fields").canItemMove ().down)
-//		 						{
-//		 							modal.getUIElement ("fielddown").setAttribute ("disabled", false);
-//		 						}		 						
-//		 						else
-//		 						{
-//		 							modal.getUIElement ("fielddown").setAttribute ("disabled", true);
-//		 						}								
+		 						if (modal.getUIElement ("fields").canItemMove ().down)
+		 						{
+		 							modal.getUIElement ("fielddown").setAttribute ("disabled", false);
+		 						}		 						
+		 						else
+		 						{
+		 							modal.getUIElement ("fielddown").setAttribute ("disabled", true);
+		 						}								
 							}
 							else
 							{
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
 								
-//								modal.getUIElement ("fieldup").setAttribute ("disabled", false);
-//								modal.getUIElement ("fielddown").setAttribute ("disabled", false);
+								modal.getUIElement ("fieldup").setAttribute ("disabled", true);
+								modal.getUIElement ("fielddown").setAttribute ("disabled", true);
 							}
 							
 							if (modal.getUIElement ("stylesheets").getItem ())
@@ -271,13 +254,13 @@ var template =
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_edit.xml", onInit: onInit});					
+		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_edit.xml", onInit: onInit});
 	},
 	
 	// DELETE
 	delete : function ()
 	{
-		var action =	function (result)
+		var onDone =	function (result)
 						{
 							if (result == 1)
 							{														
@@ -288,7 +271,7 @@ var template =
 							}
 						};
 	
-		sConsole.modal.question ({title: "Delete template", text: "Do you really want to delete this template ?", button1Label: "Yes", button2Label: "No", onDone: action});				
+		sConsole.modal.question ({title: "Delete template", text: "Do you really want to delete this template ?", button1Label: "Yes", button2Label: "No", onDone: onDone});
 	}				
 }
 

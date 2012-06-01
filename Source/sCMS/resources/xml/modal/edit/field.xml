@@ -10,7 +10,7 @@
 									<label text="Name"/>
 								</panel>					
 								<panel size="*">
-									<textbox tag="name" width="100%" />
+									<textbox tag="name" width="100%" textTransform="uppercase" />
 								</panel>					
 							</layoutbox>
 						</panel>				

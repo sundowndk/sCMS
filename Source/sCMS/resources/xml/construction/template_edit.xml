@@ -15,7 +15,7 @@
 			</layoutbox>	
 		</tab>
 		<tab label="Content">
-			<layoutbox type="horizontal">			
+			<layoutbox type="horizontal">					
 				<panel size="*">										
 					<textarea tag="content" width="100%" height="100%">
 						<codemirror lineNumbers="true" textWrapping="false" enterMode="keep" mode="htmlmixed" />
@@ -34,21 +34,20 @@
 							<listview tag="fields" width="100%" height="100%">
 								<column tag="id" />
 								<column tag="name" label="Name" width="200px" visible="true" />
-								<column tag="type" label="Type" width="200px" visible="true" />	
-								<column tag="sort" label="sort" width="200px" visible="true" />	
+								<column tag="type" label="Type" width="200px" visible="true" />									
 								<column tag="options" />												
 							</listview>
 						</panel>					
 						<panel size="80px">
 							<layoutbox type="horizontal" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
 								<panel size="*">
-									<button tag="fieldadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-									<button tag="fieldedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-									<button tag="fieldremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+									<button tag="fieldadd" width="100%" label="Add" />
+									<button tag="fieldedit" width="100%" label="Edit" disabled="true" />
+									<button tag="fieldremove" width="100%" label="Remove" disabled="true" />
 								</panel>
 								<panel size="80px">
-									<button tag="fieldup" width="100%" label="Up" disabled="false"/>
-									<button tag="fielddown" width="100%" label="Down" disabled="false"/>
+									<button tag="fieldup" width="100%" label="Up" disabled="true"/>
+									<button tag="fielddown" width="100%" label="Down" disabled="true"/>
 								</panel>
 							</layoutbox>																									
 						</panel>
@@ -70,8 +69,8 @@
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="stylesheetadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />											
-							<button tag="stylesheetremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<button tag="stylesheetadd" width="100%" label="Add" />											
+							<button tag="stylesheetremove" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>														
 				</panel>								
@@ -87,8 +86,8 @@
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="javascriptadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />											
-							<button tag="javascriptremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<button tag="javascriptadd" width="100%" label="Add" />											
+							<button tag="javascriptremove" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>														
 				</panel>

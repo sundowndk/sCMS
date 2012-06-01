@@ -33,7 +33,17 @@ var field =
 	remove : function ()
 	{
 		modal.getUIElement ("fields").removeItem ();
-	}									
+	},
+											
+	up : function ()
+	{
+		var move = modal.getUIElement ("fields").moveItemUp ();
+	},
+			
+	down : function ()
+	{
+		var move = modal.getUIElement ("fields").moveItemDown ();
+	}							
 }					
 			
 

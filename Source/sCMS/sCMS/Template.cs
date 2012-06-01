@@ -559,6 +559,24 @@ namespace sCMS
 		{
 			try
 			{
+				Template template = Load (Id);
+				
+				foreach (Page page in Page.List ())
+				{
+					if (page.Template._id == template._id)
+					{
+						Page.Delete (page.Id);
+					}
+				}
+				
+				foreach (Template template2 in Template.List ())
+				{
+					if (template2._parentid == template._id)
+					{
+						Template.Delete (template2._id);
+					}
+				}
+				
 				SorentoLib.Services.Datastore.Delete (DatastoreAisle, Id.ToString ());
 			}
 			catch (Exception exception)
