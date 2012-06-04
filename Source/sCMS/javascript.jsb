@@ -35,6 +35,7 @@
 				<class name="edit">
 					<js file="javascript/modal/edit/field.js" />
 					<js file="javascript/modal/edit/fieldstring.js" />
+					<js file="javascript/modal/edit/fieldrender.js" />
 				</class>
 				<class name="chooser">				
 					<js file="javascript/modal/chooser/stylesheet.js" />

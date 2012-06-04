@@ -41,7 +41,7 @@ var page =
 											attributes.current.type = "page";
 											UI.elements.content.pages.addItem (attributes.current);
 											
-											page.edit ({current: attributes.current});
+											//page.edit ({current: attributes.current});
 																																							
 											dispose ();
 										}, 150);											
@@ -117,90 +117,7 @@ var page =
 	edit : function (attributes)
 	{				
 		<%Include ("index_script_page_alias.stpl")%>
-						
-		// ONINIT
-		var onInit = function ()
-		{						
-			if (!attributes) attributes = new Array ();
-				
-			if (!attributes.current)
-			{
-				attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
-			}
-//			else
-//			{
-//				attributes.current = sCMS.page.load (attributes.id);
-//			}		
-				
-			modal.getUIElement ("save").setAttribute ("onClick", save);
-			modal.getUIElement ("close").setAttribute ("onClick", dispose);		
-						
-			modal.getUIElement ("title").setAttribute ("onChange", onChange);
-			
-			modal.getUIElement ("aliases").setAttribute ("onChange", onChange);
-			modal.getUIElement ("aliasadd").setAttribute ("onClick", alias.add);
-			modal.getUIElement ("aliasedit").setAttribute ("onClick", alias.edit);
-			modal.getUIElement ("aliasremove").setAttribute ("onClick", alias.remove);
-						
-			attributes.template = sCMS.template.load (attributes.current.templateid);
-			attributes.fields = new Array ();
-		
-			for (i = 0; i < attributes.template.allfields.length; i++)			
-			{
-				if (!attributes.template.allfields[i].options.hidden)
-				{
-			
-				var height;			
-			
-				switch (attributes.template.allfields[i].type.toLowerCase ())
-				{
-					case "string":
-					{
-						height = "50px";
-						break;
-					}
-					
-					case "link":
-					{
-						height = "50px";
-						break;
-					}
-					
-					case "text":
-					{
-						height = "300px";
-						break;
-					}
-					
-					default:
-					{
-						height = "220px";
-						break;				
-					}
-				}
-																				
-				var layoutbox = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
-				layoutbox.addPanel ({tag: "text", size: "100px"});
-				layoutbox.addPanel ({tag: "field", size: "*"});			
-				layoutbox.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: attributes.template.allfields[i].name}));
-																					
-				attributes.fields[attributes.template.allfields[i].id] = new SNDK.SUI.field ({type: attributes.template.allfields[i].type.toLowerCase (), options: attributes.template.allfields[i].options, width: "100%", height: "100%", onChange: onChange});					
-				
-				layoutbox.getPanel ("field").addUIElement (attributes.fields[attributes.template.allfields[i].id]);
-				
-				modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel").addUIElement (layoutbox);
-				}
-			}		
-		
-			SNDK.SUI.redraw ();
-				
-			// SET
-			set ();		
-		
-			// SHOW
-			modal.show ();									
-		};																		
-																																										
+																																																															
 		// SAVE
 		var save = 		function ()
 						{			
@@ -259,22 +176,21 @@ var page =
 				
 		// GET		
 		var get = 		function ()
-						{
+						{						
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 							attributes.current.aliases = modal.getUIElement ("aliases").getItems ();
 																				
 							attributes.current.contents = new Array ();
 							for (i=0; i < attributes.template.allfields.length; i++)
 							{
-							if (!attributes.template.allfields[i].options.hidden)
-							{
-							
-								var content = {};
-								content.id = attributes.template.allfields[i].id;
-								content.type = attributes.template.allfields[i].type;
-								content.data = attributes.template.allfields[i].data = attributes.fields[attributes.template.allfields[i].id].getAttribute ("value");
+								if (!attributes.template.allfields[i].options.hidden)
+								{							
+									var content = {};
+									content.id = attributes.template.allfields[i].id;
+									content.type = attributes.template.allfields[i].type;
+									content.data = attributes.template.allfields[i].data = attributes.fields[attributes.template.allfields[i].id].getAttribute ("value");
 																
-								attributes.current.contents[i] = content;
+									attributes.current.contents[i] = content;
 								}
 							}													
 						};
@@ -286,6 +202,40 @@ var page =
 							modal.dispose ();							
 							modal = null;
 						};
+						
+		// ONINIT
+		var onInit = function ()
+		{						
+			if (!attributes)
+				attributes = new Array ();
+				
+			if (!attributes.current)
+			{
+				attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
+			}
+				
+			modal.getUIElement ("save").setAttribute ("onClick", save);
+			modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+						
+			modal.getUIElement ("title").setAttribute ("onChange", onChange);
+			
+			modal.getUIElement ("aliases").setAttribute ("onChange", onChange);
+			modal.getUIElement ("aliasadd").setAttribute ("onClick", alias.add);
+			modal.getUIElement ("aliasedit").setAttribute ("onClick", alias.edit);
+			modal.getUIElement ("aliasremove").setAttribute ("onClick", alias.remove);
+						
+			attributes.template = sCMS.template.load (attributes.current.templateid);						
+			attributes.fields = sCMS.modal.edit.fieldRender ({fields: attributes.template.allfields, appendTo: modal.getUIElement ("fieldslayoutbox").getPanel ("fieldspanel"), onChange: onChange});
+			
+			// REDRAW
+			SNDK.SUI.redraw ();
+				
+			// SET
+			set ();		
+		
+			// SHOW
+			modal.show ();									
+		};								
 						
 		// ONCHANGE	
 		var onChange =	function ()

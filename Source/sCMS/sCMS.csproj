@@ -56,16 +56,16 @@
       <HintPath>..\Lib\Mono.FastCgi.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="sConsole">
-      <HintPath>..\Lib\sConsole.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="SNDK">
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SorentoLib">
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="sConsole">
+      <HintPath>..\Lib\sConsole.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -183,5 +183,6 @@
     <None Include="javascript\sui\field.js" />
     <None Include="build.sh" />
     <None Include="javascript.jsb" />
+    <None Include="javascript\modal\edit\fieldrender.js" />
   </ItemGroup>
 </Project>

@@ -272,14 +272,14 @@ field : function (attributes)
 									
 			set : function ()
 			{
-				if (attributes.current.options.mediatransformationids)
-				{
-					var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformationids, ";").split (";")
-					for (index in ids)
-					{
-						modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (ids[index]));			
-					}						
-				}
+//				if (attributes.current.options.mediatransformationids)
+//				{
+//					var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformationids, ";").split (";")
+//					for (index in ids)
+//					{
+//						modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (ids[index]));			
+//					}						
+//				}
 			}
 		}
 	};		

@@ -139,7 +139,15 @@ override public object Process (SorentoLib.Session Session, string Fullname, str
 
 						case "load":
 						{
-							return sCMS.Page.Load (Parameters.Get<Guid>(0));
+							switch (Parameters.Type (0).Name.ToLower())
+							{
+								case "guid":							
+									return sCMS.Page.Load (Parameters.Get<Guid>(0));
+									
+								case "string":
+									return sCMS.Page.Load (new Guid (Parameters.Get<string>(0)));
+							}
+							break;
 						}
 							
 						case "list":

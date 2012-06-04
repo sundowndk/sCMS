@@ -1,5 +1,4 @@
- 	// ###  <script language="JavaScript">
-	
+// <script language="JavaScript">	
 // #######################################################################################################################################
 // # COLLECTIONSCHEMA
 // #######################################################################################################################################		
@@ -18,7 +17,7 @@ var collectionSchema =
 							sCMS.collectionSchema.save (item);
 							UI.elements.content.collectionschemas.addItem (item);
 								
-							collectionSchema.edit ({id: item.id});		
+							//collectionSchema.edit ({id: item.id});		
 						};			
 	
 		// ONCHANGE
@@ -33,7 +32,7 @@ var collectionSchema =
 								modal.getUIElement ("create").setAttribute ("disabled", true);
 							}										
 						};
-						
+												
 		// GET
 		var get =		function ()
 						{

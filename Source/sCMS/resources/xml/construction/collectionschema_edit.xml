@@ -25,9 +25,9 @@
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="fieldadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="fieldedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-							<button tag="fieldremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<button tag="fieldadd" width="100%" label="Add" />
+							<button tag="fieldedit" width="100%" label="Edit" disabled="true" />
+							<button tag="fieldremove" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>														
 				</panel>

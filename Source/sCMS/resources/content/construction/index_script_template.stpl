@@ -26,7 +26,7 @@ var template =
 											
 											UI.elements.content.templates.addItem (attributes.current);
 								
-											template.edit ({current: attributes.current});		
+											//template.edit ({current: attributes.current});		
 											
 											dispose ();
 										}, 150);											
