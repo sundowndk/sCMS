@@ -23,9 +23,9 @@ var collection =
 											sCMS.collection.save (attributes.current);
 							
 											attributes.type = "collection";
-											UI.elements.content.collections.addItem (attributes.current);
+											;
 							
-											//collection.edit ({current: attributes.current});
+											collection.edit ({current: attributes.current, row: UI.elements.content.collections.addItem (attributes.current)});
 																																							
 											dispose ();
 										}, 150);																					
@@ -108,8 +108,9 @@ var collection =
 											get ();
 													
 											sCMS.collection.save (attributes.current);	
-											UI.elements.content.collections.setItem (attributes.current);
+											UI.elements.content.collections.setItem (attributes.current, attributes.row);
 										
+											attributes.current.type = "collection";																					
 											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 											onChange ();													
 																

@@ -39,9 +39,8 @@ var page =
 											}
 																																			
 											attributes.current.type = "page";
-											UI.elements.content.pages.addItem (attributes.current);
-											
-											//page.edit ({current: attributes.current});
+											 											
+											page.edit ({current: attributes.current, row: UI.elements.content.pages.addItem (attributes.current)});
 																																							
 											dispose ();
 										}, 150);											
@@ -130,8 +129,7 @@ var page =
 												
 											get ();
 
-											sCMS.page.save (attributes.current);	
-											UI.elements.content.pages.setItem (attributes.current);
+											sCMS.page.save (attributes.current);												
 														
 											var item = sCMS.page.load (attributes.current.id);
 											if (item.parentid == "00000000-0000-0000-0000-000000000000")
@@ -141,7 +139,7 @@ var page =
 							
 											item.type = "page";
 							
-											UI.elements.content.pages.setItem (item);
+											UI.elements.content.pages.setItem (item, attributes.row);
 								
 											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 											onChange ();
