@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script_collection.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script.stpl">
     <Files>
-      <File FileName="sCMS/resources/content/content/index_script_collection.stpl" Line="128" Column="57" />
-      <File FileName="sCMS/resources/content/content/index_script.stpl" Line="73" Column="51" />
+      <File FileName="sCMS/resources/content/content/index_script_collection.stpl" Line="176" Column="8" />
+      <File FileName="sCMS/resources/content/content/index_script.stpl" Line="112" Column="10" />
+      <File FileName="sCMS/resources/xml/construction/index.xml" Line="9" Column="76" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
