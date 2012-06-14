@@ -10,27 +10,30 @@
 	UI.init = 		function ()
 					{								 						
 						UI.elements.content.pages.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.pages.setAttribute ("onDoubleClick", page.edit);
 						UI.elements.content.pagecreate.setAttribute ("onClick", page.create);
 						UI.elements.content.pageedit.setAttribute ("onClick", page.edit);
 						UI.elements.content.pagedelete.setAttribute ("onClick", page.delete);
 						
 						UI.elements.content.pageup.setAttribute ("onClick", page.up);
 						UI.elements.content.pagedown.setAttribute ("onClick", page.down);
-					
-						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
-						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
-						
+											
 						UI.elements.content.collections.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.collections.setAttribute ("onDoubleClick", collection.edit);
 						UI.elements.content.collectioncreate.setAttribute ("onClick", collection.create);
 						UI.elements.content.collectionedit.setAttribute ("onClick", collection.edit);
 						UI.elements.content.collectiondelete.setAttribute ("onClick", collection.delete);
 						
 						UI.elements.content.collectionup.setAttribute ("onClick", collection.up);
 						UI.elements.content.collectiondown.setAttribute ("onClick", collection.down);
+						
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);
+						UI.elements.content.globals.setAttribute ("onDoubleClick", global.edit);
+						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
 
 						UI.set ();
 						SNDK.SUI.init ();																																																
-					};
+					};				
 	
 	UI.set =		function ()
 					{					
@@ -180,4 +183,3 @@
 	
 	UI.init ();		
 </script>
-

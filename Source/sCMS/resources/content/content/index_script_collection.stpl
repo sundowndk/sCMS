@@ -97,6 +97,17 @@ var collection =
 	// EDIT
 	edit : function (attributes)
 	{			
+		if (!attributes)
+			attributes = new Array ();
+				
+		if (!attributes.current)
+		{
+			if (UI.elements.content.collections.getItem ().type == "schema")
+				return
+				
+			attributes.current = sCMS.collection.load (UI.elements.content.collections.getItem ().id);
+		}					
+	
 		// SAVE
 		var save = 		function ()
 						{
@@ -161,15 +172,7 @@ var collection =
 	
 		// ONINIT
 		var onInit =	function ()
-						{
-							if (!attributes)
-								attributes = new Array ();
-				
-							if (!attributes.current)
-							{
-								attributes.current = sCMS.collection.load (UI.elements.content.collections.getItem ().id);
-							}							
-						
+						{														
 							modal.getUIElement ("save").setAttribute ("onClick", save);
 							modal.getUIElement ("close").setAttribute ("onClick", dispose);													
 							

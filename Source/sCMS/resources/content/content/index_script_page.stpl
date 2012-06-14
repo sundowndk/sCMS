@@ -116,6 +116,20 @@ var page =
 	edit : function (attributes)
 	{				
 		<%Include ("index_script_page_alias.stpl")%>
+		
+		if (!attributes)
+			attributes = new Array ();
+				
+		if (!attributes.current)
+		{
+			if (UI.elements.content.pages.getItem ().type == "root")
+			{
+				page.create ();
+				return;										
+			}
+			
+			attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
+		}
 																																																															
 		// SAVE
 		var save = 		function ()
@@ -153,9 +167,11 @@ var page =
 						{							
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
 							modal.getUIElement ("aliases").setItems (attributes.current.aliases);
-														
+							
+							var errors = false;							
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
+							
 								try
 								{
 									var content = attributes.current.contents[i];												
@@ -163,11 +179,17 @@ var page =
 								}
 								catch (error)
 								{
-								
-								}
-							}
+									errors = true;									
+								}	
+							}														
 							
 							get ();
+							
+							if (errors)
+							{
+								sConsole.modal.error ({title: "Warning", text: "It seams that fields has been removed from its template since the pages was last saved. Page has been autosaved to remove redundant data.", buttonLabel: "Ok"});
+								sCMS.page.save (attributes.current);
+							}
 							
 							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
@@ -204,13 +226,6 @@ var page =
 		// ONINIT
 		var onInit = function ()
 		{						
-			if (!attributes)
-				attributes = new Array ();
-				
-			if (!attributes.current)
-			{
-				attributes.current = sCMS.page.load (UI.elements.content.pages.getItem ().id);
-			}
 				
 			modal.getUIElement ("save").setAttribute ("onClick", save);
 			modal.getUIElement ("close").setAttribute ("onClick", dispose);		
