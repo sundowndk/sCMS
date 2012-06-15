@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script_page.stpl">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_collection.stpl" Line="106" Column="11" />
-      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="185" Column="8" />
+      <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="167" Column="15" />
       <File FileName="sCMS/resources/content/content/index_script.stpl" Line="145" Column="73" />
     </Files>
   </MonoDevelop.Ide.Workbench>
