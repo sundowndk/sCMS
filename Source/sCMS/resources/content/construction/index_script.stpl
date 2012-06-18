@@ -12,7 +12,8 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								
-						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);				
+						UI.elements.content.templates.setAttribute ("onDoubleClick", template.edit);							
 						UI.elements.content.templatecreate.setAttribute ("onClick", template.create);
 						UI.elements.content.templateedit.setAttribute ("onClick", template.edit);
 						UI.elements.content.templatedelete.setAttribute ("onClick", template.delete);

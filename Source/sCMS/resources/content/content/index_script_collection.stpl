@@ -103,7 +103,10 @@ var collection =
 		if (!attributes.current)
 		{
 			if (UI.elements.content.collections.getItem ().type == "schema")
+			{
+				collection.create ();
 				return
+			}
 				
 			attributes.current = sCMS.collection.load (UI.elements.content.collections.getItem ().id);
 		}					
@@ -131,16 +134,31 @@ var collection =
 										
 		// SET	
 		var set =		function ()
-						{																										
-							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
+						{							
+							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);							
 							
+							var errors = false;							
 							for (i=0; i <attributes.current.contents.length; i++)
 							{
-								var content = attributes.current.contents[i];												
-								attributes.fields[content.id].setAttribute ("value", content.data);
-							}
+							
+								try
+								{
+									var content = attributes.current.contents[i];												
+									attributes.fields[content.id].setAttribute ("value", content.data);
+								}
+								catch (error)
+								{
+									errors = true;									
+								}	
+							}														
 							
 							get ();
+							
+							if (errors)
+							{
+								sConsole.modal.info ({title: "Info", text: "Fields has been deleted from this collections schema. Collection has been autosaved to remove redundant data.", buttonLabel: "Ok"});
+								sCMS.collection.save (attributes.current);
+							}
 							
 							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};

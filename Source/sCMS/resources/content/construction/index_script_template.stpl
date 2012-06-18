@@ -24,10 +24,8 @@ var template =
 																										
 											sCMS.template.save (attributes.current);
 											
-											UI.elements.content.templates.addItem (attributes.current);
-								
-											//template.edit ({current: attributes.current});		
-											
+											template.edit ({current: attributes.current, row: UI.elements.content.templates.addItem (attributes.current)});
+																						
 											dispose ();
 										}, 150);											
 						};			
@@ -96,6 +94,14 @@ var template =
 		<%Include ("index_script_template_field.stpl")%>
 		<%Include ("index_script_template_stylesheet.stpl")%>
 		<%Include ("index_script_template_javascript.stpl")%>
+		
+		if (!attributes) 
+			attributes = new Array ();
+				
+		if (!attributes.current)
+		{
+			attributes.current = sCMS.template.load (UI.elements.content.templates.getItem ().id);		
+		}					
 	
 		// SAVE
 		var save = 		function ()
@@ -150,18 +156,11 @@ var template =
 
 		// ONINIT						
 		var onInit = 	function ()
-						{		
-							if (!attributes) 
-								attributes = new Array ();
-				
-							if (!attributes.current)
-							{
-								attributes.current = sCMS.template.load (UI.elements.content.templates.getItem ().id);		
-							}
-				
+						{									
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
 							modal.getUIElement ("content").setAttribute ("onChange", onChange);
 							modal.getUIElement ("fields").setAttribute ("onChange", onChange);
+							modal.getUIElement ("fields").setAttribute ("onDoubleClick", field.edit);
 							modal.getUIElement ("stylesheets").setAttribute ("onChange", onChange);
 							modal.getUIElement ("javascripts").setAttribute ("onChange", onChange);
 						

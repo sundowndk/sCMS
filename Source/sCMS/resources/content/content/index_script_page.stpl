@@ -187,7 +187,7 @@ var page =
 							
 							if (errors)
 							{
-								sConsole.modal.error ({title: "Warning", text: "It seams that fields has been removed from its template since the pages was last saved. Page has been autosaved to remove redundant data.", buttonLabel: "Ok"});
+								sConsole.modal.info ({title: "Info", text: "Fields has been deleted from this pages template. Page has been autosaved to remove redundant data.", buttonLabel: "Ok"});
 								sCMS.page.save (attributes.current);
 							}
 							
