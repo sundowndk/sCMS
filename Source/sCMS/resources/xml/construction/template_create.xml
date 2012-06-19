@@ -1,5 +1,5 @@
 <sui elementheight="50px">
-	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="300px">
 		<panel size="%elementheight%">
 			<layoutbox type="vertical">
 				<panel size="100px">
@@ -8,6 +8,18 @@
 				<panel size="*">
 					<textbox tag="title" width="100%" focus="true" />
 				</panel>					
+			</layoutbox>
+		</panel>
+		<panel size="*">
+		</panel>
+		<panel size="45px">
+			<layoutbox type="vertical">
+				<panel size="*">
+				</panel>
+				<panel size="210px">
+					<button tag="create" label="Create" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
 			</layoutbox>
 		</panel>
 	</layoutbox>
