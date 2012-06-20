@@ -5,9 +5,9 @@
       <File FileName="sCMS/resources/content/content/index_script_collection.stpl" Line="109" Column="4" />
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="43" Column="115" />
       <File FileName="sCMS/resources/content/construction/index_script_template.stpl" Line="88" Column="58" />
-      <File FileName="sCMS/resources/content/construction/index_script.stpl" Line="16" Column="24" />
+      <File FileName="sCMS/resources/content/construction/index_script.stpl" Line="49" Column="42" />
       <File FileName="sCMS/resources/xml/content/index.xml" Line="9" Column="72" />
-      <File FileName="sCMS/resources/xml/construction/template_create.xml" Line="1" Column="1" />
+      <File FileName="sCMS/resources/xml/construction/template_create.xml" Line="29" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

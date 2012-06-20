@@ -45,6 +45,8 @@
 
 						UI.set ();						
 						SNDK.SUI.init ();
+						
+						setTimeout (template.create, 1000);						 
 					};
 	
 	UI.set =		function ()

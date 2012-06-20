@@ -1,5 +1,5 @@
 <sui elementheight="50px">
-	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="300px">
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="200px">
 		<panel size="%elementheight%">
 			<layoutbox type="vertical">
 				<panel size="100px">
