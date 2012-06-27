@@ -285,6 +285,6 @@ field : function (attributes)
 	};		
 												
 	// INIT				
-	var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "/console/xml/scms/modal/edit/field.xml", onInit: onInit});		
+	var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "/console/xml/scms/modal/edit/field.xml", onInit: onInit});		
 }
 

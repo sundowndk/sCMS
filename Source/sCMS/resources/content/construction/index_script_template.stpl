@@ -38,7 +38,7 @@ var template =
 							onChange ();
 						};
 
-		// GET½
+		// GET
 		var get =		function ()
 						{
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");						
@@ -100,6 +100,7 @@ var template =
 				
 		if (!attributes.current)
 		{
+			attributes.row = UI.elements.content.templates.getItemRow ();			
 			attributes.current = sCMS.template.load (UI.elements.content.templates.getItem ().id);		
 		}					
 	
@@ -114,7 +115,8 @@ var template =
 											get ();
 																																	
 											sCMS.template.save (attributes.current);	
-											UI.elements.content.templates.setItem (attributes.current);
+											
+											UI.elements.content.templates.setItem (attributes.current, attributes.row);
 														
 											checksum = sConsole.helpers.arrayChecksum (attributes.current);
 							
@@ -253,7 +255,7 @@ var template =
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_edit.xml", onInit: onInit});
+		var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_edit.xml", onInit: onInit});
 	},
 	
 	// DELETE

@@ -44,9 +44,7 @@
 						UI.elements.content.rootdelete.setAttribute ("onClick", root.delete);
 
 						UI.set ();						
-						SNDK.SUI.init ();
-						
-						setTimeout (template.create, 1000);						 
+						SNDK.SUI.init ();										
 					};
 	
 	UI.set =		function ()

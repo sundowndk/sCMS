@@ -9,13 +9,16 @@ var collectionSchema =
 	{
 		// CREATE			
 		var create =	function ()
-						{
+						{													
 							var item = get ();
 							modal.dispose ();
 							
 							item = sCMS.collectionSchema.new (item.title);
 							sCMS.collectionSchema.save (item);
-							UI.elements.content.collectionschemas.addItem (item);
+							
+							collectionSchema.edit ({current: item, row: UI.elements.content.collectionschemas.addItem (item)});
+							
+							//UI.elements.content.collectionschemas.addItem (item);
 								
 							//collectionSchema.edit ({id: item.id});		
 						};			
@@ -52,21 +55,28 @@ var collectionSchema =
 						};
 
 		// INIT
-		var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_create.xml", onInit: onInit});									
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_create.xml", onInit: onInit});									
 	},
 	
 	// EDIT
 	edit : function (attributes)
 	{				
-		if (!attributes) attributes = new Array ();
+		<%Include ("index_script_collectionschema_field.stpl")%>
 	
-		if (!attributes.id)
+		if (!attributes) 
+			attributes = new Array ();
+		
+	//	if (!attributes.id)
+	//	{
+	//		attributes.current = sCMS.collectionSchema.load (UI.elements.content.collectionschemas.getItem ().id);		
+	//	}
+	//	else
+	//	{
+	
+		if (!attributes.current)
 		{
-			attributes.current = sCMS.collectionSchema.load (UI.elements.content.collectionschemas.getItem ().id);		
-		}
-		else
-		{
-			attributes.current = sCMS.collectionSchema.load (attributes.id);
+			attributes.row = UI.elements.content.collectionschemas.getItemRow ();						
+			attributes.current = sCMS.collectionSchema.load (UI.elements.content.collectionschemas.getItem ().id);
 		}
 		
 		<%Include ("index_script_collectionschema_field.stpl")%>

@@ -10,16 +10,16 @@
     <RootNamespace>sCMS</RootNamespace>
     <ReleaseVersion>1.5</ReleaseVersion>
     <AssemblyName>sCMS</AssemblyName>
-    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <SynchReleaseVersion>False</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Debug\cgi-bin\Addins\sCMS\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <ConsolePause>False</ConsolePause>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="build.sh ${TargetDir}" />
@@ -28,11 +28,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\sCMS\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <ConsolePause>False</ConsolePause>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="build.sh ${TargetDir}" />
@@ -41,7 +41,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Test\sCMS\</OutputPath>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -153,7 +153,6 @@
     <None Include="resources\xml\construction\stylesheet_create.xml" />
     <None Include="resources\xml\construction\stylesheet_edit.xml" />
     <None Include="resources\xml\construction\template_create.xml" />
-    <None Include="resources\xml\construction\template_edit.xml" />
     <None Include="resources\xml\content\collection_create.xml" />
     <None Include="resources\xml\content\collection_edit.xml" />
     <None Include="resources\xml\content\global_edit.xml" />
@@ -184,5 +183,6 @@
     <None Include="build.sh" />
     <None Include="javascript.jsb" />
     <None Include="javascript\modal\edit\fieldrender.js" />
+    <None Include="resources\xml\construction\template_edit.xml" />
   </ItemGroup>
 </Project>

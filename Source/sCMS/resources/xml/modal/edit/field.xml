@@ -86,5 +86,15 @@
 				</tab>
 			</tabview>																	
 		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="*">
+				</panel>
+				<panel size="210px">
+					<button tag="button1" label="" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
+			</layoutbox>
+		</panel>		
 	</layoutbox>	
 </sui>

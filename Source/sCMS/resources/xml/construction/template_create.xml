@@ -1,19 +1,19 @@
 <sui elementheight="50px">
-	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="content" height="content">
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="100px">
 		<panel size="%elementheight%">
-			<layoutbox type="vertical" width="content" height="content">
+			<layoutbox type="vertical">
 				<panel size="100px">
 					<label text="Title"/>
 				</panel>					
 				<panel size="*">
-					<textbox tag="title" width="500px" focus="true" />
+					<textbox tag="title" width="100%" focus="true" />
 				</panel>					
 			</layoutbox>
 		</panel>
 		<panel size="*">
 		</panel>
 		<panel size="%elementheight%">
-			<layoutbox type="vertical" width="content" height="content">
+			<layoutbox type="vertical">
 				<panel size="*">
 				</panel>
 				<panel size="210px">
