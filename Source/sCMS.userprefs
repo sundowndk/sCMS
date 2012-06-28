@@ -1,11 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/construction/index_script_collectionschema.stpl">
-    <Files>
-      <File FileName="sCMS/resources/content/construction/index_script_template.stpl" Line="104" Column="92" />
-      <File FileName="sCMS/resources/content/construction/index_script_collectionschema.stpl" Line="41" Column="8" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -5,45 +5,57 @@
 var collectionSchema =
 {
 	// CREATE
-	create : function ()
+	create : function (attributes)
 	{
+		if (!attributes)
+			attributes = new Array ();
+	
 		// CREATE			
 		var create =	function ()
-						{													
-							var item = get ();
-							modal.dispose ();
+						{			
+							// SHOW BUSY
+							modal.busy ();
 							
-							item = sCMS.collectionSchema.new (item.title);
-							sCMS.collectionSchema.save (item);
+							setTimeout (function () 
+										{		
+											get ();
+											
+											attributes.current = sCMS.collectionSchema.new (attributes.current.title);
+											sCMS.collectionSchema.save (attributes.current);											
 							
-							collectionSchema.edit ({current: item, row: UI.elements.content.collectionschemas.addItem (item)});
-							
-							//UI.elements.content.collectionschemas.addItem (item);
-								
-							//collectionSchema.edit ({id: item.id});		
+											collectionSchema.edit ({current: attributes.current, row: UI.elements.content.collectionschemas.addItem (attributes.current)});
+																																																				
+											dispose ();
+										}, 150);							
 						};			
 	
-		// ONCHANGE
-		var onChange =	function ()
+		// DISPOSE
+		var dispose =	function ()
 						{
-							if ((modal.getUIElement ("title").getAttribute ("value") != ""))
-							{
-								modal.getUIElement ("create").setAttribute ("disabled", false);
-							}
-							else
-							{
-								modal.getUIElement ("create").setAttribute ("disabled", true);
-							}										
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
+							modal.dispose ();							
+							modal = null;
+						};	
+						
+		// SET
+		var set =		function ()
+						{
+							attributes.current = {};
+							attributes.current.title = "";							
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);						
+							
+							onChange ();			
 						};
 												
 		// GET
 		var get =		function ()
 						{
-							var item = new Array ();
-							item.title = modal.getUIElement ("title").getAttribute ("value");
-							return item;
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 						};
-						
+																	
+		// ONINIT						
 		var onInit =	function ()
 						{
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
@@ -51,8 +63,27 @@ var collectionSchema =
 							modal.getUIElement ("create").setAttribute ("onClick", create);
 							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
 		
-							modal.show ();							
+							// SET
+							set ();
+		
+							// SHOW
+							modal.show ();	
 						};
+						
+		// ONCHANGE
+		var onChange =	function ()
+						{
+							get ();
+													
+							if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (modal.getUIElement ("title").getAttribute ("value") != ""))	
+							{
+								modal.getUIElement ("create").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("create").setAttribute ("disabled", true);
+							}										
+						};						
 
 		// INIT
 		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_create.xml", onInit: onInit});									
@@ -66,13 +97,6 @@ var collectionSchema =
 		if (!attributes) 
 			attributes = new Array ();
 		
-	//	if (!attributes.id)
-	//	{
-	//		attributes.current = sCMS.collectionSchema.load (UI.elements.content.collectionschemas.getItem ().id);		
-	//	}
-	//	else
-	//	{
-	
 		if (!attributes.current)
 		{
 			attributes.row = UI.elements.content.collectionschemas.getItemRow ();						
@@ -84,35 +108,80 @@ var collectionSchema =
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();														
-							sCMS.collectionSchema.save (item);								
-							UI.elements.content.collectionschemas.setItem (sCMS.collectionSchema.load (item.id));
-																
-							modal.dispose ();		
+							// SHOW BUSY
+							modal.busy ();
+							
+							setTimeout (function () 
+										{																					
+											get ();
+																																
+											sCMS.collectionSchema.save (attributes.current);
+											UI.elements.content.collectionschemas.setItem (attributes.current, attributes.row);																																													
+														
+											checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							
+											onChange ();																										
+																					
+											modal.busy ();
+										}, 150);
 						};
-										
+					
+		// DISPOSE
+		var dispose =	function ()
+						{
+							modal.getUIElement ("save").setAttribute ("disabled", true);
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
+							modal.dispose ();							
+							modal = null;
+						};										
+																				
 		// SET	
 		var set =		function ()
 						{
 							modal.getUIElement ("title").setAttribute ("value", attributes.current.title);
 							modal.getUIElement ("fields").setItems (attributes.current.fields);
+							
+							get ();
+							
+							checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = {};
-							item.id = attributes.current.id;
-							item.title = modal.getUIElement ("title").getAttribute ("value");
-							item.fields = modal.getUIElement ("fields").getItems ();	
+							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
+							attributes.current.fields = modal.getUIElement ("fields").getItems ();	
+						};
+																					
+		// ONINIT
+		var onInit =	function ()
+						{
+							modal.getUIElement ("title").setAttribute ("onChange", onChange);
+							modal.getUIElement ("fields").setAttribute ("onChange", onChange);
+							modal.getUIElement ("fields").setAttribute ("onDoubleClick", field.edit);
 							
-							return item;								
+							modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
+							modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
+							modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
+							modal.getUIElement ("fieldup").setAttribute ("onClick", field.up);
+							modal.getUIElement ("fielddown").setAttribute ("onClick", field.down);							
+																																																
+							modal.getUIElement ("save").setAttribute ("onClick", save);
+							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+							
+							// SET
+							set ();
+							
+							// SHOW
+							modal.show ();								
 						};
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{		
+							get ();
+																
+							if (sConsole.helpers.arrayChecksum (attributes.current) != checksum)
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}
@@ -125,35 +194,37 @@ var collectionSchema =
 							{
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", false);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", false);
+								
+								if (modal.getUIElement ("fields").canItemMove ().up)
+		 						{
+		 							modal.getUIElement ("fieldup").setAttribute ("disabled", false);
+		 						}
+		 						else
+		 						{
+		 							modal.getUIElement ("fieldup").setAttribute ("disabled", true);
+		 						}
+		 					
+		 						if (modal.getUIElement ("fields").canItemMove ().down)
+		 						{
+		 							modal.getUIElement ("fielddown").setAttribute ("disabled", false);
+		 						}		 						
+		 						else
+		 						{
+		 							modal.getUIElement ("fielddown").setAttribute ("disabled", true);
+		 						}								
 							}
 							else
 							{
 								modal.getUIElement ("fieldedit").setAttribute ("disabled", true);
 								modal.getUIElement ("fieldremove").setAttribute ("disabled", true);
+								
+								modal.getUIElement ("fieldup").setAttribute ("disabled", true);
+								modal.getUIElement ("fielddown").setAttribute ("disabled", true);
 							}
-						};							
-	
-		var onInit =	function ()
-						{
-							modal.getUIElement ("title").setAttribute ("onChange", onChange);
-							modal.getUIElement ("fields").setAttribute ("onChange", onChange);
-							
-							modal.getUIElement ("fieldadd").setAttribute ("onClick", field.add);
-							modal.getUIElement ("fieldedit").setAttribute ("onClick", field.edit);
-							modal.getUIElement ("fieldremove").setAttribute ("onClick", field.remove);
-																																																
-							modal.getUIElement ("save").setAttribute ("onClick", save);
-							modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
-							
-							// SET
-							set ();
-							
-							// SHOW
-							modal.show ();								
-						};
+						};						
 	
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_edit.xml", onInit: onInit});					
+		var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/collectionschema_edit.xml", onInit: onInit});					
 	},
 	
 	// DELETE

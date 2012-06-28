@@ -1,5 +1,4 @@
- 	// ###  <script language="JavaScript">
-	
+// <script language="JavaScript">	
 // #######################################################################################################################################
 // # ROOT
 // #######################################################################################################################################		
@@ -8,6 +7,9 @@ var root =
 	// CREATE
 	create : function (attributes)
 	{	
+		if (!attributes)
+		attributes = new Array ();
+	
 		// CREATE			
 		var create =	function ()
 						{						
@@ -23,14 +25,20 @@ var root =
 											attributes.current = sCMS.root.new (attributes.current.title);
 																						
 											sCMS.root.save (attributes.current);
-											UI.elements.content.roots.addItem (attributes.current);
-								
-											root.edit ({id: attributes.current.id});		
+											root.edit ({current: attributes.current, row: UI.elements.content.roots.addItem (attributes.current)});		
 																																							
 											dispose ();
-										}, 150);													
-							
+										}, 150);																				
 						};			
+
+		// DISPOSE
+		var dispose =	function ()
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+							modal.getUIElement ("close").setAttribute ("disabled", true);
+							modal.dispose ();							
+							modal = null;
+						};
 
 		// SET
 		var set = 		function ()
@@ -46,22 +54,10 @@ var root =
 						{
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 						};
-		
-		// DISPOSE
-		var dispose =	function ()
-						{
-							modal.getUIElement ("create").setAttribute ("disabled", true);
-							modal.getUIElement ("close").setAttribute ("disabled", true);
-							modal.dispose ();							
-							modal = null;
-						};
 						
 		// ONINIT
 		var onInit = 	function ()
 						{												
-							if (!attributes)
-								attributes = new Array ();
-							
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
 		
 							modal.getUIElement ("create").setAttribute ("onClick", create);
@@ -77,7 +73,9 @@ var root =
 		// ONCHANGE
 		var onChange =	function ()
 						{							
-							if ((modal.getUIElement ("title").getAttribute ("value") != ""))
+							get ();
+						
+							if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (modal.getUIElement ("title").getAttribute ("value") != ""))
 							{
 								modal.getUIElement ("create").setAttribute ("disabled", false);
 							}
@@ -88,7 +86,7 @@ var root =
 						};
 						
 		// INIT		
-		var modal = new sConsole.modal.window ({width: "600px", height: "140px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_create.xml", onInit: onInit});											
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_create.xml", onInit: onInit});											
 	},
 	
 	// EDIT
@@ -96,18 +94,27 @@ var root =
 	{				
 		<%Include ("index_script_root_rootfilter.stpl")%>		
 			
+		if (!attributes) 
+			attributes = new Array ();
+			
+		if (!attributes.current)
+		{
+			attributes.row = UI.elements.content.roots.getItemRow ();
+			attributes.current = sCMS.root.load (UI.elements.content.roots.getItem ().id);		
+		}			
+			
 		// SAVE
 		var save = 		function ()
-						{							
+						{			
+							// SHOW BUSY				
 							modal.busy ();							
-							modal.getUIElement ("save").setAttribute ("disabled", true);							
-							
+																			
 							setTimeout (function () 
 										{																							
 											get ();
 
 											sCMS.root.save (attributes.current);
-											UI.elements.content.roots.setItem (attributes.current);
+											UI.elements.content.roots.setItem (attributes.current, attributes.row);
 								
 											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 											onChange ();
@@ -115,7 +122,16 @@ var root =
 											modal.busy ();							
 										}, 150);						
 						};
-											
+								
+		// DISPOSE
+		var dispose =	function ()
+						{
+							modal.getUIElement ("save").setAttribute ("disabled", true);		
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
+							modal.dispose ();							
+							modal = null;
+						};											
+																	
 		// SET	
 		var set =		function ()
 						{
@@ -134,33 +150,14 @@ var root =
 						{
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");
 							attributes.current.filters = modal.getUIElement ("filters").getItems ();											
-						};
-						
-		// DISPOSE
-		var dispose =	function ()
-						{
-							modal.getUIElement ("save").setAttribute ("disabled", true);		
-							modal.getUIElement ("close").setAttribute ("disabled", true);		
-							modal.dispose ();							
-							modal = null;
-						};
+						};						
 		
 		// ONINIT
 		var onInit = 	function ()
-						{									
-							if (!attributes) attributes = new Array ();
-						
-							if (!attributes.id)
-							{
-								attributes.current = sCMS.root.load (UI.elements.content.roots.getItem ().id);		
-							}
-							else
-							{
-								attributes.current = sCMS.root.load (attributes.id);
-							}
-							
+						{																
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);
 							modal.getUIElement ("filters").setAttribute ("onChange", onChange);
+							modal.getUIElement ("filters").setAttribute ("onDoubleClick", rootfilter.edit);
 							
 							modal.getUIElement ("filteradd").setAttribute ("onClick", rootfilter.add);
 							modal.getUIElement ("filteredit").setAttribute ("onClick", rootfilter.edit);
@@ -203,7 +200,7 @@ var root =
 						};							
 	
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_edit.xml", onInit: onInit});			
+		var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_edit.xml", onInit: onInit});			
 	},
 	
 	// DELETE
@@ -223,4 +220,3 @@ var root =
 		sConsole.modal.question ({title: "Delete root", text: "Do you really want to delete this root ?", button1Label: "Yes", button2Label: "No", onDone: action});				
 	}				
 }
-

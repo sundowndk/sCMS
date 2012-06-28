@@ -14,7 +14,7 @@ var template =
 							modal.busy ();
 							
 							setTimeout (function () 
-										{																																
+										{			
 											get ();
 
 											if (UI.elements.content.templates.getItem () != null)
@@ -30,6 +30,15 @@ var template =
 										}, 150);											
 						};			
 
+		// DISPOSE
+		var dispose =	function ()
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
+							modal.dispose ();							
+							modal = null;
+						};
+
 		// SET
 		var set = 		function ()
 						{
@@ -42,12 +51,6 @@ var template =
 		var get =		function ()
 						{
 							attributes.current.title = modal.getUIElement ("title").getAttribute ("value");						
-						};
-
-		// DISPOSE
-		var dispose =	function ()
-						{
-							modal.dispose ();
 						};
 
 		// ONINIT
@@ -81,8 +84,7 @@ var template =
 							{
 								modal.getUIElement ("create").setAttribute ("disabled", true);
 							}										
-						};
-						
+						};						
 
 		// INIT
 		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/template_create.xml", onInit: onInit});	
@@ -125,7 +127,16 @@ var template =
 											modal.busy ();
 										}, 150);
 						};
-										
+				
+		// DISPOSE
+		var dispose =	function ()
+						{
+							modal.getUIElement ("save").setAttribute ("disabled", true);
+							modal.getUIElement ("close").setAttribute ("disabled", true);		
+							modal.dispose ();							
+							modal = null;
+						};										
+																						
 		// SET	
 		var set =		function ()
 						{
@@ -148,13 +159,7 @@ var template =
 							attributes.current.fields = modal.getUIElement ("fields").getItems ();
 							attributes.current.stylesheets = modal.getUIElement ("stylesheets").getItems ();
 							attributes.current.javascripts = modal.getUIElement ("javascripts").getItems ();						
-						};
-						
-		// DISPOSE
-		var dispose =	function ()
-						{
-							modal.dispose ();	
-						};
+						};						
 
 		// ONINIT						
 		var onInit = 	function ()
@@ -192,8 +197,7 @@ var template =
 		var onChange =	function ()
 						{	
 							get ();
-							
-							//if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))				
+														
 							if (sConsole.helpers.arrayChecksum (attributes.current) != checksum)
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);

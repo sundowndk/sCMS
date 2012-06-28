@@ -1,20 +1,36 @@
-#!<script language = "JavaScript">							
+// <script language = "JavaScript">							
 // ##################################################################################################################################
 // # ROOTFILTER
 // ##################################################################################################################################
 var rootfilter =
 {
-	add : function ()
+	add : function (attributes)
 	{
-		var current = new Array ();
-		current.type = "Hostname";
-		current.data = "";
+		if (!attributes)
+			attributes = new Array ();
+				
+		attributes.current = new Array ();
+		attributes.current.type = "Hostname";
+		attributes.current.data = "";
 		
-		rootfilter.edit ({current: current});
+		rootfilter.edit ({current: attributes.current});
 	},
 	
 	edit : function (attributes)
 	{			
+		if (!attributes) 
+			attributes = new Array ();									
+								
+		if (attributes.current != null)
+		{				
+			attributes.mode = "add";
+		}
+		else
+		{		
+			attributes.current = modal.getUIElement ("filters").getItem ();			
+			attributes.mode = "edit";
+		}		
+	
 		// BUTTON1
 		var button1 = 	function ()
 						{
@@ -43,7 +59,16 @@ var rootfilter =
 											dispose ();
 										}, 150);																								
 						};			
-																				
+									
+		// DIPOSE
+		var dispose =	function ()
+						{
+							modal2.getUIElement ("button1").setAttribute ("disabled", true);		
+							modal2.getUIElement ("close").setAttribute ("disabled", true);		
+							modal2.dispose ();							
+							modal2 = null;
+						};																				
+																																										
 		// SET	
 		var set =		function ()
 						{
@@ -79,34 +104,11 @@ var rootfilter =
 						{
 							attributes.current.type = modal2.getUIElement ("type").getAttribute ("selectedItem").value;
 							attributes.current.data = modal2.getUIElement ("data").getAttribute ("value");							
-						};			
-						
-		// DIPOSE
-		var dispose =	function ()
-						{
-							modal2.getUIElement ("button1").setAttribute ("disabled", true);		
-							modal2.getUIElement ("close").setAttribute ("disabled", true);		
-							modal2.dispose ();							
-							modal2 = null;
-						};
+						};									
 			
 		// ONINIT			
 		var onInit =	function ()
 						{
-							if (!attributes) 
-								attributes = new Array ();									
-								
-							if (attributes.current != null)
-							{				
-								attributes.mode = "add";
-							}
-							else
-							{		
-								attributes.current = modal.getUIElement ("filters").getItem ();			
-								attributes.mode = "edit";
-							}		
-							
-												
 							modal2.getUIElement ("type").setAttribute ("onChange", onChange);
 							modal2.getUIElement ("data").setAttribute ("onChange", onChange);
 																																									
@@ -136,8 +138,7 @@ var rootfilter =
 						};												
 																																						
 		// INIT		
-		var modal2 = new sConsole.modal.window ({width: "600px", height: "200px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml", onInit: onInit});
-		
+		var modal2 = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/construction/root_rootfilter_edit.xml", onInit: onInit});		
 	},
 	
 	remove : function ()

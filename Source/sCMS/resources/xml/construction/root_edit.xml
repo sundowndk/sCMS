@@ -24,14 +24,24 @@
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="filteradd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="filteredit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-							<button tag="filterremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<button tag="filteradd" width="100%" label="Add" />
+							<button tag="filteredit" width="100%" label="Edit" disabled="true" />
+							<button tag="filterremove" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>														
 				</panel>
 			</layoutbox>											
 		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="*">												
+				</panel>
+				<panel size="210px">
+					<button tag="save" label="Save" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
+			</layoutbox>
+		</panel>		
 	</layoutbox>				
 </sui>
 
