@@ -7,6 +7,9 @@ var template =
 	// CREATE
 	create : function (attributes)
 	{
+		if (!attributes)
+			attributes = new Array ();
+		
 		// CREATE			
 		var create =	function ()
 						{
@@ -55,10 +58,7 @@ var template =
 
 		// ONINIT
 		var onInit =	function ()
-						{
-							if (!attributes)
-								attributes = new Array ();
-						
+						{						
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
 		
 							modal.getUIElement ("create").setAttribute ("onClick", create);

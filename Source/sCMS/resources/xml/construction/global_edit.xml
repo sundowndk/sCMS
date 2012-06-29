@@ -1,6 +1,4 @@
 <sui elementheight="50px">
-	<canvas width="600px" height="230px" canScroll="false">	
-		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
 			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
 				<panel size="%elementheight%">
 					<layoutbox type="vertical">
@@ -38,7 +36,5 @@
 					</layoutbox>
 				</panel>
 			</layoutbox>
-		</container>
-	</canvas>
 </sui>
 

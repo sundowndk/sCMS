@@ -60,23 +60,11 @@
 						<panel tag="image" size="*" hidden="true">
 							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
 								<panel size="*">								
-									<layoutbox type="vertical">
+									<layoutbox tag="imagemediatransformationbox" type="vertical">
 										<panel size="100px">
 											<label text="Transformations"/>
 										</panel>					
-										<panel size="*">
-											<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
-												<panel size="*">
-													<listview tag="mediatransformations" width="100%" height="100%">
-														<column tag="id" />
-														<column tag="title" label="Title" width="150px" visible="true" />
-													</listview>
-												</panel>
-												<panel size="105px">
-													<button tag="mediatransformationadd" label="Add" />
-													<button tag="mediatransformationremove" label="Remove" />
-												</panel>
-											</layoutbox>
+										<panel tag="imagemediatransformationpanel" size="*">
 										</panel>											
 									</layoutbox>
 								</panel>												

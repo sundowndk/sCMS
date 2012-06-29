@@ -1,4 +1,4 @@
-// ##  <script language="JavaScript">	
+// <script>	
 // #######################################################################################################################################
 // # GLOBAL
 // #######################################################################################################################################		
@@ -22,8 +22,7 @@ var collection =
 											attributes.current = sCMS.collection.new (UI.elements.content.collections.getItem ().id, attributes.current.title);
 											sCMS.collection.save (attributes.current);
 							
-											attributes.type = "collection";
-											;
+											attributes.current.type = "collection";											
 							
 											collection.edit ({current: attributes.current, row: UI.elements.content.collections.addItem (attributes.current)});
 																																							
@@ -89,9 +88,8 @@ var collection =
 							}										
 						};
 						
-
 		// INIT		
-		var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_create.xml", onInit: onInit});
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_create.xml", onInit: onInit});
 	},
 
 	// EDIT
@@ -122,9 +120,10 @@ var collection =
 											get ();
 													
 											sCMS.collection.save (attributes.current);	
+											
+											attributes.current.type = "collection";		
 											UI.elements.content.collections.setItem (attributes.current, attributes.row);
-										
-											attributes.current.type = "collection";																					
+																																							
 											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 											onChange ();													
 																
@@ -225,7 +224,7 @@ var collection =
 						};							
 		
 		// INIT
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml", onInit: onInit});							
+		var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/collection_edit.xml", onInit: onInit});							
 	},
 	
 	// DELETE

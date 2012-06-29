@@ -1,5 +1,5 @@
-<sui>
-	<layoutbox type="horizontal">			
+<sui elementheight="50px">
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="100px">		
 		<panel size="*">
 			<layoutbox type="vertical">
 				<panel size="100px">
@@ -9,9 +9,10 @@
 					<textbox tag="alias" width="100%" />
 				</panel>					
 			</layoutbox>
-		</panel>				
-		
-		<panel size="55px">
+		</panel>						
+		<panel size="*">
+		</panel>
+		<panel size="%elementheight%">
 			<layoutbox type="vertical">
 				<panel size="*">						
 				</panel>

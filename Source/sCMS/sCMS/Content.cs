@@ -225,7 +225,7 @@ namespace sCMS
 
 			set
 			{
-				DecodeData (this._type, value);
+				this._data = DecodeData (this._type, value);
 			}
 		}
 		#endregion

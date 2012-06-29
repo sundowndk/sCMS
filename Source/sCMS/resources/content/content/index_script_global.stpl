@@ -1,4 +1,4 @@
-// #  <script>
+// <script>
 // #######################################################################################################################################
 // # GLOBAL
 // #######################################################################################################################################		
@@ -6,7 +6,20 @@ var global =
 {
 	// EDIT
 	edit : function (attributes)
-	{												
+	{					
+		if (!attributes) 
+			attributes = new Array ();
+	
+		if (!attributes.id)
+		{
+			attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
+		}
+		else
+		{
+			attributes.current = sCMS.global.load (attributes.id);
+		}
+	
+															
 		// SAVE
 		var save = 		function ()
 						{
@@ -54,19 +67,7 @@ var global =
 						};							
 	
 		var onInit = 	function ()
-						{
-							if (!attributes) attributes = new Array ();
-						
-							if (!attributes.id)
-							{
-								attributes.current = sCMS.global.load (UI.elements.content.globals.getItem ().id);		
-							}
-							else
-							{
-								attributes.current = sCMS.global.load (attributes.id);
-							}
-							
-							
+						{												
 							modal.getUIElement ("save").setAttribute ("onClick", save);
 							modal.getUIElement ("close").setAttribute ("onClick", dispose);		
 													
@@ -86,8 +87,7 @@ var global =
 						};
 	
 		// INIT		
-		var modal = new sConsole.modal.window ({width: "600px", height: "330px", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml", onInit: onInit});			
-		
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml", onInit: onInit});					
 	}
 }
 

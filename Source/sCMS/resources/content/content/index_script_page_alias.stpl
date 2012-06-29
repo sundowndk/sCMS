@@ -1,4 +1,4 @@
-// #  <script language="JavaScript">
+// <script>
 // #######################################################################################################################################
 // # ALIAS
 // #######################################################################################################################################		
@@ -7,10 +7,10 @@ var alias =
 	// ADD
 	add : function ()
 	{
-		var item = {};
-		item.value = "";
+		var current = {};
+		current.value = "";
 	
-		alias.edit ({current: item});
+		alias.edit ({current: current});
 	},
 
 	// EDIT
@@ -29,8 +29,8 @@ var alias =
 											switch (attributes.mode)
 											{
 												case "new":
-												{
-													modal.getUIElement ("aliases").addItem (attributes.current);
+												{													
+													modal.getUIElement ("aliases").addItem (attributes.current);													
 													break;
 												}
 									
@@ -128,8 +128,7 @@ var alias =
 						};							
 	
 		// INIT		
-		var modal2 = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit_alias_edit.xml", onInit: onInit});			
-	
+		var modal2 = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit_alias_edit.xml", onInit: onInit});				
 	},
 	
 	// REMOVE

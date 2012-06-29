@@ -12,24 +12,29 @@ field : function (attributes)
 							{
 								modal.getUIElement ("type").setAttribute ("disabled", true);
 																	
-								options.set ();						
-								options.mediatransformation.set ();
+								options.set ();														
 								break;
 							}
 						}
 						
-						switch (attributes.current.type)
+						switch (attributes.current.type.toLowerCase ())
 						{
-							case "String":
+							case "string":
 							{
 								options.string.set ();
+								break;
+							}
+							
+							case "image":
+							{
+								options.image.set ();
 								break;
 							}
 						}
 						
 						get ();
 						
-						checksum = sConsole.helpers.arrayChecksum (attributes.current);
+						attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 					};
 						
 	// GET
@@ -40,18 +45,20 @@ field : function (attributes)
 												
 						attributes.current.options = options.get ();
 						
-						switch (attributes.current.type)
+						switch (attributes.current.type.toLowerCase ())
 						{
-							case "String":
+							case "string":
 							{
 								options.string.get ();
 								break;
 							}
+							
+							case "image":
+							{
+								options.image.get ();
+								break;
+							}
 						}
-												
-						//attributes.current.options["mediatransformationids"] = options.mediatransformation.get ();	
-						
-										
 					}			
 																
 	// DISPOSE
@@ -93,13 +100,13 @@ field : function (attributes)
 						modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
 						modal.getUIElement ("close").setAttribute ("onClick", dispose);	
 						
-						modal.getUIElement ("hidden").setAttribute ("onChange", onChange);
-													
+						modal.getUIElement ("hidden").setAttribute ("onChange", onChange);						
+																								
 						modal.getUIElement ("container").setAttribute ("title", attributes.title);
 						modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);			
 						
 						options.string.init ();
-						//options.image.init ();
+						options.image.init ();
 							
 						SNDK.SUI.redraw ();												
 									
@@ -126,9 +133,8 @@ field : function (attributes)
 	var onChange =	function ()
 					{														
 						get ();				    	
-													
-						//if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
-						if ((sConsole.helpers.arrayChecksum (attributes.current) != checksum) && (modal.getUIElement ("name").getAttribute ("value") != ""))
+																			
+						if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (modal.getUIElement ("name").getAttribute ("value") != ""))
 						{
 							modal.getUIElement ("button1").setAttribute ("disabled", false);
 						}
@@ -153,16 +159,7 @@ field : function (attributes)
 						else
 						{
 							modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", true);
-						}
-						
-						if (modal.getUIElement ("mediatransformations").getItem () != null)
-						{
-							modal.getUIElement ("mediatransformationremove").setAttribute ("disabled", false);
-						}
-						else
-						{
-							modal.getUIElement ("mediatransformationremove").setAttribute ("disabled", true);
-						}
+						}						
 					};		
 									
 					
@@ -215,7 +212,7 @@ field : function (attributes)
 			init : function ()
 			{
 				options.string.elements["default"] = new SNDK.SUI.field ({type: "string", options: {}, width: "100%", height: "100%"});	
-				options.string.elements["default"].setAttribute ("onChange", onChange);
+				options.string.elements["default"].setAttribute ("onChange", options.string.onChange);
 					
 				modal.getUIElement ("stringdefaultbox").getPanel ("stringdefaultpanel").addUIElement (options.string.elements["default"]);
 			},
@@ -232,54 +229,102 @@ field : function (attributes)
 				{
 					options.string.elements["default"].setAttribute ("value", attributes.current.options.default);
 				}
+			},
+			
+			onChange : function ()
+			{
+				onChange ();
 			}
 		},
 	
-		mediatransformation : 
+		image : 
 		{
-			add : function ()
+			elements : new Array (),
+		
+			init : function ()
+			{		
+				options.image.elements["layoutbox"] = new SNDK.SUI.layoutbox ({type: "vertical", stylesheet: "LayoutboxNoborder"})
+				
+				var panel1 = options.image.elements["layoutbox"].addPanel ({size: "*"});
+				var panel2 = options.image.elements["layoutbox"].addPanel ({size: "80px"});
+				
+				var columns = new Array ();
+				columns[0] = {tag: "id"};
+				columns[1] = {tag: "title", label: "Title", width: "150px", visible: true};
+				
+				options.image.elements["mediatransformations"] = new SNDK.SUI.listview ({columns: columns, width: "100%", height: "100%"})				
+				options.image.elements["mediatransformations"].setAttribute ("onChange", options.image.onChange);				
+				panel1.addUIElement (options.image.elements["mediatransformations"]);
+				
+				options.image.elements["mediatransformationadd"] = new SNDK.SUI.button ({label: "Add", width: "100%"});
+				options.image.elements["mediatransformationadd"].setAttribute ("onClick", options.image.mediatransformationAdd);
+				options.image.elements["mediatransformationremove"] = new SNDK.SUI.button ({label: "Remove", width: "100%"});
+				options.image.elements["mediatransformationremove"].setAttribute ("onClick", options.image.mediatransformationRemove);
+				
+				panel2.addUIElement (options.image.elements["mediatransformationadd"]);
+				panel2.addUIElement (options.image.elements["mediatransformationremove"]);
+														
+				modal.getUIElement ("imagemediatransformationbox").getPanel ("imagemediatransformationpanel").addUIElement (options.image.elements["layoutbox"]);				
+			},		
+		
+			mediatransformationAdd : function ()
 			{
 				var onDone =	function (id)
 								{
 									if (id != null)
 									{
-										modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (id));	
+										options.image.elements["mediatransformations"].addItem (sorentoLib.mediaTransformation.load (id))									
 									}
 								};
 	
 				sConsole.modal.chooser.mediaTransformation ({onDone: onDone});			
 			},
 		
-			remove : function ()
+			mediatransformationRemove : function ()
 			{
-				modal.getUIElement ("mediatransformations").removeItem ();
+				options.image.elements["mediatransformations"].removeItem ();				
 			},		
 
 			get : function ()
 			{
 				var result = "";
 				
-				var mediatransformations = modal.getUIElement ("mediatransformations").getItems ();
+				var mediatransformations = options.image.elements["mediatransformations"].getItems ();
 				
 				for (index in mediatransformations)
 				{
-					result += mediatransformations[index].id +";";
-				
+					result += mediatransformations[index].id +";";				
 				}
 								
-				return result;
+				attributes.current.options.mediatransformations = result;
 			},
 									
 			set : function ()
 			{
-//				if (attributes.current.options.mediatransformationids)
-//				{
-//					var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformationids, ";").split (";")
-//					for (index in ids)
-//					{
-//						modal.getUIElement ("mediatransformations").addItem (sorentoLib.mediaTransformation.load (ids[index]));			
-//					}						
-//				}
+				if (attributes.current.options.mediatransformations)
+				{
+					var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformations, ";").split (";")
+					for (index in ids)
+					{
+						options.image.elements["mediatransformations"].addItem (sorentoLib.mediaTransformation.load (ids[index]));
+					}						
+				}
+				
+				options.image.onChange ();
+			},
+			
+			onChange : function ()
+			{
+				onChange ();								
+			
+				if (options.image.elements["mediatransformations"].getItem () != null)
+				{					
+					options.image.elements["mediatransformationremove"].setAttribute ("disabled", false);					
+				}
+				else
+				{					
+					options.image.elements["mediatransformationremove"].setAttribute ("disabled", true);
+				}
 			}
 		}
 	};		

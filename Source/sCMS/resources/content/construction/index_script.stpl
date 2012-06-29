@@ -24,7 +24,8 @@
 						UI.elements.content.collectionschemaedit.setAttribute ("onClick", collectionSchema.edit);
 						UI.elements.content.collectionschemadelete.setAttribute ("onClick", collectionSchema.delete);
 					
-						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);								
+						UI.elements.content.globals.setAttribute ("onDoubleClick", global.edit);
 						UI.elements.content.globalcreate.setAttribute ("onClick", global.create);
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
 						UI.elements.content.globaldelete.setAttribute ("onClick", global.delete);

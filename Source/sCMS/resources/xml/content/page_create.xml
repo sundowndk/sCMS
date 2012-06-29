@@ -1,27 +1,37 @@
 <sui elementheight="50px">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Title"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="title" width="100%" focus="true" />
-						</panel>					
-					</layoutbox>
-				</panel>
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Template"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="template" width="80%" disabled="true" />
-							<button tag="choosetemplate" label="Select" width="20%" />
-						</panel>											
-					</layoutbox>
-				</panel>
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="150px">			
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="Title"/>
+				</panel>					
+				<panel size="*">
+					<textbox tag="title" width="100%" focus="true" />
+				</panel>					
+			</layoutbox>
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="Template"/>
+				</panel>					
+				<panel size="*">
+					<textbox tag="template" width="80%" disabled="true" />
+					<button tag="choosetemplate" label="Select" width="20%" />
+				</panel>											
+			</layoutbox>
+		</panel>
+		<panel size="*">
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
 				<panel size="*">
 				</panel>
+				<panel size="210px">
+					<button tag="create" label="Create" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
 			</layoutbox>
+		</panel>					
+	</layoutbox>
 </sui>

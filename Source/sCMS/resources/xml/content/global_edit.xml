@@ -1,14 +1,26 @@
-<sui>
-	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+<sui elementheight="50px">
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="300px">
 		<panel size="*">
 			<layoutbox tag="fieldlayoutbox" type="vertical">
 				<panel size="100px">
 					<label tag="fieldtext" text="Type"/>
 				</panel>					
-				<panel tag="fieldpanel" size="*">							
+				<panel tag="fieldpanel" size="*">
 				</panel>					
 			</layoutbox>					
-		</panel>												
+		</panel>			
+		<panel size="*">
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="*">
+				</panel>
+				<panel size="210px">
+					<button tag="save" label="Save" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
+			</layoutbox>
+		</panel>			
 	</layoutbox>
 </sui>
 

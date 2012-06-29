@@ -1,43 +1,57 @@
-<sui elementheight="50px">			
-	<tabview>				
-		<tab label="Details" selected="true">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Title"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="title" width="100%" focus="true" />
-						</panel>					
-					</layoutbox>
-				</panel>		
-				<panel size="*">			
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Aliases" />
+<sui elementheight="50px">	
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">
+		<panel size="*">		
+			<tabview>				
+				<tab label="Details" selected="true">
+					<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+						<panel size="%elementheight%">
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Title"/>
+								</panel>					
+								<panel size="*">
+									<textbox tag="title" width="100%" focus="true" />
+								</panel>					
+							</layoutbox>
+						</panel>		
+						<panel size="*">			
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Aliases" />
+								</panel>
+								<panel size="*">
+									<listview tag="aliases" width="100%" height="100%" unique="value">
+										<column tag="value" label="" width="200px" visible="true" />												
+									</listview>
+								</panel>					
+								<panel size="80px">
+									<button tag="aliasadd" width="100%" label="Add" />
+									<button tag="aliasedit" width="100%" label="Edit" disabled="true" />
+									<button tag="aliasremove" width="100%" label="Remove" disabled="true" />
+								</panel>
+							</layoutbox>			
+						</panel>								
+					</layoutbox>	
+				</tab>
+				<tab label="Content">
+					<layoutbox tag="fieldslayoutbox" type="horizontal" stylesheet="LayoutboxNoborder" canScroll="true">			
+						<panel tag="fieldspanel" size="*" canScroll="true">
 						</panel>
-						<panel size="*">
-							<listview tag="aliases" width="100%" height="100%" unique="value">												
-								<column tag="value" label="" width="200px" visible="true" />												
-							</listview>
-						</panel>					
-						<panel size="80px">
-							<button tag="aliasadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="aliasedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-							<button tag="aliasremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
-						</panel>
-					</layoutbox>			
-				</panel>								
-			</layoutbox>	
-		</tab>
-		<tab label="Content">
-			<layoutbox tag="fieldslayoutbox" type="horizontal" stylesheet="LayoutboxNoborder" canScroll="true">			
-				<panel tag="fieldspanel" size="*" canScroll="true">
+					</layoutbox>		
+				</tab>					
+			</tabview>																							
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="*">												
 				</panel>
-			</layoutbox>		
-		</tab>					
-	</tabview>																							
+				<panel size="210px">
+					<button tag="save" label="Save" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
+			</layoutbox>
+		</panel>
+	</layoutbox>			
 </sui>
 
 

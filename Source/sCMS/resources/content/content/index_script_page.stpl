@@ -9,6 +9,9 @@ var page =
 	{
 		<%Include ("index_script_page_template.stpl")%>
 			
+		if (!attributes)
+			attributes = new Array ();			
+			
 		// CREATE			
 		var create =	function ()
 						{
@@ -74,10 +77,7 @@ var page =
 						
 		// ONINIT
 		var onInit =	function ()
-						{					
-							if (!attributes)
-								attributes = new Array ();
-		
+						{														
 							modal.getUIElement ("title").setAttribute ("onChange", onChange);		
 							modal.getUIElement ("template").setAttribute ("onChange", onChange);
 		
@@ -109,7 +109,7 @@ var page =
 						};						
 
 		// INIT		
-		var modal = new sConsole.modal.window ({width: "600px", height: "190px", titleBarUI: [{type: "button", attributes: {tag: "create", label: "Create"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_create.xml", onInit: onInit});							
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_create.xml", onInit: onInit});							
 	},
 
 	// EDIT
@@ -233,6 +233,7 @@ var page =
 			modal.getUIElement ("title").setAttribute ("onChange", onChange);
 			
 			modal.getUIElement ("aliases").setAttribute ("onChange", onChange);
+			modal.getUIElement ("aliases").setAttribute ("onDoubleClick", alias.edit);
 			modal.getUIElement ("aliasadd").setAttribute ("onClick", alias.add);
 			modal.getUIElement ("aliasedit").setAttribute ("onClick", alias.edit);
 			modal.getUIElement ("aliasremove").setAttribute ("onClick", alias.remove);
@@ -277,7 +278,7 @@ var page =
 						};			
 		
 		// INIT								
-		var modal = new sConsole.modal.window ({dimensions: "auto", titleBarUI: [{type: "button", attributes: {tag: "save", label: "Save"}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml", onInit: onInit});			
+		var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/page_edit.xml", onInit: onInit});			
 	},
 	
 	// DELETE
