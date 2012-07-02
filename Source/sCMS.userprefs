@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index_script_page.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/javascript/modal/edit/field.js">
     <Files>
       <File FileName="sCMS/resources/content/construction/index_script_template.stpl" Line="128" Column="19" />
       <File FileName="sCMS/resources/xml/content/collection_create.xml" Line="15" Column="33" />
@@ -20,4 +20,5 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties> <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

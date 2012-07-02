@@ -314,16 +314,16 @@ break;
 							break;
 						}
 
-//						case "load":
-//							switch (Parameters.Type (0).Name.ToLower())
-//							{
-//								case "guid":
-//									return sCMS.Collection.Load (Parameters.Get<Guid>(0));
-//									
-//								case "string":
-//									return sCMS.Collection.Load (new Guid (Parameters.Get<string>(0)));
-//							}
-//							break;
+						case "load":
+							switch (Parameters.Type (0).Name.ToLower())
+							{
+								case "guid":
+									return sCMS.Collection.Load (Parameters.Get<Guid>(0));
+									
+								case "string":
+									return sCMS.Collection.Load (new Guid (Parameters.Get<string>(0)));
+							}
+							break;
 					}
 					break;
 				}
