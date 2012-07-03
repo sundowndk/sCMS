@@ -120,7 +120,7 @@ var template =
 											
 											UI.elements.content.templates.setItem (attributes.current, attributes.row);
 														
-											checksum = sConsole.helpers.arrayChecksum (attributes.current);
+											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 							
 											onChange ();																										
 																					
@@ -148,7 +148,7 @@ var template =
 							
 							get ();
 							
-							checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
@@ -198,7 +198,7 @@ var template =
 						{	
 							get ();
 														
-							if (sConsole.helpers.arrayChecksum (attributes.current) != checksum)
+							if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}
