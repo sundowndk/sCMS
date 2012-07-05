@@ -47,7 +47,7 @@
 						UI.elements.content.rootcreate.setAttribute ("onClick", root.create);
 						UI.elements.content.rootedit.setAttribute ("onClick", root.edit);
 						UI.elements.content.rootdelete.setAttribute ("onClick", root.delete);
-
+																	
 						UI.set ();						
 						SNDK.SUI.init ();										
 					};
