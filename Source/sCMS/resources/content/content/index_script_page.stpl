@@ -33,17 +33,20 @@ var page =
 												var parent = sCMS.page.load (UI.elements.content.pages.getItem ().id)							
 												attributes.current = sCMS.page.new (parent.rootid, attributes.current.templateid, UI.elements.content.pages.getItem ().id, attributes.current.title);
 											}							
-							
+																										
 											sCMS.page.save (attributes.current);
+											
+											// FIX: page is load right after save.. this should be changed to minimize IO. Temp fix for parentid not being Guid.Empty
+											var item = sCMS.page.load (attributes.current.id);
 														
 											if (UI.elements.content.pages.getItem ().type == "root")
 											{
-												attributes.current.parentid = UI.elements.content.pages.getItem ().id;
+												item.parentid = UI.elements.content.pages.getItem ().id;
 											}
 																																			
 											attributes.current.type = "page";
 											 											
-											page.edit ({current: attributes.current, row: UI.elements.content.pages.addItem (attributes.current)});
+											page.edit ({current: attributes.current, row: UI.elements.content.pages.addItem (item)});
 																																							
 											dispose ();
 										}, 150);											
@@ -139,6 +142,7 @@ var page =
 							
 							setTimeout (function () 
 										{
+										
 											modal.getUIElement ("save").setAttribute ("disabled", true);
 												
 											get ();
@@ -152,7 +156,7 @@ var page =
 											}
 							
 											item.type = "page";
-							
+																											
 											UI.elements.content.pages.setItem (item, attributes.row);
 								
 											attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
