@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Enums/FieldType.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/RootFilter.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="48" Column="18" />
       <File FileName="sCMS/sCMS/Runtime.cs" Line="141" Column="1" />
@@ -8,6 +8,8 @@
       <File FileName="sCMS/sCMS/Page.cs" Line="554" Column="9" />
       <File FileName="sCMS/sCMS.Strings/LogDebug.cs" Line="70" Column="1" />
       <File FileName="sCMS/sCMS.Enums/FieldType.cs" Line="47" Column="1" />
+      <File FileName="sCMS/sCMS/Root.cs" Line="1" Column="1" />
+      <File FileName="sCMS/sCMS/RootFilter.cs" Line="90" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
