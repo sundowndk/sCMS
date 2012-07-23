@@ -1211,54 +1211,7 @@ var sCMS =
 		edit :
 		{
 			field : function (attributes)
-			{	
-				if (!attributes)
-				{
-					attributes = new Array ();
-				}
-			
-				if (attributes.field == null)
-				{					
-					attributes.mode = "new";
-					attributes.current = {};
-					attributes.current.id = SNDK.tools.newGuid ();
-					attributes.current.type = "String";
-					attributes.current.name = "";
-				}
-				else
-				{
-					attributes.mode = "edit";
-					attributes.current = attributes.field;		
-				}
-													
-				var onCancel =	function ()
-								{
-									modal.dispose ();
-								};
-								
-				var onDone =	function ()
-								{										
-									modal.dispose ();
-															
-									if (attributes.onDone != null)
-									{	
-										setTimeout (function () {attributes.onDone (get ())}, 1);
-									}						
-								};
-								
-				// ONCHANGE
-				var onChange =	function ()
-								{		
-										if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})) && (modal.getUIElement ("name").getAttribute ("value") != ""))
-										{
-											modal.getUIElement ("button1").setAttribute ("disabled", false);
-										}
-										else
-										{
-											modal.getUIElement ("button1").setAttribute ("disabled", true);
-										}	
-								};		
-												
+			{			
 				// SET	
 				var set = 		function ()
 								{
@@ -1270,131 +1223,477 @@ var sCMS =
 										case "edit":
 										{
 											modal.getUIElement ("type").setAttribute ("disabled", true);
+																				
+											options.set ();														
 											break;
 										}
 									}
+									
+									switch (attributes.current.type.toLowerCase ())
+									{
+										case "string":
+										{
+											options.string.set ();
+											break;
+										}
+										
+										case "image":
+										{
+											options.image.set ();
+											break;
+										}
+									}
+									
+									get ();
+									
+									attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 								};
 									
 				// GET
 				var get = 		function ()
 								{
-									var item = {};
-									item.id = attributes.current.id;																									
-									item.name = modal.getUIElement ("name").getAttribute ("value");
-									item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;	
+									attributes.current.name = modal.getUIElement ("name").getAttribute ("value");
+									attributes.current.type = modal.getUIElement ("type").getAttribute ("selectedItem").value;							
+															
+									attributes.current.options = options.get ();
 									
-									return item;
+									switch (attributes.current.type.toLowerCase ())
+									{
+										case "string":
+										{
+											options.string.get ();
+											break;
+										}
+										
+										case "image":
+										{
+											options.image.get ();
+											break;
+										}
+									}
+								}			
+																			
+				// DISPOSE
+				var dispose =	function ()
+								{
+									modal.dispose ();
+								};
+					
+				// ONINIT
+				var onInit =	function ()
+								{
+									if (!attributes)
+										attributes = new Array ();
+				
+									if (attributes.field == null)
+									{					
+										attributes.mode = "new";
+										attributes.current = {};
+										attributes.current.id = SNDK.tools.newGuid ();
+										attributes.current.type = "String";
+										attributes.current.name = "";
+										attributes.current.options = new Array ();
+										
+										attributes.title = "Add Field";
+										attributes.button1Label = "Add";							
+									}
+									else
+									{
+										attributes.mode = "edit";
+										attributes.current = attributes.field;		
+										
+										attributes.title = "Edit Field";
+										attributes.button1Label = "Apply";
+									}	
+										
+									modal.getUIElement ("name").setAttribute ("onChange", onChange);			
+									modal.getUIElement ("type").setAttribute ("onChange", onChange);	
+										
+									modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
+									modal.getUIElement ("close").setAttribute ("onClick", dispose);	
+									
+									modal.getUIElement ("hidden").setAttribute ("onChange", onChange);						
+																											
+									modal.getUIElement ("container").setAttribute ("title", attributes.title);
+									modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);			
+									
+									options.string.init ();
+									options.image.init ();
+										
+									SNDK.SUI.redraw ();												
+												
+									// SET
+									set ();						
+										
+									// SHOW
+									modal.show ();																				
+								};			
+								
+				// ONBUTTON1					
+				var onButton1 =	function ()
+								{										
+									dispose ();
+															
+									if (attributes.onDone != null)
+									{	
+										get ();							
+										setTimeout (function () {attributes.onDone (attributes.current)}, 1);
+									}						
+								};																					
+																																
+				// ONCHANGE
+				var onChange =	function ()
+								{														
+									get ();				    	
+																						
+									if ((sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum) && (modal.getUIElement ("name").getAttribute ("value") != ""))
+									{
+										modal.getUIElement ("button1").setAttribute ("disabled", false);
+									}
+									else
+									{
+										modal.getUIElement ("button1").setAttribute ("disabled", true);
+									}	
+										
+									if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "String")
+									{													
+										modal.getUIElement ("options").getPanel ("string").setAttribute ("hidden", false);
+									}
+									else
+									{
+										modal.getUIElement ("options").getPanel ("string").setAttribute ("hidden", true);
+									}																		
+																																											
+									if (modal.getUIElement ("type").getAttribute ("selectedItem").value == "Image")
+									{													
+										modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", false);
+									}
+									else
+									{
+										modal.getUIElement ("options").getPanel ("image").setAttribute ("hidden", true);
+									}						
+								};		
+												
+								
+				var test = function (array, key, value)
+				{		
+					var count = 0;
+					for (index in array)
+					{
+						for (index2 in array[index])
+						{
+							if (index2 == key)
+							{
+								return count
+							}
+						}		
+						count++;
+					}			
+					return -1
+				}
+								
+				var options =	
+				{
+					set : function ()
+					{
+						try
+						{
+							if (attributes.current.options.hidden)
+							{
+								modal.getUIElement ("hidden").setAttribute ("value", true);									
+							}
+						}
+						catch (error)
+						{				
+						}
+					},
+					
+					get : function ()
+					{
+						var result = new Array ();
+						
+						result["hidden"] = modal.getUIElement ("hidden").getAttribute ("value");
+									
+						return result;
+					},
+				
+					string : 
+					{
+						elements : new Array (),
+					
+						init : function ()
+						{
+							options.string.elements["default"] = new SNDK.SUI.field ({type: "string", options: {}, width: "100%", height: "100%"});	
+							options.string.elements["default"].setAttribute ("onChange", options.string.onChange);
+								
+							modal.getUIElement ("stringdefaultbox").getPanel ("stringdefaultpanel").addUIElement (options.string.elements["default"]);
+						},
+						
+						get : function ()
+						{
+							attributes.current.options.default = options.string.elements["default"].getAttribute ("value");
+						
+						},
+						
+						set : function ()
+						{
+							if (attributes.current.options.default)
+							{
+								options.string.elements["default"].setAttribute ("value", attributes.current.options.default);
+							}
+						},
+						
+						onChange : function ()
+						{
+							onChange ();
+						}
+					},
+				
+					image : 
+					{
+						elements : new Array (),
+					
+						init : function ()
+						{		
+							options.image.elements["layoutbox"] = new SNDK.SUI.layoutbox ({type: "vertical", stylesheet: "LayoutboxNoborder"})
+							
+							var panel1 = options.image.elements["layoutbox"].addPanel ({size: "*"});
+							var panel2 = options.image.elements["layoutbox"].addPanel ({size: "80px"});
+							
+							var columns = new Array ();
+							columns[0] = {tag: "id"};
+							columns[1] = {tag: "title", label: "Title", width: "150px", visible: true};
+							
+							options.image.elements["mediatransformations"] = new SNDK.SUI.listview ({columns: columns, width: "100%", height: "100%"})				
+							options.image.elements["mediatransformations"].setAttribute ("onChange", options.image.onChange);				
+							panel1.addUIElement (options.image.elements["mediatransformations"]);
+							
+							options.image.elements["mediatransformationadd"] = new SNDK.SUI.button ({label: "Add", width: "100%"});
+							options.image.elements["mediatransformationadd"].setAttribute ("onClick", options.image.mediatransformationAdd);
+							options.image.elements["mediatransformationremove"] = new SNDK.SUI.button ({label: "Remove", width: "100%"});
+							options.image.elements["mediatransformationremove"].setAttribute ("onClick", options.image.mediatransformationRemove);
+							
+							panel2.addUIElement (options.image.elements["mediatransformationadd"]);
+							panel2.addUIElement (options.image.elements["mediatransformationremove"]);
+																	
+							modal.getUIElement ("imagemediatransformationbox").getPanel ("imagemediatransformationpanel").addUIElement (options.image.elements["layoutbox"]);				
+						},		
+					
+						mediatransformationAdd : function ()
+						{
+							var onDone =	function (id)
+											{
+												if (id != null)
+												{
+													options.image.elements["mediatransformations"].addItem (sorentoLib.mediaTransformation.load (id))									
+												}
+											};
+				
+							sConsole.modal.chooser.mediaTransformation ({onDone: onDone});			
+						},
+					
+						mediatransformationRemove : function ()
+						{
+							options.image.elements["mediatransformations"].removeItem ();				
+						},		
+			
+						get : function ()
+						{
+							var result = "";
+							
+							var mediatransformations = options.image.elements["mediatransformations"].getItems ();
+							
+							for (index in mediatransformations)
+							{
+								result += mediatransformations[index].id +";";				
+							}
+											
+							attributes.current.options.mediatransformations = result;
+						},
+												
+						set : function ()
+						{
+							if (attributes.current.options.mediatransformations)
+							{
+								var ids = SNDK.string.trimEnd (attributes.current.options.mediatransformations, ";").split (";")
+								for (index in ids)
+								{
+									options.image.elements["mediatransformations"].addItem (sorentoLib.mediaTransformation.load (ids[index]));
 								}						
+							}
+							
+							options.image.onChange ();
+						},
+						
+						onChange : function ()
+						{
+							onChange ();								
+						
+							if (options.image.elements["mediatransformations"].getItem () != null)
+							{					
+								options.image.elements["mediatransformationremove"].setAttribute ("disabled", false);					
+							}
+							else
+							{					
+								options.image.elements["mediatransformationremove"].setAttribute ("disabled", true);
+							}
+						}
+					}
+				};		
 															
 				// INIT				
-				var modal = new sConsole.modal.window ({SUIXML: "/console/xml/scms/modal/edit/field.xml"});
-																																											
-				modal.getUIElement ("name").setAttribute ("onChange", onChange);			
-					
-				modal.getUIElement ("button1").setAttribute ("onClick", onDone);
-				modal.getUIElement ("button2").setAttribute ("onClick", onCancel);	
-					
-				modal.getUIElement ("container").setAttribute ("title", attributes.title);
-				modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);
-				modal.getUIElement ("button2").setAttribute ("label", attributes.button2Label);
-							
-				// SET
-				set ();						
-					
-				// SHOW
-				modal.show ();	
+				var modal = new sConsole.modal.window ({dimensions: "auto", busy: true, SUIXML: "/console/xml/scms/modal/edit/field.xml", onInit: onInit});		
 			}
 			,
 		
 			fieldString : function (attributes)
 			{	
-				if (!attributes)
-				{
-					attributes = new Array ();		
-				}
-			
-				if (attributes.string == null)
-				{					
-					attributes.mode = "new";
-					attributes.current = {};
-					attributes.current.value = ""		
-					
-					attributes.title =  "Add new string";
-					attributes.button1Label = "Add";
-					attributes.button2Label = "Close";
-				}
-				else
-				{
-					attributes.mode = "edit";
-					attributes.current = attributes.string;		
-					
-					attributes.title =  "Edit string";
-					attributes.button1Label = "Apply";
-					attributes.button2Label = "Close";
-				}
-													
-				var onCancel =	function ()
+				// SET	
+				var set = 		function ()
+								{
+									modal.getUIElement ("string").setAttribute ("value", attributes.current.value);
+									
+									attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+									
+									onChange ();
+								};
+									
+				// GET
+				var get = 		function ()
+								{
+									attributes.current.value = modal.getUIElement ("string").getAttribute ("value");
+								};
+								
+				// DISPOSE
+				var dispose =	function ()
 								{
 									modal.dispose ();
 								};
-								
-				var onDone =	function ()
+			
+				// ONINIT
+				var onInit =	function ()
+								{
+									if (!attributes)
+										attributes = new Array ();		
+			
+									if (attributes.string == null)
+									{					
+										attributes.mode = "new";
+										attributes.current = {};
+										attributes.current.value = ""		
+										
+										attributes.title =  "Add new string";
+										attributes.button1Label = "Add";							
+									}
+									else
+									{
+										attributes.mode = "edit";
+										attributes.current = attributes.string;		
+										
+										attributes.title =  "Edit string";
+										attributes.button1Label = "Apply";
+									}
+									
+									modal.getUIElement ("string").setAttribute ("onChange", onChange);			
+					
+									modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
+									modal.getUIElement ("close").setAttribute ("onClick", dispose);	
+					
+									modal.getUIElement ("container").setAttribute ("title", attributes.title);
+									modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);
+							
+									// SET
+									set ();						
+						
+									// SHOW
+									modal.show ();	
+								};														
+																																													
+				// ONBUTTON1
+				var onButton1 =	function ()
 								{										
-									modal.dispose ();
+									get ();
+								
+									dispose ();						
 															
 									if (attributes.onDone != null)
 									{	
-										setTimeout (function () {attributes.onDone (get ())}, 1);
+										setTimeout (function () {attributes.onDone (attributes.current)}, 1);
 									}						
 								};
 								
 				// ONCHANGE
 				var onChange =	function ()
 								{		
-										if ((sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()})))
-										{
-											modal.getUIElement ("button1").setAttribute ("disabled", false);
-										}
-										else
-										{
-											modal.getUIElement ("button1").setAttribute ("disabled", true);
-										}	
+									get ();
+									
+									if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)		
+									{
+										modal.getUIElement ("button1").setAttribute ("disabled", false);
+									}
+									else
+									{
+										modal.getUIElement ("button1").setAttribute ("disabled", true);
+									}	
 								};		
-												
-				// SET	
-				var set = 		function ()
-								{
-									modal.getUIElement ("string").setAttribute ("value", attributes.current.value);
-								};
-									
-				// GET
-				var get = 		function ()
-								{
-									var item = {};
-									item.value = modal.getUIElement ("string").getAttribute ("value");
-									
-									return item;
-								}						
-															
+																													
 				// INIT				
-				var modal = new sConsole.modal.window ({SUIXML: "/console/xml/scms/modal/edit/fieldstring.xml"});
-																																											
-				modal.getUIElement ("string").setAttribute ("onChange", onChange);			
-					
-				modal.getUIElement ("button1").setAttribute ("onClick", onDone);
-				modal.getUIElement ("button2").setAttribute ("onClick", onCancel);	
-					
-				modal.getUIElement ("container").setAttribute ("title", attributes.title);
-				modal.getUIElement ("button1").setAttribute ("label", attributes.button1Label);
-				modal.getUIElement ("button2").setAttribute ("label", attributes.button2Label);
-							
-				// SET
-				set ();						
-					
-				// SHOW
-				modal.show ();	
+				var modal = new sConsole.modal.window ({width: "600px", height: "150px", titleBarUI: [{type: "button", attributes: {tag: "button1", label: ""}}, {type: "button", attributes: {tag: "close", label: "Close"}}], busy: true, SUIXML: "/console/xml/scms/modal/edit/fieldstring.xml", onInit: onInit});
 			}
+			,
+		
+			fieldRender : function (attributes)
+			{	
+				var result = new Array ();
 			
+				for (i=0; i < attributes.fields.length; i++)			
+				{
+					if (!attributes.fields[i].options.hidden)
+					{			
+						var height;			
+				
+						switch (attributes.fields[i].type.toLowerCase ())
+						{
+							case "string":
+							{
+								height = "50px";
+								break;
+							}
+						
+							case "link":
+							{
+								height = "50px";
+								break;
+							}
+						
+							case "text":
+							{
+								height = "300px";
+								break;
+							}
+						
+							default:
+							{
+								height = "220px";
+								break;				
+							}
+						}
+																					
+						var layoutbox = new SNDK.SUI.layoutbox ({type: "vertical", height: height});
+						layoutbox.addPanel ({tag: "text", size: "100px"});
+						layoutbox.addPanel ({tag: "field", size: "*"});			
+						layoutbox.getPanel ("text").addUIElement (new SNDK.SUI.label ({text: attributes.fields[i].name}));
+																						
+						result[attributes.fields[i].id] = new SNDK.SUI.field ({type: attributes.fields[i].type.toLowerCase (), options: attributes.fields[i].options, width: "100%", height: "100%", onChange: attributes.onChange});
+					
+						layoutbox.getPanel ("field").addUIElement (result[attributes.fields[i].id]);
+							
+						attributes.appendTo.addUIElement (layoutbox);			
+					}
+				}		
+				
+				return result;
+			}
 		},
 	
 		// ---------------------------------------------------------------------------------------------------------------
@@ -1404,6 +1703,25 @@ var sCMS =
 		{
 			stylesheet : function (attributes)
 			{
+				// SET			
+				var set =		function ()
+								{
+									chooser.getUIElement ("stylesheets").setItems (sCMS.stylesheet.list ());						
+								};
+			
+				// ONINIT					
+				var onInit =	function ()
+								{				
+									chooser.getUIElement ("stylesheets").setAttribute ("onChange", onChange);
+							
+									// SET
+									set ();
+							
+									// SHOW
+									chooser.show ();							
+								};
+			
+				// ONBUTTON1
 				var onButton1 =	function ()
 								{
 									chooser.dispose ();
@@ -1413,7 +1731,8 @@ var sCMS =
 										setTimeout( function ()	{ attributes.onDone (chooser.getUIElement ("stylesheets").getItem ()); }, 1);
 									}
 								};
-								
+							
+				// ONBUTTON2	
 				var onButton2 =	function ()
 								{
 									chooser.dispose ();
@@ -1424,6 +1743,7 @@ var sCMS =
 									}						
 								};
 								
+				// ONCHANGE	
 				var onChange = 	function ()
 								{
 									if (chooser.getUIElement ("stylesheets").getItem ())
@@ -1434,30 +1754,25 @@ var sCMS =
 									{
 										chooser.getUIElement ("button1").setAttribute ("disabled", true);
 									}
-								};					
+								};											
 			
 				var suixml = "";
 				suixml += '<sui>';
-				suixml += '	<layoutbox type="horizontal">';
-				suixml += '		<panel size="*">';
-				suixml += '			<layoutbox type="vertical">';
-				suixml += '				<panel size="*">';
+			//	suixml += '	<layoutbox type="horizontal">';
+			//	suixml += '		<panel size="*">';
+			//	suixml += '			<layoutbox type="vertical">';
+			//	suixml += '				<panel size="*">';
 				suixml += '					<listview tag="stylesheets" width="100%" height="100%" focus="true">';
 				suixml += '						<column tag="id" />';
 				suixml += '						<column tag="title" label="Title" width="200px" visible="true" />';	
 				suixml += '					</listview>';
-				suixml += '				</panel>';
-				suixml += '			</layoutbox>';
-				suixml += '		</panel>';
-				suixml += '	</layoutbox>';
+			//	suixml += '				</panel>';
+			//	suixml += '			</layoutbox>';
+			//	suixml += '		</panel>';
+			//	suixml += '	</layoutbox>';
 				suixml += '</sui>';
-			
-				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose stylesheeet", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
 				
-				chooser.getUIElement ("stylesheets").setItems (sCMS.stylesheet.list ());
-				chooser.getUIElement ("stylesheets").setAttribute ("onChange", onChange);
-							
-				chooser.show ();			
+				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose stylesheet", button1Label: "Select", button2Label: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});
 			}	
 			
 			
@@ -1465,6 +1780,25 @@ var sCMS =
 		
 			javascript : function (attributes)
 			{
+				// SET			
+				var set =		function ()
+								{
+									chooser.getUIElement ("javascripts").setItems (sCMS.javascript.list ());
+								};
+			
+				// ONINIT					
+				var onInit =	function ()
+								{				
+									chooser.getUIElement ("javascripts").setAttribute ("onChange", onChange);
+							
+									// SET
+									set ();
+							
+									// SHOW
+									chooser.show ();							
+								};
+			
+				// ONBUTTON1
 				var onButton1 =	function ()
 								{
 									chooser.dispose ();
@@ -1474,7 +1808,8 @@ var sCMS =
 										setTimeout( function ()	{ attributes.onDone (chooser.getUIElement ("javascripts").getItem ()); }, 1);
 									}
 								};
-								
+							
+				// ONBUTTON2	
 				var onButton2 =	function ()
 								{
 									chooser.dispose ();
@@ -1485,6 +1820,7 @@ var sCMS =
 									}						
 								};
 								
+				// ONCHANGE	
 				var onChange = 	function ()
 								{
 									if (chooser.getUIElement ("javascripts").getItem ())
@@ -1499,26 +1835,21 @@ var sCMS =
 			
 				var suixml = "";
 				suixml += '<sui>';
-				suixml += '	<layoutbox type="horizontal">';
-				suixml += '		<panel size="*">';
-				suixml += '			<layoutbox type="vertical">';
-				suixml += '				<panel size="*">';
+			//	suixml += '	<layoutbox type="horizontal">';
+			//	suixml += '		<panel size="*">';
+			//	suixml += '			<layoutbox type="vertical">';
+			//	suixml += '				<panel size="*">';
 				suixml += '					<listview tag="javascripts" width="100%" height="100%" focus="true">';
 				suixml += '						<column tag="id" />';
 				suixml += '						<column tag="title" label="Title" width="200px" visible="true" />';	
 				suixml += '					</listview>';
-				suixml += '				</panel>';
-				suixml += '			</layoutbox>';
-				suixml += '		</panel>';
-				suixml += '	</layoutbox>';
+			//	suixml += '				</panel>';
+			//	suixml += '			</layoutbox>';
+			//	suixml += '		</panel>';
+			//	suixml += '	</layoutbox>';
 				suixml += '</sui>';
-			
-				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose javascript", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
 				
-				chooser.getUIElement ("javascripts").setItems (sCMS.javascript.list ());
-				chooser.getUIElement ("javascripts").setAttribute ("onChange", onChange);
-							
-				chooser.show ();			
+				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose javascript", button1Label: "Select", button2Label: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});	
 			}	
 			
 			
@@ -1527,6 +1858,25 @@ var sCMS =
 		
 			template : function (attributes)
 			{
+				// SET			
+				var set =		function ()
+								{
+									chooser.getUIElement ("templates").setItems (sCMS.template.list ());										
+								};
+			
+				// ONINIT					
+				var onInit =	function ()
+								{				
+									chooser.getUIElement ("templates").setAttribute ("onChange", onChange);
+							
+									// SET
+									set ();
+							
+									// SHOW
+									chooser.show ();							
+								};
+			
+				// ONBUTTON1
 				var onButton1 =	function ()
 								{
 									chooser.dispose ();
@@ -1536,7 +1886,8 @@ var sCMS =
 										setTimeout( function ()	{ attributes.onDone (chooser.getUIElement ("templates").getItem ()); }, 1);
 									}
 								};
-								
+							
+				// ONBUTTON2	
 				var onButton2 =	function ()
 								{
 									chooser.dispose ();
@@ -1547,6 +1898,7 @@ var sCMS =
 									}						
 								};
 								
+				// ONCHANGE	
 				var onChange = 	function ()
 								{
 									if (chooser.getUIElement ("templates").getItem ())
@@ -1558,31 +1910,26 @@ var sCMS =
 										chooser.getUIElement ("button1").setAttribute ("disabled", true);
 									}
 								};					
-			
+								
 				var suixml = "";
 				suixml += '<sui>';
-				suixml += '	<layoutbox type="horizontal">';
-				suixml += '		<panel size="*">';
-				suixml += '			<layoutbox type="vertical">';
-				suixml += '				<panel size="*">';
+			//	suixml += '	<layoutbox type="horizontal">';
+			//	suixml += '		<panel size="*">';
+			//	suixml += '			<layoutbox type="vertical">';
+			//	suixml += '				<panel size="*">';
 				suixml += '					<listview tag="templates" width="100%" height="100%" focus="true" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">';
 				suixml += '						<column tag="id" />';
 				suixml += '						<column tag="title" label="Title" width="200px" visible="true" />';	
 				suixml += '						<column tag="parentid" />'
 				suixml += '					</listview>';
-				suixml += '				</panel>';
-				suixml += '			</layoutbox>';
-				suixml += '		</panel>';
-				suixml += '	</layoutbox>';
+			//	suixml += '				</panel>';
+			//	suixml += '			</layoutbox>';
+			//	suixml += '		</panel>';
+			//	suixml += '	</layoutbox>';
 				suixml += '</sui>';
 			
-				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose template", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
-				
-				chooser.getUIElement ("templates").setItems (sCMS.template.list ());
-				chooser.getUIElement ("templates").setAttribute ("onChange", onChange);
-							
-				chooser.show ();			
-			}	
+				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose template", button1Label: "Select", button2Label: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});
+			}
 			
 			
 			
@@ -1591,98 +1938,104 @@ var sCMS =
 		
 			page : function (attributes)
 			{
-				var onButton1 =		function ()
-									{
-										chooser.dispose ();
-										
-										if (attributes.onDone != null)
-										{
-											setTimeout( function () 	{ attributes.onDone (chooser.getUIElement ("pages").getItem ()); }, 1);
-										}
-									};
-								
-				var onButton2 =		function ()
-									{
-										chooser.dispose ();
-									
-										if (attributes.onDone != null)
-										{
-											setTimeout( function ()	{ attributes.onDone (null); }, 1);
-										}						
-									};
-								
-				var onChange = 		function ()
-									{
-										if (chooser.getUIElement ("pages").getItem ())
-										{
-											if (chooser.getUIElement ("pages").getItem ().type == "page")
-											{
-												chooser.getUIElement ("button1").setAttribute ("disabled", false);
-											}							
-											else
-											{
-												chooser.getUIElement ("button1").setAttribute ("disabled", true);
-											}
-										}
-										else
-										{
-											chooser.getUIElement ("button1").setAttribute ("disabled", true);
-										}
-									};					
-								
-				var onRootDone =	function (result)
-									{
-										for (index in result)
-										{
-											result[index].type = "root";
-										}							
-										chooser.getUIElement ("pages").addItems (result);
-									};
+				// SET			
+				var set =		function ()
+								{
+									var roots =	function (result)
+												{						
+													for (index in result)
+													{
+														result[index].type = "root";
+													}							
+													chooser.getUIElement ("pages").addItems (result);			
+												};
 																						
-				var onPageDone =	function (result)
+									var pages =	function (result)
+												{					
+													for (index in result)
+													{
+														result[index].type = "page";
+														if (result[index].parentid == "00000000-0000-0000-0000-000000000000")
+														{
+															result[index].parentid = result[index].rootid;
+														}
+													}	
+													chooser.getUIElement ("pages").addItems (result);
+												};						
+								
+									sCMS.root.list ({async: true, onDone: roots});
+									sCMS.page.list ({async: true, onDone: pages});
+								};
+			
+				// ONINIT					
+				var onInit =	function ()
+								{				
+									chooser.getUIElement ("pages").setAttribute ("onChange", onChange);
+							
+									// SET
+									set ();
+							
+									// SHOW
+									chooser.show ();							
+								};
+			
+				// ONBUTTON1
+				var onButton1 =	function ()
+								{
+									chooser.dispose ();
+									
+									if (attributes.onDone != null)
 									{
-										for (index in result)
-										{
-											result[index].type = "page";
-											if (result[index].parentid == "00000000-0000-0000-0000-000000000000")
-											{
-												result[index].parentid = result[index].rootid;
-											}
-										}	
-										chooser.getUIElement ("pages").addItems (result);
-									};					
+										setTimeout( function ()	{ attributes.onDone (chooser.getUIElement ("pages").getItem ()); }, 1);
+									}
+								};
+							
+				// ONBUTTON2	
+				var onButton2 =	function ()
+								{
+									chooser.dispose ();
+									
+									if (attributes.onDone != null)
+									{
+										setTimeout( function ()	{ attributes.onDone (null); }, 1);
+									}						
+								};
+								
+				// ONCHANGE	
+				var onChange = 	function ()
+								{
+									if ((chooser.getUIElement ("pages").getItem ()) && (chooser.getUIElement ("pages").getItem ().type == "page"))
+									{
+										chooser.getUIElement ("button1").setAttribute ("disabled", false);
+									}
+									else
+									{
+										chooser.getUIElement ("button1").setAttribute ("disabled", true);
+									}
+								};		
+								
+																														
 			
 				var suixml = "";
 				suixml += '<sui>';
-				suixml += '	<layoutbox type="horizontal">';
-				suixml += '		<panel size="*">';
-				suixml += '			<layoutbox type="vertical">';
-				suixml += '				<panel size="*">';
+			//	suixml += '	<layoutbox type="horizontal">';
+			//	suixml += '		<panel size="*">';
+			//	suixml += '			<layoutbox type="vertical">';
+			//	suixml += '				<panel size="*">';
 				suixml += '					<listview tag="pages" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">';
-				suixml += '						<column tag="id" />';
-				suixml += '						<column tag="title" label="Title" width="200px" visible="true" />';	
-				suixml += '						<column tag="type" />'
-				suixml += '						<column tag="parentid" />'
-				suixml += '					</listview>';	
-				suixml += '				</panel>';
-				suixml += '			</layoutbox>';	
-				suixml += '		</panel>';
-				suixml += '	</layoutbox>';
+				suixml += ' 					<column tag="id" />';
+				suixml += ' 					<column tag="title" label="Title" width="200px" visible="true" />';
+				suixml += ' 					<column tag="type" />'
+				suixml += ' 					<column tag="parentid" />'
+				suixml += '					</listview>';
+			//	suixml += '				</panel>';
+			//	suixml += '			</layoutbox>';
+			//	suixml += '		</panel>';
+			//	suixml += '	</layoutbox>';
 				suixml += '</sui>';
 				
-			
-				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose page", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
-				
-				sCMS.root.list ({async: true, onDone: onRootDone});
-				sCMS.page.list ({async: true, onDone: onPageDone});												
-																
-				chooser.getUIElement ("pages").setAttribute ("onChange", onChange);
-							
-				chooser.show ();			
+				var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose stylesheet", button1Label: "Select", button2Label: "Close", onClickButton1: onButton1, onClickButton2: onButton2, onInit: onInit});
 			}	
-			
-			
-			
 			
 			
 			

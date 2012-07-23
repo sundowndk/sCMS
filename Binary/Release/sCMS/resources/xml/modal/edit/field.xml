@@ -1,48 +1,88 @@
-<sui elementheight="50px">
-	<canvas width="600px" height="330px" canScroll="false">	
-		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Name"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="name" width="100%" />
-						</panel>					
+<sui elementheight="50px">	
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+		<panel size="*">
+			<tabview>
+				<tab label="Details" selected="true">
+					<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+						<panel size="%elementheight%">
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Name"/>
+								</panel>					
+								<panel size="*">
+									<textbox tag="name" width="100%" textTransform="uppercase" />
+								</panel>					
+							</layoutbox>
+						</panel>				
+						<panel size="%elementheight%">
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Type"/>
+								</panel>					
+								<panel size="*">
+									<dropbox tag="type" width="100%">
+										<item label="String" value="String" selected="true"/>
+										<item label="ListString" value="ListString" />
+										<item label="Text" value="Text" />
+										<item label="Image" value="Image" />
+										<item label="Link" value="Link" />
+									</dropbox>
+								</panel>					
+							</layoutbox>
+						</panel>																		
 					</layoutbox>
-				</panel>				
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Type"/>
-						</panel>					
-						<panel size="*">
-							<dropbox tag="type" width="100%">
-								<item label="String" value="String" selected="true"/>
-								<item label="ListString" value="ListString" />
-								<item label="Text" value="Text" />
-								<item label="Image" value="Image" />
-								<item label="Link" value="Link" />
-							</dropbox>
-						</panel>					
+				</tab>
+				<tab label="Options">
+					<layoutbox tag="options" type="horizontal" stylesheet="LayoutboxNoborder">							
+						<panel size="%elementheight%">
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Hidden"/>
+								</panel>					
+								<panel size="*">
+									<checkbox tag="hidden" />
+								</panel>					
+							</layoutbox>
+						</panel>										
+						<panel tag="string" size="*" hidden="true">
+							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel size="650px">
+									<layoutbox tag="stringdefaultbox" type="vertical">
+										<panel size="100px">
+											<label text="Default"/>
+										</panel>					
+										<panel tag="stringdefaultpanel" size="*">											
+										</panel>					
+									</layoutbox>
+								</panel>
+							</layoutbox>	
+						</panel>						
+						<panel tag="image" size="*" hidden="true">
+							<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+								<panel size="*">								
+									<layoutbox tag="imagemediatransformationbox" type="vertical">
+										<panel size="100px">
+											<label text="Transformations"/>
+										</panel>					
+										<panel tag="imagemediatransformationpanel" size="*">
+										</panel>											
+									</layoutbox>
+								</panel>												
+							</layoutbox>	
+						</panel>
 					</layoutbox>
-				</panel>												
+				</tab>
+			</tabview>																	
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
 				<panel size="*">
 				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">
-						</panel>
-						<panel size="210px">
-							<button tag="button1" label="" width="100px" disabled="true"/>
-							<button tag="button2" label="" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
+				<panel size="210px">
+					<button tag="button1" label="" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
 			</layoutbox>
-		</container>
-	</canvas>
+		</panel>		
+	</layoutbox>	
 </sui>
-
-

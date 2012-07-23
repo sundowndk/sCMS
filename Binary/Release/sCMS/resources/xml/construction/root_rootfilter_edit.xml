@@ -1,46 +1,42 @@
-<sui elementheight="50px">
-	<canvas width="600px" height="230px" canScroll="false">	
-		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Type"/>
-						</panel>					
-						<panel size="*">
-							<dropbox tag="type" width="100%">
-								<item label="Hostname" value="Hostname" selected="true"/>
-								<item label="Language" value="Language" />
-								<item label="Client" value="Client" />
-								<item label="OS" value="OS" />
-							</dropbox>
-						</panel>					
-					</layoutbox>
-				</panel>								
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Data"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="data" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>				
+<sui elementheight="50px">	
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder" width="600px" height="150px">			
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="Type"/>
+				</panel>					
+				<panel size="*">
+					<dropbox tag="type" width="100%">
+						<item label="Hostname" value="Hostname" selected="true"/>
+						<item label="Language" value="Language" />
+						<item label="Client" value="Client" />
+						<item label="OS" value="OS" />
+					</dropbox>
+				</panel>					
+			</layoutbox>
+		</panel>								
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="Data"/>
+				</panel>					
+				<panel size="*">
+					<textbox tag="data" width="100%" />
+				</panel>					
+			</layoutbox>
+		</panel>
+		<panel size="*">
+		</panel>
+		<panel size="%elementheight%">
+			<layoutbox type="vertical">
 				<panel size="*">
 				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">
-						</panel>
-						<panel size="210px">
-							<button tag="button1" label="Apply" width="100px" disabled="true"/>
-							<button tag="close" label="Close" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
+				<panel size="210px">
+					<button tag="button1" label="" width="100px" disabled="true"/>
+					<button tag="close" label="Close" width="100px" />
+				</panel>						
 			</layoutbox>
-		</container>
-	</canvas>
+		</panel>		
+	</layoutbox>
 </sui>
 

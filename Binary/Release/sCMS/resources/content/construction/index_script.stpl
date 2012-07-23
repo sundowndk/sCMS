@@ -12,38 +12,44 @@
 	// ##########################################################################################################################################		
 	UI.init = 		function ()
 					{								
-						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.templates.setAttribute ("onChange", UI.onChange);				
+						UI.elements.content.templates.setAttribute ("onDoubleClick", template.edit);							
 						UI.elements.content.templatecreate.setAttribute ("onClick", template.create);
 						UI.elements.content.templateedit.setAttribute ("onClick", template.edit);
 						UI.elements.content.templatedelete.setAttribute ("onClick", template.delete);
 					
-						UI.elements.content.collectionschemas.setAttribute ("onChange", UI.onChange);											
-						UI.elements.content.collectionschemacreate.setAttribute ("onClick", collectionSchema.create);
+						UI.elements.content.collectionschemas.setAttribute ("onChange", UI.onChange);				
+						UI.elements.content.collectionschemas.setAttribute ("onDoubleClick", collectionSchema.edit);	
+						UI.elements.content.collectionschemacreate.setAttribute ("onClick", collectionSchema.create);						
 						UI.elements.content.collectionschemaedit.setAttribute ("onClick", collectionSchema.edit);
 						UI.elements.content.collectionschemadelete.setAttribute ("onClick", collectionSchema.delete);
 					
-						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);											
+						UI.elements.content.globals.setAttribute ("onChange", UI.onChange);								
+						UI.elements.content.globals.setAttribute ("onDoubleClick", global.edit);
 						UI.elements.content.globalcreate.setAttribute ("onClick", global.create);
 						UI.elements.content.globaledit.setAttribute ("onClick", global.edit);
 						UI.elements.content.globaldelete.setAttribute ("onClick", global.delete);
 					
-						UI.elements.content.stylesheets.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.stylesheets.setAttribute ("onChange", UI.onChange);							
+						UI.elements.content.stylesheets.setAttribute ("onDoubleClick", stylesheet.edit);				
 						UI.elements.content.stylesheetcreate.setAttribute ("onClick", stylesheet.create);
 						UI.elements.content.stylesheetedit.setAttribute ("onClick", stylesheet.edit);
 						UI.elements.content.stylesheetdelete.setAttribute ("onClick", stylesheet.delete);
 						
-						UI.elements.content.javascripts.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.javascripts.setAttribute ("onChange", UI.onChange);							
+						UI.elements.content.javascripts.setAttribute ("onDoubleClick", javascript.edit);			
 						UI.elements.content.javascriptcreate.setAttribute ("onClick", javascript.create);
 						UI.elements.content.javascriptedit.setAttribute ("onClick", javascript.edit);
 						UI.elements.content.javascriptdelete.setAttribute ("onClick", javascript.delete);
 						
-						UI.elements.content.roots.setAttribute ("onChange", UI.onChange);										
+						UI.elements.content.roots.setAttribute ("onChange", UI.onChange);							
+						UI.elements.content.roots.setAttribute ("onDoubleClick", root.edit);
 						UI.elements.content.rootcreate.setAttribute ("onClick", root.create);
 						UI.elements.content.rootedit.setAttribute ("onClick", root.edit);
 						UI.elements.content.rootdelete.setAttribute ("onClick", root.delete);
-
+																	
 						UI.set ();						
-						SNDK.SUI.init ();
+						SNDK.SUI.init ();										
 					};
 	
 	UI.set =		function ()

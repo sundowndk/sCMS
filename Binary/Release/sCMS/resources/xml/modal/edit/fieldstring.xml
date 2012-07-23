@@ -1,32 +1,16 @@
 <sui elementheight="50px">
-	<canvas width="600px" height="180px" canScroll="false">	
-		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
-			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
-				<panel size="%elementheight%">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="String"/>
-						</panel>					
-						<panel size="*">
-							<textbox tag="string" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>				
+	<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">							
+		<panel size="*">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="String"/>
+				</panel>					
 				<panel size="*">
-				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">
-						</panel>
-						<panel size="210px">
-							<button tag="button1" label="" width="100px" disabled="true"/>
-							<button tag="button2" label="" width="100px" />
-						</panel>						
-					</layoutbox>
-				</panel>
+					<textbox tag="string" width="100%" />
+				</panel>					
 			</layoutbox>
-		</container>
-	</canvas>
+		</panel>				
+	</layoutbox>
 </sui>
 
 

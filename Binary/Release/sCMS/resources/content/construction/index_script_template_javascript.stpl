@@ -10,7 +10,6 @@ var javascript =
 						{
 							if (javascript != null)
 							{
-							console.log (javascript)
 								modal.getUIElement ("javascripts").addItem (javascript);	
 							}
 						};

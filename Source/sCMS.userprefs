@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/RootFilter.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="48" Column="18" />

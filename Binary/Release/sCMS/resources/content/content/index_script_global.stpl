@@ -1,5 +1,4 @@
- 	// ###  <script language="JavaScript">
-	
+// <script>
 // #######################################################################################################################################
 // # GLOBAL
 // #######################################################################################################################################		
@@ -7,8 +6,9 @@ var global =
 {
 	// EDIT
 	edit : function (attributes)
-	{				
-		if (!attributes) attributes = new Array ();
+	{					
+		if (!attributes) 
+			attributes = new Array ();
 	
 		if (!attributes.id)
 		{
@@ -18,54 +18,45 @@ var global =
 		{
 			attributes.current = sCMS.global.load (attributes.id);
 		}
-					
+	
+															
 		// SAVE
 		var save = 		function ()
 						{
-							var item = get ();			
-							//item.content.data = field.getAttribute ("value");
-							
-							sCMS.global.save (item);	
-							
-							switch (item.type.toUpperCase ())
-							{
-								case "IMAGE":
-								{
-									var media = sorentoLib.media.load (item.content.data);
-									media.type = "Public";
-									//sorentoLib.media.save (media);
-								}
-							}
-							
-							
-							modal.dispose ();		
+							get ();						
+							sCMS.global.save (attributes.current);														
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
+							onChange ();						
 						};
 										
 		// SET	
 		var set =		function ()
 						{
-							field.setAttribute ("value", attributes.current.content.data);
+							attributes.field.setAttribute ("value", attributes.current.content.data);
+							
+							get ();
+							
+							attributes.checksum = sConsole.helpers.arrayChecksum (attributes.current);
 						};
 				
 		// GET		
 		var get = 		function ()
 						{
-							var item = SNDK.tools.derefItem (attributes.current);							
-							item.content.data = field.getAttribute ("value");													
-							
-							return item;								
+							attributes.current.content.data = attributes.field.getAttribute ("value")
 						};
 						
+		// DISPOSE
 		var dispose =	function ()
 						{
-							//field.dispose (); 
 							modal.dispose ();
 						};
 						
 		// ONCHANGE	
 		var onChange =	function ()
-						{							
-							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}))
+						{		
+							get ();
+									
+							if (sConsole.helpers.arrayChecksum (attributes.current) != attributes.checksum)							
 							{
 								modal.getUIElement ("save").setAttribute ("disabled", false);
 							}
@@ -75,24 +66,28 @@ var global =
 							}									
 						};							
 	
-		// INIT
-		var modal = new sConsole.modal.window ({SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml"});
-		modal.getUIElement ("save").setAttribute ("onClick", save);
-		modal.getUIElement ("close").setAttribute ("onClick", dispose);		
-								
-		var field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), width: "100%", height: "100%"});	
-		field.setAttribute ("onChange", onChange);
-
-		modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (field);
-		modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
-		
-		SNDK.SUI.redraw ();
-								
-		// SET
-		set ();		
-		
-		// SHOW
-		modal.show ();		
+		var onInit = 	function ()
+						{												
+							modal.getUIElement ("save").setAttribute ("onClick", save);
+							modal.getUIElement ("close").setAttribute ("onClick", dispose);		
+													
+							attributes.field = new SNDK.SUI.field ({type: attributes.current.field.type.toLowerCase (), options:  attributes.current.field.options, width: "100%", height: "100%"});	
+							attributes.field.setAttribute ("onChange", onChange);
+					
+							modal.getUIElement ("fieldlayoutbox").getPanel ("fieldpanel").addUIElement (attributes.field);
+							modal.getUIElement ("fieldtext").setAttribute ("text", attributes.current.name);		
+							
+							SNDK.SUI.redraw ();
+													
+							// SET
+							set ();		
+							
+							// SHOW
+							modal.show ();						
+						};
+	
+		// INIT		
+		var modal = new sConsole.modal.window ({width: "content", height: "content", busy: true, SUIXML: "<%Write (SorentoLib.Services.Config.GetString ("sconsole", "url"))%>xml/scms/content/global_edit.xml", onInit: onInit});					
 	}
 }
 
