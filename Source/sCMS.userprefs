@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/xml/construction/template_edit.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="48" Column="18" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="141" Column="1" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="67" Column="9" />
       <File FileName="Test/Main.cs" Line="24" Column="21" />
       <File FileName="sCMS/sCMS/Page.cs" Line="554" Column="9" />
       <File FileName="sCMS/sCMS.Strings/LogDebug.cs" Line="70" Column="1" />
@@ -13,6 +13,11 @@
       <File FileName="sCMS/resources/xml/modal/edit/field.xml" Line="13" Column="67" />
       <File FileName="sCMS/resources/xml/construction/collectionschema_create.xml" Line="13" Column="19" />
       <File FileName="sCMS/resources/xml/construction/template_edit.xml" Line="58" Column="18" />
+      <File FileName="sCMS/sCMS.addin.xml" Line="39" Column="9" />
+      <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="94" Column="8" />
+      <File FileName="sCMS/javascript/template.js" Line="66" Column="1" />
+      <File FileName="sCMS/javascript.jsb" Line="49" Column="12" />
+      <File FileName="sCMS/build.sh" Line="22" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
