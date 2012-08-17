@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Ajax.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/xml/content/index.xml">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
       <File FileName="sCMS/sCMS/Runtime.cs" Line="67" Column="9" />
@@ -19,7 +19,7 @@
       <File FileName="sCMS/javascript.jsb" Line="49" Column="12" />
       <File FileName="sCMS/build.sh" Line="22" Column="40" />
       <File FileName="sCMS/resources/content/content/index.stpl" Line="7" Column="24" />
-      <File FileName="sCMS/resources/xml/content/index.xml" Line="7" Column="22" />
+      <File FileName="sCMS/resources/xml/content/index.xml" Line="52" Column="25" />
       <File FileName="sCMS/resources/content/content/index_script.stpl" Line="109" Column="10" />
       <File FileName="sCMS/resources/content/construction/index_script_collectionschema.stpl" Line="119" Column="100" />
       <File FileName="sCMS/sCMS/Template.cs" Line="1" Column="1" />
