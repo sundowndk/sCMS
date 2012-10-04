@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.addin.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS/Runtime.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
-      <File FileName="sCMS/sCMS/Runtime.cs" Line="141" Column="1" />
+      <File FileName="sCMS/sCMS/Runtime.cs" Line="31" Column="15" />
       <File FileName="Test/Main.cs" Line="24" Column="21" />
       <File FileName="sCMS/sCMS/Page.cs" Line="312" Column="5" />
       <File FileName="sCMS/sCMS.Strings/LogDebug.cs" Line="70" Column="1" />
