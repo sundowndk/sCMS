@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Render.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
       <File FileName="sCMS/sCMS/Runtime.cs" Line="15" Column="41" />
       <File FileName="Test/Main.cs" Line="24" Column="21" />
-      <File FileName="sCMS/sCMS/Page.cs" Line="280" Column="3" />
+      <File FileName="sCMS/sCMS/Page.cs" Line="602" Column="5" />
       <File FileName="sCMS/sCMS.Strings/LogDebug.cs" Line="70" Column="1" />
       <File FileName="sCMS/sCMS.Enums/FieldType.cs" Line="47" Column="1" />
       <File FileName="sCMS/sCMS/Root.cs" Line="247" Column="6" />
@@ -13,7 +13,7 @@
       <File FileName="sCMS/resources/xml/modal/edit/field.xml" Line="13" Column="67" />
       <File FileName="sCMS/resources/xml/construction/collectionschema_create.xml" Line="13" Column="19" />
       <File FileName="sCMS/resources/xml/construction/template_edit.xml" Line="58" Column="18" />
-      <File FileName="sCMS/sCMS.addin.xml" Line="24" Column="1" />
+      <File FileName="sCMS/sCMS.addin.xml" Line="28" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Ajax.cs" Line="341" Column="18" />
       <File FileName="sCMS/javascript/template.js" Line="66" Column="1" />
       <File FileName="sCMS/javascript.jsb" Line="49" Column="12" />
@@ -25,11 +25,12 @@
       <File FileName="sCMS/sCMS/Template.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Init.cs" Line="42" Column="1" />
       <File FileName="sCMS/sCMS/Content.cs" Line="1" Column="1" />
-      <File FileName="sCMS/sCMS/Collection.cs" Line="1" Column="1" />
+      <File FileName="sCMS/sCMS/Collection.cs" Line="356" Column="209" />
       <File FileName="sCMS/sCMS/CollectionSchema.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS/Field.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS/Global.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Function.cs" Line="142" Column="1" />
+      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="275" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

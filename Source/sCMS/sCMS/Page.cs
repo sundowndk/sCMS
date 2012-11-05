@@ -475,7 +475,7 @@ namespace sCMS
 		{
 			try
 			{
-				return Load (new Guid (SorentoLib.Services.Datastore.FindShelf (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("path", SorentoLib.Enums.DatastoreMetaSearchCondition.Equal, Path))));
+				return Load (new Guid (SorentoLib.Services.Datastore.FindShelf (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("path", SorentoLib.Enums.DatastoreMetaSearchComparisonOperator.Equal, Path))));
 			}
 			catch (Exception exception)
 			{
@@ -623,7 +623,7 @@ namespace sCMS
 		{
 			List<Page> result = new List<Page> ();
 
-			foreach (string id in SorentoLib.Services.Datastore.ListOfShelfs (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("parentid", SorentoLib.Enums.DatastoreMetaSearchCondition.Equal, ParentId)))
+			foreach (string id in SorentoLib.Services.Datastore.ListOfShelfs (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("parentid", SorentoLib.Enums.DatastoreMetaSearchComparisonOperator.Equal, ParentId)))
 			{
 				try
 				{

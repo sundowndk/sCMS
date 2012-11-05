@@ -353,7 +353,7 @@ namespace sCMS
 		{
 			List<Collection> result = new List<Collection> ();
 			
-			foreach (string id in SorentoLib.Services.Datastore.ListOfShelfs (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("collectionschemaid", SorentoLib.Enums.DatastoreMetaSearchCondition.Equal, CollectionSchemaId)))
+			foreach (string id in SorentoLib.Services.Datastore.ListOfShelfs (DatastoreAisle, new SorentoLib.Services.Datastore.MetaSearch ("collectionschemaid", SorentoLib.Enums.DatastoreMetaSearchComparisonOperator.Equal, CollectionSchemaId)))
 			{
 				try
 				{
