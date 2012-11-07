@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Render.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index.stpl">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
       <File FileName="sCMS/sCMS/Runtime.cs" Line="15" Column="41" />
