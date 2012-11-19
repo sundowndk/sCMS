@@ -1,5 +1,5 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index.stpl">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
