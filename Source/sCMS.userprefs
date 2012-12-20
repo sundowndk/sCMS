@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/resources/content/content/index.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="sCMS/sCMS.Addin/Render.cs">
     <Files>
       <File FileName="sCMS/resources/content/content/index_script_page.stpl" Line="111" Column="17" />
       <File FileName="sCMS/sCMS/Runtime.cs" Line="15" Column="41" />
@@ -18,7 +18,7 @@
       <File FileName="sCMS/javascript/template.js" Line="66" Column="1" />
       <File FileName="sCMS/javascript.jsb" Line="49" Column="12" />
       <File FileName="sCMS/build.sh" Line="36" Column="1" />
-      <File FileName="sCMS/resources/content/content/index.stpl" Line="7" Column="24" />
+      <File FileName="sCMS/resources/content/content/index.stpl" Line="12" Column="1" />
       <File FileName="sCMS/resources/xml/content/index.xml" Line="52" Column="25" />
       <File FileName="sCMS/resources/content/content/index_script.stpl" Line="109" Column="10" />
       <File FileName="sCMS/resources/content/construction/index_script_collectionschema.stpl" Line="119" Column="100" />
@@ -30,7 +30,7 @@
       <File FileName="sCMS/sCMS/Field.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS/Global.cs" Line="1" Column="1" />
       <File FileName="sCMS/sCMS.Addin/Function.cs" Line="142" Column="1" />
-      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="275" Column="6" />
+      <File FileName="sCMS/sCMS.Addin/Render.cs" Line="76" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
