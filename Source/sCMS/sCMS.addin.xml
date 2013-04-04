@@ -36,4 +36,8 @@
 	<Extension path = "/SorentoLib/Services/Snapshots">
 		<Type type="sCMS.Addin.Snapshot"/>
 	</Extension>		
+	
+		<Extension path = "/SorentoLib/Runtime">
+		<Type type="sCMS.Addin.Runtime"/>
+	</Extension>
 </Addin>

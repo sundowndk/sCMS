@@ -10,16 +10,16 @@
     <RootNamespace>sCMS</RootNamespace>
     <ReleaseVersion>1.5</ReleaseVersion>
     <AssemblyName>sCMS</AssemblyName>
-    <SynchReleaseVersion>False</SynchReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>True</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\cgi-bin\Addins\sCMS\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
+    <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="build.sh ${TargetDir}" />
@@ -28,11 +28,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>True</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\sCMS\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>False</ConsolePause>
+    <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="build.sh ${TargetDir}" />
@@ -41,7 +41,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Test\sCMS\</OutputPath>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -95,6 +95,7 @@
     <Compile Include="sCMS\Page.cs" />
     <Compile Include="sCMS.Addin\Render.cs" />
     <Compile Include="sCMS\Javascript.cs" />
+    <Compile Include="sCMS.Addin\Runtime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sCMS\" />

@@ -59,7 +59,9 @@ namespace Test
 			SorentoLib.Services.Database.Connection.Connect ();
 
 			
-			
+
+			sCMS.Page page = new sCMS.Page ();
+
 			
 			Global g1 = new Global (sCMS.Enums.FieldType.Image, "Test");			
 			
